@@ -27,8 +27,15 @@ interface DashboardProps {
 export function Dashboard({ userData, onLogout }: DashboardProps) {
   const [funds, setFunds] = useState(userData.funds)
   const [refreshing, setRefreshing] = useState(false)
+  const [lastFundsFetch, setLastFundsFetch] = useState<number>(Date.now())
 
+  // Cache funds for 1 minute
   const refreshFunds = async () => {
+    const now = Date.now()
+    if (now - lastFundsFetch < 60000) {
+      // Less than 1 minute since last fetch, do not refetch
+      return
+    }
     setRefreshing(true)
     try {
       const response = await fetch("http://localhost:8000/api/funds", {
@@ -42,6 +49,7 @@ export function Dashboard({ userData, onLogout }: DashboardProps) {
       const data = await response.json()
       if (data.success) {
         setFunds(data.funds)
+        setLastFundsFetch(now)
       }
     } catch (error) {
       console.error("Error refreshing funds:", error)
@@ -51,10 +59,16 @@ export function Dashboard({ userData, onLogout }: DashboardProps) {
   }
 
   useEffect(() => {
-    // Refresh funds every 30 seconds
-    const interval = setInterval(refreshFunds, 30000)
+    // Try to refresh funds every 10 seconds, but will only fetch if 1 minute has passed
+    const interval = setInterval(refreshFunds, 10000)
     return () => clearInterval(interval)
   }, [])
+
+  // When funds are updated from FundsManager, update cache and last fetch time
+  const handleFundsUpdate = (newFunds: any) => {
+    setFunds(newFunds)
+    setLastFundsFetch(Date.now())
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -132,7 +146,7 @@ export function Dashboard({ userData, onLogout }: DashboardProps) {
           </TabsList>
 
           <TabsContent value="funds">
-            <FundsManager credentials={userData.credentials} onFundsUpdate={setFunds} currentFunds={funds} />
+            <FundsManager credentials={userData.credentials} onFundsUpdate={handleFundsUpdate} currentFunds={funds} />
           </TabsContent>
 
           <TabsContent value="market">

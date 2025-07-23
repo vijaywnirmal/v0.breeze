@@ -55,10 +55,20 @@ class FundsActionRequest(BaseModel):
 @app.post("/api/allocate_funds")
 async def allocate_funds(req: FundsActionRequest):
     try:
+        # Map segment to correct API value
+        segment_map = {
+            "equity": "Equity",
+            "fno": "FNO",
+            "commodity": "Commodity"
+        }
+        segment = segment_map.get(req.segment.lower())
+        if not segment:
+            return {"success": False, "message": f"Unsupported segment: {req.segment}. Only Equity, FNO, and Commodity are supported."}
         breeze = BreezeConnect(api_key=req.api_key)
         breeze.generate_session(api_secret=req.api_secret, session_token=req.session_token)
-        # Use 'credit' for adding funds
-        response = breeze.set_funds(transaction_type="credit", amount=str(req.amount), segment=req.segment)
+        # Breeze API expects amount as integer string (no decimals)
+        amount_str = str(int(round(req.amount)))
+        response = breeze.set_funds(transaction_type="credit", amount=amount_str, segment=segment)
         if response.get("Status") == 200 and response.get("Error") is None:
             return {"success": True, "message": "Funds allocated successfully."}
         else:
@@ -69,10 +79,20 @@ async def allocate_funds(req: FundsActionRequest):
 @app.post("/api/unallocate_funds")
 async def unallocate_funds(req: FundsActionRequest):
     try:
+        # Map segment to correct API value
+        segment_map = {
+            "equity": "Equity",
+            "fno": "FNO",
+            "commodity": "Commodity"
+        }
+        segment = segment_map.get(req.segment.lower())
+        if not segment:
+            return {"success": False, "message": f"Unsupported segment: {req.segment}. Only Equity, FNO, and Commodity are supported."}
         breeze = BreezeConnect(api_key=req.api_key)
         breeze.generate_session(api_secret=req.api_secret, session_token=req.session_token)
-        # Use 'debit' for removing funds
-        response = breeze.set_funds(transaction_type="debit", amount=str(req.amount), segment=req.segment)
+        # Breeze API expects amount as integer string (no decimals)
+        amount_str = str(int(round(req.amount)))
+        response = breeze.set_funds(transaction_type="debit", amount=amount_str, segment=segment)
         if response.get("Status") == 200 and response.get("Error") is None:
             return {"success": True, "message": "Funds unallocated successfully."}
         else:

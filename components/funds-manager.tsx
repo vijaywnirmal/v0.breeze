@@ -33,6 +33,13 @@ export function FundsManager({ credentials, onFundsUpdate, currentFunds }: Funds
       return
     }
 
+    // Simple float validation: must be a finite number
+    if (!Number.isFinite(Number(amount))) {
+      setMessage("Amount should be a valid number")
+      setMessageType("error")
+      return
+    }
+
     setIsLoading(true)
     setMessage("")
 
