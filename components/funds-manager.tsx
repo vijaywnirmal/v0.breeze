@@ -2,12 +2,12 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2, Plus, Minus } from "lucide-react"
+import { Loader2, ArrowUpCircle, ArrowDownCircle } from "lucide-react"
 
 interface FundsManagerProps {
   credentials: {
@@ -24,9 +24,9 @@ export function FundsManager({ credentials, onFundsUpdate, currentFunds }: Funds
   const [segment, setSegment] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState<"success" | "error">("success")
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("")
 
-  const handleFundsAction = async (action: "allocate" | "unallocate") => {
+  const handleAllocate = async () => {
     if (!amount || !segment) {
       setMessage("Please enter amount and select segment")
       setMessageType("error")
@@ -44,46 +44,75 @@ export function FundsManager({ credentials, onFundsUpdate, currentFunds }: Funds
     setMessage("")
 
     try {
-      const endpoint = action === "allocate" ? "/api/allocate_funds" : "/api/unallocate_funds"
-      const response = await fetch(`http://localhost:8000${endpoint}`, {
+      const response = await fetch("http://localhost:8000/api/allocate_funds", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...credentials,
-          segment,
           amount: Number.parseFloat(amount),
+          segment: segment,
         }),
       })
 
       const data = await response.json()
 
       if (data.success) {
-        setMessage(data.message)
+        setMessage(`Successfully allocated ₹${amount} to ${segment}`)
         setMessageType("success")
+        onFundsUpdate(data.funds)
         setAmount("")
         setSegment("")
-
-        // Refresh funds
-        const fundsResponse = await fetch("http://localhost:8000/api/funds", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        })
-
-        const fundsData = await fundsResponse.json()
-        if (fundsData.success) {
-          onFundsUpdate(fundsData.funds)
-        }
       } else {
-        setMessage(data.message)
+        setMessage(data.message || "Allocation failed")
         setMessageType("error")
       }
     } catch (error) {
-      setMessage("Network error occurred")
+      setMessage("Connection error")
+      setMessageType("error")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleUnallocate = async () => {
+    if (!amount || !segment) {
+      setMessage("Please enter amount and select segment")
+      setMessageType("error")
+      return
+    }
+
+    setIsLoading(true)
+    setMessage("")
+
+    try {
+      const response = await fetch("http://localhost:8000/api/unallocate_funds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...credentials,
+          amount: Number.parseFloat(amount),
+          segment: segment,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setMessage(`Successfully unallocated ₹${amount} from ${segment}`)
+        setMessageType("success")
+        onFundsUpdate(data.funds)
+        setAmount("")
+        setSegment("")
+      } else {
+        setMessage(data.message || "Unallocation failed")
+        setMessageType("error")
+      }
+    } catch (error) {
+      setMessage("Connection error")
       setMessageType("error")
     } finally {
       setIsLoading(false)
@@ -103,14 +132,11 @@ export function FundsManager({ credentials, onFundsUpdate, currentFunds }: Funds
             <Input
               id="amount"
               type="number"
+              placeholder="Enter amount"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder="Enter amount"
-              min="0"
-              step="0.01"
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="segment">Segment</Label>
             <Select value={segment} onValueChange={setSegment}>
@@ -120,62 +146,57 @@ export function FundsManager({ credentials, onFundsUpdate, currentFunds }: Funds
               <SelectContent>
                 <SelectItem value="equity">Equity</SelectItem>
                 <SelectItem value="fno">F&O</SelectItem>
-                <SelectItem value="commodity">Commodity</SelectItem>
-                <SelectItem value="currency">Currency</SelectItem>
               </SelectContent>
             </Select>
           </div>
-
+          <div className="flex space-x-2">
+            <Button onClick={handleAllocate} disabled={isLoading} className="flex-1">
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ArrowUpCircle className="mr-2 h-4 w-4" />
+              )}
+              Allocate
+            </Button>
+            <Button onClick={handleUnallocate} disabled={isLoading} variant="outline" className="flex-1 bg-transparent">
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ArrowDownCircle className="mr-2 h-4 w-4" />
+              )}
+              Unallocate
+            </Button>
+          </div>
           {message && (
             <Alert variant={messageType === "error" ? "destructive" : "default"}>
               <AlertDescription>{message}</AlertDescription>
             </Alert>
           )}
-
-          <div className="flex space-x-2">
-            <Button onClick={() => handleFundsAction("allocate")} disabled={isLoading} className="flex-1">
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Plus className="mr-2 h-4 w-4" />}
-              Allocate
-            </Button>
-            <Button
-              onClick={() => handleFundsAction("unallocate")}
-              disabled={isLoading}
-              variant="outline"
-              className="flex-1"
-            >
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Minus className="mr-2 h-4 w-4" />}
-              Unallocate
-            </Button>
-          </div>
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Current Allocation</CardTitle>
-          <CardDescription>Your current fund allocation across segments</CardDescription>
+          <CardTitle>Current Fund Status</CardTitle>
+          <CardDescription>Overview of your current fund allocation</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="font-medium">Equity</span>
-              <span className="text-lg font-semibold">₹{currentFunds?.allocated_equity || 0}</span>
+              <span className="font-medium">Total Bank Balance</span>
+              <span className="text-lg font-bold">₹{currentFunds?.total_bank_balance || 0}</span>
             </div>
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="font-medium">F&O</span>
-              <span className="text-lg font-semibold">₹{currentFunds?.allocated_fno || 0}</span>
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <span className="font-medium">Unallocated Balance</span>
+              <span className="text-lg font-bold text-blue-600">₹{currentFunds?.unallocated_balance || 0}</span>
             </div>
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="font-medium">Commodity</span>
-              <span className="text-lg font-semibold">₹{currentFunds?.allocated_commodity || 0}</span>
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+              <span className="font-medium">Equity Allocated</span>
+              <span className="text-lg font-bold text-green-600">₹{currentFunds?.allocated_equity || 0}</span>
             </div>
-            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="font-medium">Currency</span>
-              <span className="text-lg font-semibold">₹{currentFunds?.allocated_currency || 0}</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <span className="font-medium text-blue-800">Unallocated</span>
-              <span className="text-lg font-semibold text-blue-800">₹{currentFunds?.unallocated_balance || 0}</span>
+            <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+              <span className="font-medium">F&O Allocated</span>
+              <span className="text-lg font-bold text-purple-600">₹{currentFunds?.allocated_fno || 0}</span>
             </div>
           </div>
         </CardContent>
