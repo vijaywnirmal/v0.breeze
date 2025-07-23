@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -19,38 +19,66 @@ interface OrderFormProps {
   }
 }
 
+interface Instrument {
+  Token: string
+  InstrumentName: string
+  ShortName: string
+  Series: string
+  ExpiryDate: string
+  StrikePrice: string
+  OptionType: string
+  ExchangeCode: string
+}
+
 export function OrderForm({ credentials }: OrderFormProps) {
-  const [formData, setFormData] = useState({
-    stock_code: "",
-    exchange_code: "",
-    product_type: "",
-    order_type: "",
-    price: "",
-    quantity: "",
-    action: "",
-  })
+  const [instruments, setInstruments] = useState<Instrument[]>([])
+  const [selectedInstrument, setSelectedInstrument] = useState<Instrument | null>(null)
+  const [quantity, setQuantity] = useState("")
+  const [price, setPrice] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [messageType, setMessageType] = useState<"success" | "error">("success")
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/data/instrument-master.txt")
+        const text = await response.text()
+        const parsedInstruments = parseCSV(text)
+        setInstruments(parsedInstruments)
+      } catch (error) {
+        console.error("Error fetching instrument data:", error)
+        setMessage("Failed to load instrument data")
+        setMessageType("error")
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const parseCSV = (csvText: string): Instrument[] => {
+    const lines = csvText.split("\n")
+    const headers = lines[0].split(",")
+    const result: Instrument[] = []
+
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(",")
+      if (values.length === headers.length) {
+        const instrument: any = {}
+        for (let j = 0; j < headers.length; j++) {
+          instrument[headers[j]] = values[j].replace(/"/g, "")
+        }
+        result.push(instrument as Instrument)
+      }
+    }
+    return result
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (
-      !formData.stock_code ||
-      !formData.exchange_code ||
-      !formData.product_type ||
-      !formData.order_type ||
-      !formData.quantity ||
-      !formData.action
-    ) {
-      setMessage("Please fill all required fields")
-      setMessageType("error")
-      return
-    }
-
-    if (formData.order_type === "limit" && !formData.price) {
-      setMessage("Price is required for limit orders")
+    if (!selectedInstrument || !quantity) {
+      setMessage("Please select an instrument and enter quantity")
       setMessageType("error")
       return
     }
@@ -66,9 +94,13 @@ export function OrderForm({ credentials }: OrderFormProps) {
         },
         body: JSON.stringify({
           ...credentials,
-          ...formData,
-          price: formData.price ? Number.parseFloat(formData.price) : null,
-          quantity: Number.parseInt(formData.quantity),
+          stock_code: selectedInstrument.ShortName,
+          exchange_code: selectedInstrument.ExchangeCode || "NSE",
+          product_type: selectedInstrument.InstrumentName.startsWith("FUT") ? "futures" : "options",
+          order_type: price ? "limit" : "market",
+          price: price ? Number.parseFloat(price) : null,
+          quantity: Number.parseInt(quantity),
+          action: "buy", // Hardcoded for simplicity
         }),
       })
 
@@ -78,15 +110,9 @@ export function OrderForm({ credentials }: OrderFormProps) {
         setMessage("Order placed successfully!")
         setMessageType("success")
         // Reset form
-        setFormData({
-          stock_code: "",
-          exchange_code: "",
-          product_type: "",
-          order_type: "",
-          price: "",
-          quantity: "",
-          action: "",
-        })
+        setSelectedInstrument(null)
+        setQuantity("")
+        setPrice("")
       } else {
         setMessage(data.message)
         setMessageType("error")
@@ -99,110 +125,61 @@ export function OrderForm({ credentials }: OrderFormProps) {
     }
   }
 
-  const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
-  }
-
   return (
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle>Place Order</CardTitle>
-        <CardDescription>Place buy or sell orders for stocks and derivatives</CardDescription>
+        <CardDescription>Select an instrument and place your order</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="instrument">Instrument *</Label>
+            <Select
+              value={selectedInstrument ? selectedInstrument.Token : ""}
+              onValueChange={(value) => {
+                const instrument = instruments.find((i) => i.Token === value)
+                setSelectedInstrument(instrument || null)
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select instrument" />
+              </SelectTrigger>
+              <SelectContent>
+                {instruments.map((instrument) => (
+                  <SelectItem key={instrument.Token} value={instrument.Token}>
+                    {instrument.InstrumentName} ({instrument.ShortName})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="stock_code">Stock Code *</Label>
-              <Input
-                id="stock_code"
-                value={formData.stock_code}
-                onChange={(e) => handleChange("stock_code", e.target.value)}
-                placeholder="e.g., RELIANCE, TCS"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="exchange_code">Exchange *</Label>
-              <Select value={formData.exchange_code} onValueChange={(value) => handleChange("exchange_code", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select exchange" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="NSE">NSE</SelectItem>
-                  <SelectItem value="BSE">BSE</SelectItem>
-                  <SelectItem value="NFO">NFO</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="product_type">Product Type *</Label>
-              <Select value={formData.product_type} onValueChange={(value) => handleChange("product_type", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select product type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="cash">Cash</SelectItem>
-                  <SelectItem value="futures">Futures</SelectItem>
-                  <SelectItem value="options">Options</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="order_type">Order Type *</Label>
-              <Select value={formData.order_type} onValueChange={(value) => handleChange("order_type", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select order type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="market">Market</SelectItem>
-                  <SelectItem value="limit">Limit</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
             <div className="space-y-2">
               <Label htmlFor="quantity">Quantity *</Label>
               <Input
                 id="quantity"
                 type="number"
-                value={formData.quantity}
-                onChange={(e) => handleChange("quantity", e.target.value)}
                 placeholder="Enter quantity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
                 min="1"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="price">Price {formData.order_type === "limit" && "*"}</Label>
+              <Label htmlFor="price">Price (for limit orders)</Label>
               <Input
                 id="price"
                 type="number"
-                value={formData.price}
-                onChange={(e) => handleChange("price", e.target.value)}
-                placeholder="Enter price (for limit orders)"
+                placeholder="Enter price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
                 step="0.01"
-                disabled={formData.order_type === "market"}
+                disabled={!selectedInstrument || selectedInstrument.InstrumentName.startsWith("FUT")}
               />
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="action">Action *</Label>
-            <Select value={formData.action} onValueChange={(value) => handleChange("action", value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select action" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="buy">Buy</SelectItem>
-                <SelectItem value="sell">Sell</SelectItem>
-              </SelectContent>
-            </Select>
           </div>
 
           {message && (
@@ -211,7 +188,7 @@ export function OrderForm({ credentials }: OrderFormProps) {
             </Alert>
           )}
 
-          <Button type="submit" disabled={isLoading} className="w-full">
+          <Button type="submit" disabled={isLoading || !selectedInstrument || !quantity} className="w-full">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
