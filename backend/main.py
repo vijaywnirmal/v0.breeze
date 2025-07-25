@@ -3,6 +3,13 @@ from pydantic import BaseModel
 from breeze_connect import BreezeConnect
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
+from fastapi import Query
+import csv
+import os
+from fastapi import WebSocket, WebSocketDisconnect
+import asyncio
+import threading
+import json as pyjson
 
 app = FastAPI()
 
@@ -126,17 +133,28 @@ class MarketQuoteRequest(BaseModel):
     exchange_code: str
     stock_code: str
     product_type: str
+    expiry_date: Optional[str] = None
+    right: Optional[str] = None
+    strike_price: Optional[str] = None
 
 @app.post("/api/market_quote")
 async def get_market_quote(req: MarketQuoteRequest):
     try:
         breeze = BreezeConnect(api_key=req.api_key)
         breeze.generate_session(api_secret=req.api_secret, session_token=req.session_token)
-        quote = breeze.get_market_quote(
-            exchange_code=req.exchange_code,
+        # Prepare kwargs for get_quotes
+        kwargs = dict(
             stock_code=req.stock_code,
-            product_type=req.product_type
+            exchange_code=req.exchange_code,
+            product_type=req.product_type,
         )
+        if req.expiry_date:
+            kwargs["expiry_date"] = req.expiry_date
+        if req.right:
+            kwargs["right"] = req.right
+        if req.strike_price:
+            kwargs["strike_price"] = req.strike_price
+        quote = breeze.get_quotes(**kwargs)
         return {"success": True, "quote": quote}
     except Exception as e:
         return {"success": False, "message": str(e)}
@@ -224,3 +242,49 @@ async def get_positions(req: PortfolioRequest):
         return {"success": True, "positions": positions}
     except Exception as e:
         return {"success": False, "message": str(e)}
+
+@app.websocket("/ws/marketdata")
+async def websocket_marketdata(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        # Expect the first message to be a JSON with credentials and scrip_code
+        init = await websocket.receive_json()
+        api_key = init.get("api_key")
+        api_secret = init.get("api_secret")
+        session_token = init.get("session_token")
+        scrip_code = init.get("scrip_code")
+        exchange_code = init.get("exchange_code")
+        if not all([api_key, api_secret, session_token, scrip_code, exchange_code]):
+            await websocket.send_json({"error": "Missing credentials or scrip_code/exchange_code"})
+            await websocket.close()
+            return
+        breeze = BreezeConnect(api_key=api_key)
+        breeze.generate_session(api_secret=api_secret, session_token=session_token)
+        # Subscribe to the scrip using BreezeConnect's websocket
+        # This is a minimal example; you may need to adjust for your SDK version
+        tick_queue = asyncio.Queue()
+        def on_tick(tick):
+            # Called by Breeze SDK thread
+            asyncio.run_coroutine_threadsafe(tick_queue.put(tick), asyncio.get_event_loop())
+        # Start websocket connection in a thread
+        def start_breeze_ws():
+            breeze.ws_connect()
+            breeze.subscribe_feeds(
+                stock_token=scrip_code,
+                exchange_code=exchange_code,
+                product_type="cash"  # or as needed
+            )
+            breeze.on_ticks = on_tick
+        ws_thread = threading.Thread(target=start_breeze_ws, daemon=True)
+        ws_thread.start()
+        try:
+            while True:
+                tick = await tick_queue.get()
+                await websocket.send_json(tick)
+        except WebSocketDisconnect:
+            print("WebSocket client disconnected")
+        except Exception as e:
+            print(f"WebSocket error: {e}")
+    except Exception as e:
+        await websocket.send_json({"error": str(e)})
+        await websocket.close()

@@ -1,0 +1,37 @@
+/* Minimal utility classes for a clean look */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, sans-serif;
+  background: #f9fafb;
+}
+.min-h-screen { min-height: 100vh; }
+.bg-gray-50 { background: #f9fafb; }
+.bg-white { background: #fff; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.rounded { border-radius: 0.5rem; }
+.shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.text-center { text-align: center; }
+.text-2xl { font-size: 1.5rem; }
+.font-bold { font-weight: bold; }
+.font-semibold { font-weight: 600; }
+.text-blue-600 { color: #2563eb; }
+.text-gray-700 { color: #374151; }
+.text-gray-500 { color: #6b7280; }
+.text-red-600 { color: #dc2626; }
+.text-sm { font-size: 0.875rem; }
+.w-full { width: 100%; }
+.max-w-xs { max-width: 20rem; }
+.max-w-md { max-width: 28rem; }
+.gap-4 { gap: 1rem; }
+.border { border: 1px solid #e5e7eb; }
+.underline { text-decoration: underline; }
+.inline { display: inline; }
+.disabled\:opacity-50:disabled { opacity: 0.5; }
