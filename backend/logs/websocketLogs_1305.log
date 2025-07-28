@@ -18,3 +18,6 @@
 2025-07-28 13:50:27,860 - [{'message': 'socket server for rate refresh  has been disconnected.'}, {'message': 'socket server is not connected to OHLCV Stream.'}, {'message': 'socket server is not connected to order refresh.'}]
 2025-07-28 13:50:56,155 - {'message': 'Stock NSE.RELIND subscribed successfully'}
 2025-07-28 13:50:56,156 - {'message': 'Stock RELIND subscribed successfully'}
+2025-07-28 14:28:21,445 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 14:28:21,446 - {'message': 'Stock RELIND subscribed successfully'}
+2025-07-28 14:59:45,488 - [{'message': 'socket server for rate refresh  has been disconnected.'}, {'message': 'socket server is not connected to OHLCV Stream.'}, {'message': 'socket server is not connected to order refresh.'}]

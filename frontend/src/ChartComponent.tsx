@@ -231,13 +231,22 @@ const FallbackChart: React.FC<{
 
 const ChartComponent: React.FC<ChartComponentProps> = ({ data, symbol = 'Chart', interval = '1minute' }) => {
   const chartRef = useRef<HTMLDivElement>(null);
-  const chartInstanceRef = useRef<IChartApi | null>(null);
-  const candleSeriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null);
-  const volumeSeriesRef = useRef<ISeriesApi<'Histogram'> | null>(null);
+  const chartInstanceRef = useRef<any>(null);
+  const candleSeriesRef = useRef<any>(null);
+  const volumeSeriesRef = useRef<any>(null);
+  const isMountedRef = useRef(true);
   const [showVolume, setShowVolume] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [useFallback, setUseFallback] = useState<boolean>(false);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+
+  // Set mounted flag
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const candles = transformData(data);
   const hasData = data && data.length > 0;
@@ -248,6 +257,27 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ data, symbol = 'Chart',
     setZoomLevel(optimalZoom);
   }, [interval, candles.length]);
 
+  // Cleanup function - define this first
+  const cleanupChart = useCallback(() => {
+    if (chartInstanceRef.current && isMountedRef.current) {
+      try {
+        // Check if chart is still valid before removing
+        if (chartInstanceRef.current && typeof chartInstanceRef.current.remove === 'function') {
+          chartInstanceRef.current.remove();
+        }
+        chartInstanceRef.current = null;
+        candleSeriesRef.current = null;
+        volumeSeriesRef.current = null;
+      } catch (e) {
+        console.error('Error cleaning up chart:', e);
+        // Even if cleanup fails, reset the refs
+        chartInstanceRef.current = null;
+        candleSeriesRef.current = null;
+        volumeSeriesRef.current = null;
+      }
+    }
+  }, []);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -255,23 +285,12 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ data, symbol = 'Chart',
     };
   }, [cleanupChart]);
 
-  // Cleanup function
-  const cleanupChart = useCallback(() => {
-    if (chartInstanceRef.current) {
-      try {
-        chartInstanceRef.current.remove();
-        chartInstanceRef.current = null;
-        candleSeriesRef.current = null;
-        volumeSeriesRef.current = null;
-      } catch (e) {
-        console.error('Error cleaning up chart:', e);
-      }
-    }
-  }, []);
-
   // Initialize chart
   useEffect(() => {
-    if (!chartRef.current || candles.length === 0) return;
+    if (!chartRef.current || candles.length === 0 || !isMountedRef.current) return;
+
+    let chart: any = null;
+    let resizeObserver: ResizeObserver | null = null;
 
     try {
       console.log('Creating chart with data length:', candles.length);
@@ -279,8 +298,11 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ data, symbol = 'Chart',
       // Cleanup existing chart
       cleanupChart();
 
+      // Check if still mounted after cleanup
+      if (!isMountedRef.current) return;
+
       // Create chart instance
-      const chart = createChart(chartRef.current, {
+      chart = createChart(chartRef.current, {
         layout: {
           background: { color: '#0f1419' },
           textColor: '#ffffff',
@@ -350,74 +372,104 @@ const ChartComponent: React.FC<ChartComponentProps> = ({ data, symbol = 'Chart',
         wickDownColor: '#ff444f',
         borderUpColor: '#00d4aa',
         borderDownColor: '#ff444f',
-        borderVisible: true,
       });
 
       candleSeriesRef.current = candleSeries;
 
-      // Set candlestick data
-      const candlestickData: CandlestickData[] = candles.map((candle) => ({
-        time: candle.time,
-        open: candle.open,
-        high: candle.high,
-        low: candle.low,
-        close: candle.close,
-      }));
-
-      candleSeries.setData(candlestickData);
-
       // Add volume series if enabled
       if (showVolume) {
         const volumeSeries = chart.addSeries(HistogramSeries, {
-          color: '#4e5b85',
-          priceFormat: { type: 'volume' },
+          color: '#26a69a',
+          priceFormat: {
+            type: 'volume',
+          },
           priceScaleId: '',
+          scaleMargins: {
+            top: 0.8,
+            bottom: 0,
+          },
         });
-
         volumeSeriesRef.current = volumeSeries;
-
-                  const volumeData: HistogramData[] = candles.map((candle) => ({
-            time: candle.time,
-            value: candle.volume,
-            color: candle.close > candle.open ? '#00d4aa' : '#ff444f',
-          }));
-
-          volumeSeries.setData(volumeData);
+        volumeSeries.setData(candles.map(candle => ({
+          time: candle.time,
+          value: candle.volume,
+          color: candle.close >= candle.open ? '#00d4aa' : '#ff444f',
+        })));
       }
 
+      // Set candlestick data
+      candleSeries.setData(candles);
+
       // Handle resize
-      const resizeObserver = new ResizeObserver(() => {
-        if (chartRef.current && chartInstanceRef.current) {
-          chartInstanceRef.current.applyOptions({ 
-            width: chartRef.current.clientWidth 
-          });
+      resizeObserver = new ResizeObserver(() => {
+        if (chart && chartRef.current) {
+          try {
+            chart.resize(chartRef.current.clientWidth, 500);
+          } catch (e) {
+            console.error('Error resizing chart:', e);
+          }
         }
       });
 
       resizeObserver.observe(chartRef.current);
 
       return () => {
-        chart.remove();
-        resizeObserver.disconnect();
-        chartInstanceRef.current = null;
-        candleSeriesRef.current = null;
-        volumeSeriesRef.current = null;
+        try {
+          if (resizeObserver) {
+            resizeObserver.disconnect();
+          }
+          if (chart && typeof chart.remove === 'function') {
+            chart.remove();
+          }
+        } catch (e) {
+          console.error('Error in chart cleanup:', e);
+        } finally {
+          chartInstanceRef.current = null;
+          candleSeriesRef.current = null;
+          volumeSeriesRef.current = null;
+        }
       };
     } catch (err) {
       console.error('Error creating chart:', err);
       setError(`Chart creation failed: ${err instanceof Error ? err.message : String(err)}`);
       setUseFallback(true);
+      
+      // Cleanup on error
+      try {
+        if (resizeObserver) {
+          resizeObserver.disconnect();
+        }
+        if (chart && typeof chart.remove === 'function') {
+          chart.remove();
+        }
+      } catch (e) {
+        console.error('Error cleaning up chart after creation error:', e);
+      } finally {
+        chartInstanceRef.current = null;
+        candleSeriesRef.current = null;
+        volumeSeriesRef.current = null;
+      }
     }
   }, [candles, showVolume, interval, zoomLevel, cleanupChart]);
 
   // Update zoom level for lightweight-charts
   useEffect(() => {
     if (chartInstanceRef.current) {
-      chartInstanceRef.current.applyOptions({
-        timeScale: {
-          barSpacing: Math.max(1, 3 * zoomLevel),
-        },
-      });
+      try {
+        chartInstanceRef.current.applyOptions({
+          timeScale: {
+            barSpacing: Math.max(1, 3 * zoomLevel),
+          },
+        });
+      } catch (e) {
+        console.error('Error updating chart zoom level:', e);
+        // If chart is disposed, clean up the refs
+        if (e instanceof Error && e.message.includes('disposed')) {
+          chartInstanceRef.current = null;
+          candleSeriesRef.current = null;
+          volumeSeriesRef.current = null;
+        }
+      }
     }
   }, [zoomLevel]);
 
