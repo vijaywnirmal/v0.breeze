@@ -1,0 +1,20 @@
+2025-07-28 11:22:09,533 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 11:22:38,801 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:13:17,378 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:23:42,736 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:23:49,943 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:24:01,020 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:24:32,002 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:24:40,059 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 12:57:42,118 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 13:11:17,294 - [{'message': 'socket server for rate refresh  has been disconnected.'}, {'message': 'socket server is not connected to OHLCV Stream.'}, {'message': 'socket server is not connected to order refresh.'}]
+2025-07-28 13:38:48,339 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 13:38:48,340 - {'message': 'Stock RELIND subscribed successfully'}
+2025-07-28 13:44:07,887 - [{'message': 'socket server for rate refresh  has been disconnected.'}, {'message': 'socket server is not connected to OHLCV Stream.'}, {'message': 'socket server is not connected to order refresh.'}]
+2025-07-28 13:44:22,647 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 13:44:22,648 - {'message': 'Stock RELIND subscribed successfully'}
+2025-07-28 13:44:34,279 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 13:44:34,280 - {'message': 'Stock RELIND subscribed successfully'}
+2025-07-28 13:50:27,860 - [{'message': 'socket server for rate refresh  has been disconnected.'}, {'message': 'socket server is not connected to OHLCV Stream.'}, {'message': 'socket server is not connected to order refresh.'}]
+2025-07-28 13:50:56,155 - {'message': 'Stock NSE.RELIND subscribed successfully'}
+2025-07-28 13:50:56,156 - {'message': 'Stock RELIND subscribed successfully'}
