@@ -1,8 +1,5 @@
-fastapi>=0.115.0
-uvicorn[standard]>=0.32.0
-breeze-connect>=1.0.63
-pandas>=2.2.0
-python-multipart>=0.0.20
-pydantic>=2.11.0
-websockets>=13.0
-aiofiles>=24.0.0
+fastapi==0.95.1
+breeze-connect==1.0.63
+uvicorn[standard]==0.22.0
+pydantic==1.10.9
+python-dotenv==1.0.0
