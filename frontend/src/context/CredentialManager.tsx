@@ -21,22 +21,16 @@ const CredentialContext = createContext<CredentialContextType | undefined>(undef
 const SESSION_STORAGE_KEY = 'breeze_broker_credentials';
 
 export const CredentialProvider = ({ children }: { children: ReactNode }) => {
-  const [credentials, setCredentialsState] = useState<BrokerCredentials | null>(null);
-  const [isPersisted, setIsPersisted] = useState(false);
-
-  // Load credentials from sessionStorage on mount
-  useEffect(() => {
+  // Hydrate from sessionStorage synchronously to avoid logout flashes between pages
+  const [credentials, setCredentialsState] = useState<BrokerCredentials | null>(() => {
+    if (typeof window === 'undefined') return null;
     const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    if (stored) {
-      try {
-        setCredentialsState(JSON.parse(stored));
-        setIsPersisted(true);
-      } catch {
-        setCredentialsState(null);
-        setIsPersisted(false);
-      }
-    }
-  }, []);
+    try { return stored ? (JSON.parse(stored) as BrokerCredentials) : null; } catch { return null; }
+  });
+  const [isPersisted, setIsPersisted] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return !!sessionStorage.getItem(SESSION_STORAGE_KEY);
+  });
 
   // Set credentials and persist to sessionStorage
   const setCredentials = (creds: BrokerCredentials, persist = false) => {

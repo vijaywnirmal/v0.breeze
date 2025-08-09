@@ -62,7 +62,7 @@ export const CredentialForm: React.FC = () => {
       const toStore = customerData && customerData.customer ? customerData.customer : customerData;
       localStorage.setItem('breeze_customer_data', JSON.stringify(toStore));
 
-      router.push('/account');
+      router.push('/dashboard');
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Login failed';
       setError(errorMessage);

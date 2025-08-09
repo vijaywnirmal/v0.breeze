@@ -14,12 +14,14 @@ from pydantic_settings import BaseSettings
 from pydantic import BaseModel, Field, validator
 
 import pytz
-from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi import FastAPI, HTTPException, Request, Depends, Query
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # Breeze SDK (synchronous). We'll call its methods from a threadpool.
 from breeze_connect import BreezeConnect
+from schemas import ScreenerRequest, PaginatedResponse, SortOrder
+from utils.market_utils import calculate_rsi_14, calculate_macd
 
 # ---------------------------
 # Config
@@ -37,6 +39,10 @@ class Settings(BaseSettings):
     MARKET_OPEN_MINUTE: int = 30   # treat < 09:30 IST as market closed (use last trading day)
     # For maintainability, holidays should be externalized; kept here for demonstration
     HOLIDAY_YEAR_LIST: int = 2025
+    # Optional service credentials used by scheduled compute
+    SERVICE_API_KEY: Optional[str] = None
+    SERVICE_API_SECRET: Optional[str] = None
+    SERVICE_SESSION_TOKEN: Optional[str] = None
 
     class Config:
         env_file = ".env"
@@ -69,7 +75,7 @@ logger.info(f"Breeze rate limit: {settings.BREEZE_LIMIT_REQUESTS} / {settings.BR
 # ---------------------------
 # FastAPI app + CORS
 # ---------------------------
-app = FastAPI(title="Breeze Trading API", version="2.0.0")
+app = FastAPI(title="Breeze Trading API", version="2.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -107,6 +113,29 @@ async def rate_limit_middleware(request: Request, call_next):
         logger.warning(f"Rate limit exceeded for IP: {client_ip}")
         return JSONResponse(status_code=429, content={"detail": "Rate limit exceeded. Try again later."})
     return await call_next(request)
+
+
+@app.on_event("startup")
+async def on_startup():
+    # Load instruments into memory on startup
+    try:
+        await load_instruments_into_memory()
+        logger.info(f"Loaded {len(INSTRUMENTS)} instruments into memory")
+    except Exception as e:
+        logger.error(f"Instrument load failed: {e}")
+        logger.error(traceback.format_exc())
+    # Try to start APScheduler for daily compute
+    try:
+        from apscheduler.schedulers.asyncio import AsyncIOScheduler
+        from apscheduler.triggers.cron import CronTrigger
+        scheduler = AsyncIOScheduler(timezone=str(IST))
+        trigger = CronTrigger(day_of_week='mon-fri', hour=15, minute=40)
+        scheduler.add_job(build_screener_cache_job, trigger, id='daily_screener_build', replace_existing=True)
+        scheduler.start()
+        logger.info("APScheduler started: daily screener build at 15:40 IST, Mon–Fri")
+    except Exception as e:
+        logger.warning(f"APScheduler not started: {e}")
+        logger.debug(traceback.format_exc())
 
 
 # ---------------------------
@@ -309,6 +338,12 @@ def _parse_date_str(date_str: str) -> Optional[date]:
     return None
 
 
+def _iso_utc(dt: datetime) -> str:
+    # Return ISO string with Z
+    s = dt.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    return s
+
+
 def _load_holidays_2025() -> set[date]:
     holidays: set[date] = set()
     try:
@@ -411,14 +446,18 @@ def market_closed_now(now_ist: datetime) -> bool:
 
 
 # ---------------------------
-# Caches (in-memory). For multi-process deployments use Redis.
-# - previous_close_cache: { (symbol, date_iso) : close }
-# - today_close_cache: { symbol: {"close": float, "valid_until": datetime_ist} }
-# - index_snapshot_cache: { symbol: {"currentClose": float, "previousClose": float, "timestamp": datetime_ist} }
+# Caches (in-memory)
 # ---------------------------
 previous_close_cache: Dict[str, Dict[str, Any]] = {}
 today_close_cache: Dict[str, Dict[str, Any]] = {}
 index_snapshot_cache: Dict[str, Dict[str, Any]] = {}
+
+# In-memory instruments and screener snapshot
+INSTRUMENTS: list[Dict[str, Any]] = []
+SCREENER_CACHE: Dict[str, Any] = {
+    "snapshot_date": None,
+    "items": [],  # list[dict]
+}
 
 
 def set_previous_close_cache(symbol: str, market_day: date, close: float):
@@ -691,6 +730,264 @@ async def get_market_indices(api_session: str):
         raise HTTPException(status_code=500, detail="Failed to get market indices")
 
 
+@app.get("/api/stocks/eod-screener", response_model=PaginatedResponse)
+async def eod_screener(
+    request: Request,
+    api_session: str = Query(..., description="Session token for Breeze-backed auth"),
+    limit: int = Query(100, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+    # Filters
+    min_price: float | None = None,
+    max_price: float | None = None,
+    min_change_pct: float | None = None,
+    max_change_pct: float | None = None,
+    min_volume: int | None = None,
+    min_week_vol_diff_pct: float | None = Query(None, alias="min_1w_avg_vol_diff_pct"),
+    exchange: str | None = None,
+    is_active: bool | None = True,
+    min_rsi_14: float | None = None,
+    max_rsi_14: float | None = None,
+    sort_field: str = Query("change_pct"),
+    sort_order: SortOrder = Query(SortOrder.DESC),
+):
+    try:
+        await get_session_or_401(api_session)
+        items = SCREENER_CACHE.get("items", [])
+        # Filter
+        def passes(row: dict[str, Any]) -> bool:
+            price = row.get("close_price")
+            change_pct_val = row.get("change_pct")
+            vol = row.get("volume")
+            week_diff = row.get("week_volume_diff_pct")
+            ex = row.get("instrument", {}).get("exchange_code")
+            active = row.get("instrument", {}).get("is_active")
+            rsi = row.get("rsi_14")
+            if min_price is not None and (price is None or price < min_price):
+                return False
+            if max_price is not None and (price is None or price > max_price):
+                return False
+            if min_change_pct is not None and (change_pct_val is None or change_pct_val < min_change_pct):
+                return False
+            if max_change_pct is not None and (change_pct_val is None or change_pct_val > max_change_pct):
+                return False
+            if min_volume is not None and (vol is None or vol < min_volume):
+                return False
+            if min_week_vol_diff_pct is not None and (week_diff is None or week_diff < min_week_vol_diff_pct):
+                return False
+            if exchange and (not ex or ex.lower() != exchange.lower()):
+                return False
+            if is_active is not None and active is not None and active != is_active:
+                return False
+            if min_rsi_14 is not None and (rsi is None or rsi < min_rsi_14):
+                return False
+            if max_rsi_14 is not None and (rsi is None or rsi > max_rsi_14):
+                return False
+            return True
+
+        # Optional symbols whitelist (comma-separated short_names)
+        symbols_param = request.query_params.get("symbols")
+        allowed: set[str] | None = None
+        if symbols_param:
+            allowed = {s.strip().upper() for s in symbols_param.split(",") if s.strip()}
+
+        filtered = []
+        for r in items:
+            if allowed:
+                sn = (r.get("instrument", {}).get("short_name") or "").upper()
+                if sn not in allowed:
+                    continue
+            if passes(r):
+                filtered.append(r)
+
+        # Sort
+        def sort_key(r: dict[str, Any]):
+            mapping = {
+                "change_pct": r.get("change_pct"),
+                "change_abs": r.get("change_abs"),
+                "close_price": r.get("close_price"),
+                "volume": r.get("volume"),
+                "week_volume_diff_pct": r.get("week_volume_diff_pct"),
+                "rsi_14": r.get("rsi_14"),
+                "macd": r.get("macd"),
+                "company_name": r.get("instrument", {}).get("company_name"),
+            }
+            return mapping.get(sort_field, mapping["change_pct"]) or -1e18
+
+        reverse = sort_order == SortOrder.DESC
+        sorted_rows = sorted(filtered, key=sort_key, reverse=reverse)
+
+        total = len(sorted_rows)
+        page = sorted_rows[offset: offset + limit]
+        return PaginatedResponse(total=total, items=page, limit=limit, offset=offset)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error in eod_screener: {e}")
+        logger.error(traceback.format_exc())
+        raise HTTPException(status_code=500, detail="Failed to fetch EOD screener data")
+
+
+@app.get("/api/stocks/intraday-screener", response_model=PaginatedResponse)
+async def intraday_screener(
+    api_session: str,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    exchange: str = Query("NSE"),
+    symbols: str | None = Query(None, description="Comma-separated short_names to include (e.g., RELIANCE,TATAMOTORS)"),
+):
+    """
+    Build intraday screener for a page of instruments using 30m candles today.
+    Computes last price, 1D change/%, volume (sum), optional sparkline.
+    """
+    await get_session_or_401(api_session)
+    if not INSTRUMENTS:
+        await load_instruments_into_memory()
+    breeze = await get_service_breeze()
+    if not breeze:
+        raise HTTPException(status_code=503, detail="No Breeze session available")
+
+    # Optional symbols filter
+    allowed: set[str] | None = None
+    if symbols:
+        allowed = {s.strip().upper() for s in symbols.split(",") if s.strip()}
+        filtered = [i for i in INSTRUMENTS if (i.get("short_name") or "").upper() in allowed]
+    else:
+        filtered = INSTRUMENTS
+
+    # Pick a slice of instruments
+    start = (page - 1) * page_size
+    end = start + page_size
+    instruments_slice = filtered[start:end]
+    total = len(filtered)
+    if not instruments_slice:
+        return PaginatedResponse(total=total, items=[], limit=page_size, offset=start)
+
+    today = datetime.now(IST).date()
+    from_dt = _iso_utc(datetime(today.year, today.month, today.day, 0, 0, 1))
+    to_dt = _iso_utc(datetime(today.year, today.month, today.day, 23, 59, 59))
+
+    async def one(inst: dict[str, Any]) -> dict[str, Any]:
+        candidates = normalize_stock_code(inst.get("short_name"), inst.get("exchange_code"), inst.get("company_name"))
+        try:
+            rows: list[dict[str, Any]] = []
+            for code in candidates:
+                for ex in [exchange, "BSE" if exchange != "BSE" else "NSE"]:
+                    data = await breeze_call(
+                        breeze.get_historical_data_v2,
+                        interval="30minute",
+                        from_date=from_dt,
+                        to_date=to_dt,
+                        stock_code=code,
+                        exchange_code=ex,
+                        product_type="cash",
+                    )
+                    tmp = data.get("Success") if isinstance(data, dict) else None
+                    if tmp:
+                        rows = tmp
+                        break
+                if rows:
+                    break
+            closes = [
+                _to_float(r.get("close")) for r in rows if _to_float(r.get("close")) is not None
+            ]
+            vols = [
+                int(r.get("volume") or 0) for r in rows
+            ]
+            curr = closes[-1] if closes else None
+            prev = closes[-2] if len(closes) >= 2 else None
+            volume_sum = sum(vols) if vols else None
+
+            # Fallback to daily closes if intraday not available
+            if curr is None or prev is None:
+                from_daily = _iso_utc(datetime(today.year, today.month, today.day, 0, 0, 1) - timedelta(days=15))
+                daily_rows: list[dict[str, Any]] = []
+                for code in candidates:
+                    for ex in [exchange, "BSE" if exchange != "BSE" else "NSE"]:
+                        data2 = await breeze_call(
+                            breeze.get_historical_data_v2,
+                            interval="1day",
+                            from_date=from_daily,
+                            to_date=to_dt,
+                            stock_code=code,
+                            exchange_code=ex,
+                            product_type="cash",
+                        )
+                        tmp2 = data2.get("Success") if isinstance(data2, dict) else None
+                        if tmp2:
+                            daily_rows = tmp2
+                            break
+                    if daily_rows:
+                        break
+                daily_closes = [_to_float(r.get("close")) for r in daily_rows if _to_float(r.get("close")) is not None]
+                if len(daily_closes) >= 1 and curr is None:
+                    curr = daily_closes[-1]
+                if len(daily_closes) >= 2 and prev is None:
+                    prev = daily_closes[-2]
+                # If volume from intraday missing, use last daily volume as fallback
+                if volume_sum is None and daily_rows:
+                    try:
+                        volume_sum = int(daily_rows[-1].get("volume") or 0)
+                    except Exception:
+                        volume_sum = None
+            change_abs = (curr - prev) if (curr is not None and prev not in (None, 0)) else None
+            change_pct = (change_abs / prev * 100) if (change_abs is not None and prev) else None
+            spark = closes[-20:] if closes else []
+            return {
+                "snapshot_id": None,
+                "snapshot_date": today.isoformat(),
+                "close_price": curr,
+                "prev_close_price": prev,
+                "change_abs": round(change_abs, 2) if change_abs is not None else None,
+                "change_pct": round(change_pct, 2) if change_pct is not None else None,
+                "volume": volume_sum,
+                "week_avg_volume": None,
+                "week_volume_diff_pct": None,
+                "rsi_14": None,
+                "macd": None,
+                "macd_signal": None,
+                "macd_histogram": None,
+                "fifty_two_week_high": None,
+                "fifty_two_week_low": None,
+                "sparkline_data": {"p": spark} if spark else None,
+                "instrument": {
+                    "id": None,
+                    "short_name": inst["short_name"],
+                    "company_name": inst["company_name"],
+                    "isin_code": inst["isin_code"],
+                    "exchange_code": inst["exchange_code"],
+                    "is_active": inst["is_active"],
+                },
+            }
+        except Exception as e:
+            return {
+                "snapshot_id": None,
+                "snapshot_date": today.isoformat(),
+                "close_price": None,
+                "prev_close_price": None,
+                "change_abs": None,
+                "change_pct": None,
+                "volume": None,
+                "sparkline_data": None,
+                "instrument": {
+                    "id": None,
+                    "short_name": inst["short_name"],
+                    "company_name": inst["company_name"],
+                    "isin_code": inst["isin_code"],
+                    "exchange_code": inst["exchange_code"],
+                    "is_active": inst["is_active"],
+                },
+                "error": str(e),
+            }
+
+    sem = asyncio.Semaphore(8)
+    async def guarded(inst: dict[str, Any]):
+        async with sem:
+            return await one(inst)
+
+    results = await asyncio.gather(*(guarded(i) for i in instruments_slice))
+    return PaginatedResponse(total=total, items=results, limit=page_size, offset=start)
+
+
 @app.post("/logout")
 async def logout(request: LogoutRequest):
     try:
@@ -713,25 +1010,316 @@ async def health_check():
     }
 
 
-@app.get("/test-breeze")
-async def test_breeze_api(api_session: str):
+# ---------------------------
+# Instruments import & EOD compute helpers (no DB)
+# ---------------------------
+async def load_instruments_into_memory() -> None:
+    json_path = os.path.join(os.path.dirname(__file__), "ScripMaster.json")
+    csv_path = os.path.join(os.path.dirname(__file__), "ScripMaster.csv")
+    data_list: list[dict[str, Any]] = []
+    if os.path.exists(json_path):
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                data_list = json.load(f)
+        except Exception as e:
+            logger.error(f"Failed to read ScripMaster.json: {e}")
+    elif os.path.exists(csv_path):
+        try:
+            import csv
+            with open(csv_path, newline='', encoding="utf-8") as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    if len(row) < 4:
+                        continue
+                    short, name, isin, exch_code = row[0], row[1], row[2], row[3]
+                    data_list.append({
+                        "ShortName": short,
+                        "CompanyName": name,
+                        "ISINCode": isin,
+                        "ExchangeCode": exch_code,
+                    })
+        except Exception as e:
+            logger.error(f"Failed to read ScripMaster.csv: {e}")
+    INSTRUMENTS.clear()
+    # Restrict to test set for now: RELIANCE and TCS, with simple de-duplication by short_name
+    allowed_short = {"RELIND", "RELIANCE", "TCS"}
+    seen: set[str] = set()
+    for item in data_list:
+        short_name = (item.get("ShortName") or "").strip()
+        company_name = (item.get("CompanyName") or "").strip()
+        isin_code = (item.get("ISINCode") or "").strip()
+        exchange_code = (item.get("ExchangeCode") or "").strip()
+        if not short_name or not company_name or not isin_code:
+            continue
+        sn_upper = short_name.upper()
+        ec_upper = exchange_code.upper()
+        if sn_upper not in allowed_short and ec_upper not in allowed_short:
+            continue
+        # Normalize key by short_name family to dedupe (RELIND/RELIANCE -> RELIND family, TCS -> TCS)
+        fam = 'RELIND' if (sn_upper.startswith('REL') or ec_upper.startswith('REL')) else sn_upper
+        if fam in seen:
+            continue
+        seen.add(fam)
+        INSTRUMENTS.append({
+            "short_name": short_name,
+            "company_name": company_name,
+            "isin_code": isin_code,
+            "exchange_code": exchange_code,
+            "is_active": bool(exchange_code),
+        })
+
+
+async def get_service_breeze() -> Optional[BreezeConnect]:
+    if settings.SERVICE_API_KEY and settings.SERVICE_API_SECRET and settings.SERVICE_SESSION_TOKEN:
+        try:
+            breeze = BreezeConnect(api_key=settings.SERVICE_API_KEY)
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, lambda: breeze.generate_session(api_secret=settings.SERVICE_API_SECRET, session_token=settings.SERVICE_SESSION_TOKEN))
+            return breeze
+        except Exception:
+            logger.error("Failed to init service Breeze session")
+            logger.error(traceback.format_exc())
+            return None
+    async with session_store.lock:
+        for token, sess in session_store.sessions.items():
+            return sess.get("breeze")
+    return None
+
+
+async def fetch_daily_series(breeze: BreezeConnect, stock_code: str, exchange: str, from_date: str, to_date: str) -> list[dict[str, Any]]:
+    data = await breeze_call(
+        breeze.get_historical_data_v2,
+        interval="1day",
+        from_date=from_date,
+        to_date=to_date,
+        stock_code=stock_code,
+        exchange_code=exchange,
+        product_type="cash",
+    )
+    rows = data.get("Success") if isinstance(data, dict) else None
+    return rows or []
+
+
+async def fetch_30min_today(breeze: BreezeConnect, stock_code: str, exchange: str, day: date) -> list[dict[str, Any]]:
+    from_dt = f"{day.isoformat()}T00:00:01.000Z"
+    to_dt = f"{day.isoformat()}T23:59:59.000Z"
+    data = await breeze_call(
+        breeze.get_historical_data_v2,
+        interval="30minute",
+        from_date=from_dt,
+        to_date=to_dt,
+        stock_code=stock_code,
+        exchange_code=exchange,
+        product_type="cash",
+    )
+    rows = data.get("Success") if isinstance(data, dict) else None
+    return rows or []
+
+
+def _to_float_safe(v: Any) -> Optional[float]:
     try:
-        session_info = await get_session_or_401(api_session)
-        breeze_inst = session_info["breeze"]
-        today = datetime.now(IST).date()
-        from_date = f"{today.isoformat()}T00:00:01.000Z"
-        to_date = f"{today.isoformat()}T23:59:59.000Z"
-        resp = await breeze_call(
-            breeze_inst.get_historical_data_v2,
-            interval="30minute",
-            from_date=from_date,
-            to_date=to_date,
-            stock_code="NIFTY",
-            exchange_code="NSE",
-            product_type="cash"
-        )
-        return {"status": "success", "response": resp, "timestamp": datetime.now(IST).isoformat()}
+        return float(v)
+    except Exception:
+        return None
+
+
+def normalize_stock_code(short_name: str | None, exchange_code: str | None, company_name: str | None) -> list[str]:
+    """Generate Breeze stock_code candidates for an instrument (order matters)."""
+    cands: list[str] = []
+    def add(code: Optional[str]):
+        if not code:
+            return
+        u = str(code).strip().upper()
+        if not u:
+            return
+        if u not in cands:
+            cands.append(u)
+
+    sn = (short_name or '').upper().strip()
+    ec = (exchange_code or '').upper().strip()
+    cn = (company_name or '').upper().strip()
+
+    # Known normalizations
+    if sn in {"RELIND", "RELIANCE", "RELI", "RIL"} or "RELIANCE" in cn:
+        add("RELIANCE")
+    if sn in {"TCS"} or "TATA CONSULTANCY" in cn:
+        add("TCS")
+
+    # Add raw fields as fallbacks
+    add(ec)
+    add(sn)
+
+    # Clean and dedupe
+    filtered = []
+    for code in cands:
+        cleaned = ''.join(ch for ch in code if ch.isalnum())
+        if cleaned and cleaned not in filtered:
+            filtered.append(cleaned)
+    return filtered
+
+
+def add_row_to_cache(instrument: dict, trade_date: date, payload: dict[str, Any]) -> None:
+    row = {
+        "snapshot_id": None,
+        "snapshot_date": trade_date.isoformat(),
+        **payload,
+        "instrument": {
+            "id": None,
+            "short_name": instrument["short_name"],
+            "company_name": instrument["company_name"],
+            "isin_code": instrument["isin_code"],
+            "exchange_code": instrument["exchange_code"],
+            "is_active": instrument["is_active"],
+        }
+    }
+    # derive change_abs/pct if missing
+    prev = row.get("prev_close_price")
+    curr = row.get("close_price")
+    if curr is not None and prev not in (None, 0):
+        row["change_abs"] = round(curr - prev, 2)
+        row["change_pct"] = round(((curr - prev) / prev) * 100, 2)
+    SCREENER_CACHE["items"].append(row)
+
+
+async def process_instrument_compute(breeze: BreezeConnect, inst: dict, target_day: date, default_exchange: str = "NSE") -> None:
+    code_candidates = normalize_stock_code(inst.get("short_name"), inst.get("exchange_code"), inst.get("company_name"))
+    exchanges = [default_exchange, "BSE"] if default_exchange == "NSE" else [default_exchange, "NSE"]
+    from_day = target_day - timedelta(days=400)
+    from_date = f"{from_day.isoformat()}T00:00:01.000Z"
+    to_date = f"{target_day.isoformat()}T23:59:59.000Z"
+    daily_rows: list[dict[str, Any]] = []
+    used_exchange: Optional[str] = None
+    used_code: Optional[str] = None
+    for code in code_candidates:
+        for ex in exchanges:
+            daily_rows = await fetch_daily_series(breeze, code, ex, from_date, to_date)
+            if daily_rows:
+                used_exchange = ex
+                used_code = code
+                break
+        if daily_rows:
+            break
+    if not daily_rows:
+        return
+    closes: list[float] = []
+    volumes: list[int] = []
+    last_close: Optional[float] = None
+    prev_close: Optional[float] = None
+    today_volume: Optional[int] = None
+    last_date: Optional[date] = None
+
+    def parse_dt(dtstr: str) -> Optional[datetime]:
+        if not dtstr:
+            return None
+        try:
+            iso = dtstr.replace(" ", "T")
+            if iso.endswith("Z"):
+                iso = iso.replace("Z", "+00:00")
+            return datetime.fromisoformat(iso)
+        except Exception:
+            try:
+                return datetime.fromisoformat(dtstr)
+            except Exception:
+                return None
+
+    for row in daily_rows:
+        c = _to_float_safe(row.get("close"))
+        v = row.get("volume")
+        dt = parse_dt(row.get("datetime"))
+        if c is None or not dt:
+            continue
+        closes.append(c)
+        try:
+            volumes.append(int(v))
+        except Exception:
+            volumes.append(0)
+        last_date = dt.date()
+
+    if not closes:
+        return
+    last_close = closes[-1]
+    prev_close = closes[-2] if len(closes) >= 2 else None
+    today_volume = volumes[-1] if volumes else None
+    week_window = volumes[-6:-1] if len(volumes) >= 6 else []
+    week_avg_volume = int(sum(week_window) / len(week_window)) if week_window else None
+    week_vol_diff_pct = None
+    if week_avg_volume and week_avg_volume != 0 and today_volume is not None:
+        week_vol_diff_pct = round(((today_volume - week_avg_volume) / week_avg_volume) * 100, 2)
+    period_52w = closes[-252:] if len(closes) >= 252 else closes[:]
+    fifty_two_week_high = max(period_52w) if period_52w else None
+    fifty_two_week_low = min(period_52w) if period_52w else None
+    rsi_val = calculate_rsi_14(closes[-15:]) if len(closes) >= 15 else None
+    macd_val, macd_signal_val, macd_hist_val = calculate_macd(closes) if len(closes) >= 26 else (None, None, None)
+    intraday_rows = await fetch_30min_today(breeze, used_code or code_candidates[0], used_exchange or exchanges[0], target_day)
+    spark_p: list[float] = []
+    spark_t: list[str] = []
+    for r in intraday_rows[-24:]:
+        c = _to_float_safe(r.get("close"))
+        d = r.get("datetime")
+        if c is not None and d:
+            spark_p.append(c)
+            spark_t.append(str(d))
+    payload = {
+        "open_price": None,
+        "high_price": None,
+        "low_price": None,
+        "close_price": last_close if last_close is not None else None,
+        "prev_close_price": prev_close if prev_close is not None else (last_close if last_close is not None else None),
+        "volume": today_volume,
+        "week_avg_volume": week_avg_volume,
+        "week_volume_diff_pct": week_vol_diff_pct,
+        "rsi_14": rsi_val,
+        "macd": macd_val,
+        "macd_signal": macd_signal_val,
+        "macd_histogram": macd_hist_val,
+        "fifty_two_week_high": fifty_two_week_high,
+        "fifty_two_week_low": fifty_two_week_low,
+        "sparkline_data": {"t": spark_t, "p": spark_p} if spark_p else None,
+    }
+    add_row_to_cache(inst, last_date or target_day, payload)
+
+
+async def build_screener_cache_job():
+    try:
+        if not INSTRUMENTS:
+            await load_instruments_into_memory()
+        breeze = await get_service_breeze()
+        if not breeze:
+            logger.warning("No Breeze session for screener build; skipping")
+            return
+        now_ist = datetime.now(IST)
+        last_day = find_last_market_day(now_ist.date())
+        if not market_closed_now(now_ist):
+            logger.info("Market not closed yet; postponing screener build")
+            return
+        SCREENER_CACHE["items"] = []
+        SCREENER_CACHE["snapshot_date"] = last_day.isoformat()
+        sem = asyncio.Semaphore(10)
+        async def run_one(inst: dict):
+            async with sem:
+                try:
+                    await process_instrument_compute(breeze, inst, last_day)
+                except Exception:
+                    pass
+        for start in range(0, len(INSTRUMENTS), 100):
+            chunk = INSTRUMENTS[start:start+100]
+            await asyncio.gather(*(run_one(i) for i in chunk))
+        logger.info("Screener cache built: %d items", len(SCREENER_CACHE["items"]))
     except Exception as e:
-        logger.error(f"Breeze API test failed: {e}")
+        logger.error(f"Screener build error: {e}")
         logger.error(traceback.format_exc())
-        return {"status": "error", "error": str(e), "timestamp": datetime.now(IST).isoformat()}
+
+
+@app.post("/admin/import-instruments")
+async def admin_import_instruments(api_session: str):
+    await get_session_or_401(api_session)
+    await load_instruments_into_memory()
+    return {"status": "ok", "imported": len(INSTRUMENTS)}
+
+
+@app.post("/admin/run-eod-etl")
+async def admin_run_eod_etl(api_session: str):
+    await get_session_or_401(api_session)
+    await build_screener_cache_job()
+    return {"status": "ok", "snapshot_date": SCREENER_CACHE.get("snapshot_date"), "rows": len(SCREENER_CACHE.get("items", []))}
+

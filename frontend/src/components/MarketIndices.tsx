@@ -39,10 +39,10 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
 
       // Micro-interaction: detect price changes to flash
       const next: Record<string, number | null> = {
-        NIFTY: data.nifty.currentClose ?? null,
-        SENSEX: data.sensex.currentClose ?? null,
-        BANKNIFTY: data.bankNifty.currentClose ?? null,
-        FINNIFTY: data.finNifty.currentClose ?? null,
+        NIFTY: data.nifty?.currentClose ?? null,
+        SENSEX: data.sensex?.currentClose ?? null,
+        BANKNIFTY: data.bankNifty?.currentClose ?? null,
+        FINNIFTY: data.finNifty?.currentClose ?? null,
       };
       const prev = lastPricesRef.current;
       const updates: Record<string, 'up' | 'down' | null> = {};
@@ -138,7 +138,7 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
     return null;
   }
 
-  const indices = [marketData.nifty, marketData.sensex, marketData.bankNifty, marketData.finNifty];
+  const indices = [marketData.nifty, marketData.sensex, marketData.bankNifty, marketData.finNifty].filter(i => i !== null) as MarketIndex[];
   const anyClosed = indices.find(i => i.marketClosed);
   const lastTradingDay = indices.find(i => i.lastTradingDay)?.lastTradingDay || null;
 

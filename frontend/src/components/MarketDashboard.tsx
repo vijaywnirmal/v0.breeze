@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { MarketIndices } from './MarketIndices';
 
 interface MarketDashboardProps {
@@ -24,13 +25,13 @@ export const MarketDashboard: React.FC<MarketDashboardProps> = ({ className = ''
 
       {/* Main Dashboard Content */}
       <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Market Overview
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Real-time market data for major Indian indices
-          </p>
+          <Link href="/screener" className="text-sm text-blue-600 hover:underline">
+            Go to Screener
+          </Link>
         </div>
 
         {/* Market Indices Grid */}

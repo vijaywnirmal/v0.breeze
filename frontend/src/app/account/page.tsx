@@ -13,7 +13,7 @@ interface CustomerData {
   };
 }
 
-export default function Dashboard() {
+export default function AccountDetails() {
   const [customer, setCustomer] = useState<CustomerData | null>(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const router = useRouter();
@@ -78,14 +78,11 @@ export default function Dashboard() {
 
   return (
     <div className="w-full flex flex-col min-h-screen">
-      {/* Market Indices Strip */}
-      <MarketIndices 
-        className="sticky top-0 z-10"
-      />
+      {/* Keep this page without indices strip; moved to Dashboard */}
 
       {/* Main Dashboard Content */}
       <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col gap-8 items-start justify-start py-8 px-4 relative">
-        {/* Profile dropdown in top-right */}
+        {/* Profile dropdown remains for Account Details */}
         <div className="absolute right-4 top-0 mt-4 z-10">
           <div className="relative">
             <button
@@ -116,7 +113,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Dashboard Grid */}
+        {/* Account Details Grid (kept original Trading Dashboard content) */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           {/* Market Status */}
           <div className="lg:col-span-1">
@@ -129,7 +126,6 @@ export default function Dashboard() {
               <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                 Trading Dashboard
               </h2>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
@@ -142,6 +138,12 @@ export default function Dashboard() {
                     <button className="w-full bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-900 dark:text-gray-100 font-medium py-2 px-4 rounded-lg transition-colors text-sm">
                       Place Order
                     </button>
+                    <a
+                      href="/screener"
+                      className="block w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm"
+                    >
+                      View Latest Screeners (RELIND + TCS)
+                    </a>
                   </div>
                 </div>
                 

@@ -1,21 +1,8 @@
 import axios from 'axios';
 import { MarketIndices, MarketIndex } from '../types/market';
 import { API_URL } from './api';
+import type { ScreenerItem } from '../types/market';
 
-// Types for API responses
-interface IndexDataResponse {
-  symbol: string;
-  data: Record<string, unknown>;
-}
-
-interface MarketStatusResponse {
-  nse: {
-    status: string;
-  };
-  bse: {
-    status: string;
-  };
-}
 
 // Legacy combined indices response format
 interface MarketIndicesResponseLegacy {
@@ -104,10 +91,10 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
         };
       });
       return {
-        nifty: indicesMap['nifty'] || getMockIndexData('NIFTY'),
-        sensex: indicesMap['sensex'] || getMockIndexData('SENSEX'),
-        bankNifty: indicesMap['banknifty'] || getMockIndexData('BANKNIFTY'),
-        finNifty: indicesMap['finnifty'] || getMockIndexData('FINNIFTY')
+        nifty: indicesMap['nifty'] || null,
+        sensex: indicesMap['sensex'] || null,
+        bankNifty: indicesMap['banknifty'] || null,
+        finNifty: indicesMap['finnifty'] || null
       };
     }
 
@@ -135,10 +122,10 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
         };
       });
       return {
-        nifty: indicesMap['nifty'] || getMockIndexData('NIFTY'),
-        sensex: indicesMap['sensex'] || getMockIndexData('SENSEX'),
-        bankNifty: indicesMap['banknifty'] || getMockIndexData('BANKNIFTY'),
-        finNifty: indicesMap['finnifty'] || getMockIndexData('FINNIFTY')
+        nifty: indicesMap['nifty'] || null,
+        sensex: indicesMap['sensex'] || null,
+        bankNifty: indicesMap['banknifty'] || null,
+        finNifty: indicesMap['finnifty'] || null
       };
     }
 
@@ -163,10 +150,10 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
         };
       });
       return {
-        nifty: indicesMap['nifty'] || getMockIndexData('NIFTY'),
-        sensex: indicesMap['sensex'] || getMockIndexData('SENSEX'),
-        bankNifty: indicesMap['banknifty'] || getMockIndexData('BANKNIFTY'),
-        finNifty: indicesMap['finnifty'] || getMockIndexData('FINNIFTY')
+        nifty: indicesMap['nifty'] || null,
+        sensex: indicesMap['sensex'] || null,
+        bankNifty: indicesMap['banknifty'] || null,
+        finNifty: indicesMap['finnifty'] || null
       };
     }
 
@@ -181,6 +168,64 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
 }
 
 
+export interface ScreenerResponse {
+  total: number;
+  items: ScreenerItem[];
+  limit: number;
+  offset: number;
+}
+
+export interface ScreenerQuery {
+  limit?: number;
+  offset?: number;
+  min_price?: number;
+  max_price?: number;
+  min_change_pct?: number;
+  max_change_pct?: number;
+  min_volume?: number;
+  min_1w_vol_diff_pct?: number;
+  exchange?: string;
+  is_active?: boolean;
+  min_rsi_14?: number;
+  max_rsi_14?: number;
+  sort_field?: string;
+  sort_order?: 'asc' | 'desc';
+  symbols?: string; // comma-separated short_names
+}
+
+export async function fetchEodScreener(sessionToken: string, query: ScreenerQuery = {}): Promise<ScreenerResponse> {
+  if (!API_URL) throw new Error('API URL is not set');
+  const params = new URLSearchParams();
+  params.set('api_session', sessionToken);
+  Object.entries(query).forEach(([k, v]) => {
+    if (v !== undefined && v !== null) params.set(k, String(v));
+  });
+  const url = `${API_URL}/api/stocks/eod-screener?${params.toString()}`;
+  const resp = await axios.get(url, { headers: { 'Content-Type': 'application/json' } });
+  return resp.data as ScreenerResponse;
+}
+
+export interface IntradayQuery {
+  page?: number;
+  page_size?: number;
+  exchange?: 'NSE' | 'BSE';
+}
+
+export async function fetchIntradayScreener(sessionToken: string, query: IntradayQuery = {}): Promise<ScreenerResponse> {
+  if (!API_URL) throw new Error('API URL is not set');
+  const params = new URLSearchParams();
+  params.set('api_session', sessionToken);
+  if (query.page) params.set('page', String(query.page));
+  if (query.page_size) params.set('page_size', String(query.page_size));
+  if (query.exchange) params.set('exchange', query.exchange);
+  const url = `${API_URL}/api/stocks/intraday-screener?${params.toString()}`;
+  const resp = await axios.get(url, {
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: false,
+  });
+  return resp.data as ScreenerResponse;
+}
+
 
 // Get index display name
 function getIndexName(symbol: string): string {
@@ -193,69 +238,6 @@ function getIndexName(symbol: string): string {
   return names[symbol] || symbol;
 }
 
-// No mock fallback per request; always require API data
-function getMockIndexData(symbol: string): MarketIndex {
-  return {
-    symbol,
-    name: getIndexName(symbol),
-    previousClose: null,
-    currentClose: null,
-    change: null,
-    percentChange: null,
-    isPositive: null,
-    lastPrice: null,
-    changePercent: null,
-  };
-}
 
-// Fetch specific index data
-export async function fetchIndexData(sessionToken: string, symbol: string): Promise<IndexDataResponse> {
-  if (!API_URL) throw new Error('API URL is not set');
-  
-  try {
-    const response = await axios.get(
-      `${API_URL}/market/index/${symbol}`,
-      {
-        params: { api_session: sessionToken },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: false,
-      }
-    );
-    
-    return response.data as IndexDataResponse;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error) && error.response) {
-      throw new Error(error.response.data?.detail || `Failed to fetch ${symbol} data`);
-    }
-    throw new Error('Network error or server unavailable');
-  }
-}
-
-// Fetch market status
-export async function fetchMarketStatus(sessionToken: string): Promise<MarketStatusResponse> {
-  if (!API_URL) throw new Error('API URL is not set');
-  
-  try {
-    const response = await axios.get(
-      `${API_URL}/market/status`,
-      {
-        params: { api_session: sessionToken },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: false,
-      }
-    );
-    
-    return response.data as MarketStatusResponse;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error) && error.response) {
-      throw new Error(error.response.data?.detail || 'Failed to fetch market status');
-    }
-    throw new Error('Network error or server unavailable');
-  }
-}
 
 
