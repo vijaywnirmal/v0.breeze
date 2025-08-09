@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = "http://localhost:8000";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export type BrokerCredentials = {
   apiKey: string;
@@ -36,8 +36,8 @@ export async function fetchAccountDetails(sessionToken: string): Promise<Account
       }
     );
     return response.data as AccountDetails;
-  } catch (error: any) {
-    if (error.response) {
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
       throw new Error(error.response.data?.detail || 'Failed to fetch account details');
     }
     throw new Error('Network error or server unavailable');

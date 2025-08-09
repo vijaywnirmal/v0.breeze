@@ -18,15 +18,15 @@ export type CredentialContextType = {
 
 const CredentialContext = createContext<CredentialContextType | undefined>(undefined);
 
-const LOCAL_STORAGE_KEY = 'breeze_broker_credentials';
+const SESSION_STORAGE_KEY = 'breeze_broker_credentials';
 
 export const CredentialProvider = ({ children }: { children: ReactNode }) => {
   const [credentials, setCredentialsState] = useState<BrokerCredentials | null>(null);
   const [isPersisted, setIsPersisted] = useState(false);
 
-  // Load credentials from localStorage on mount
+  // Load credentials from sessionStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
     if (stored) {
       try {
         setCredentialsState(JSON.parse(stored));
@@ -38,14 +38,14 @@ export const CredentialProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // Set credentials and optionally persist
+  // Set credentials and persist to sessionStorage
   const setCredentials = (creds: BrokerCredentials, persist = false) => {
     setCredentialsState(creds);
     if (persist) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(creds));
+      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(creds));
       setIsPersisted(true);
     } else {
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
       setIsPersisted(false);
     }
   };
@@ -53,7 +53,7 @@ export const CredentialProvider = ({ children }: { children: ReactNode }) => {
   // Clear credentials from state and storage
   const clearCredentials = () => {
     setCredentialsState(null);
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
     setIsPersisted(false);
   };
 

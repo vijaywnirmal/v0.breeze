@@ -1,25 +1,27 @@
 "use client";
 import React, { useState } from 'react';
 import { fetchAccountDetails, AccountDetails } from '../services/api';
+import { useCredentialManager } from '../context/CredentialManager';
 
 export const AccountView: React.FC = () => {
   const [account, setAccount] = useState<AccountDetails | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { credentials } = useCredentialManager();
 
   const handleFetch = async () => {
-    const sessionToken = typeof window !== 'undefined' ? localStorage.getItem('breeze_session_token') : null;
-    if (!sessionToken) {
+    if (!credentials?.sessionToken) {
       setError('Session token not found. Please log in again.');
       return;
     }
     setLoading(true);
     setError(null);
     try {
-      const data = await fetchAccountDetails(sessionToken);
+      const data = await fetchAccountDetails(credentials.sessionToken);
       setAccount(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch account details.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch account details.';
+      setError(errorMessage);
       setAccount(null);
     } finally {
       setLoading(false);

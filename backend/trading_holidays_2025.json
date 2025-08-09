@@ -1,0 +1,140 @@
+{
+    "year": 2025,
+    "weekday_trading_holidays": [
+      {
+        "sr_no": 1,
+        "date": "2025-02-26",
+        "day": "Wednesday",
+        "description": "Mahashivratri"
+      },
+      {
+        "sr_no": 2,
+        "date": "2025-03-14",
+        "day": "Friday",
+        "description": "Holi"
+      },
+      {
+        "sr_no": 3,
+        "date": "2025-03-31",
+        "day": "Monday",
+        "description": "Id-Ul-Fitr (Ramadan Eid)"
+      },
+      {
+        "sr_no": 4,
+        "date": "2025-04-10",
+        "day": "Thursday",
+        "description": "Shri Mahavir Jayanti"
+      },
+      {
+        "sr_no": 5,
+        "date": "2025-04-14",
+        "day": "Monday",
+        "description": "Dr. Baba Saheb Ambedkar Jayanti"
+      },
+      {
+        "sr_no": 6,
+        "date": "2025-04-18",
+        "day": "Friday",
+        "description": "Good Friday"
+      },
+      {
+        "sr_no": 7,
+        "date": "2025-05-01",
+        "day": "Thursday",
+        "description": "Maharashtra Day"
+      },
+      {
+        "sr_no": 8,
+        "date": "2025-08-15",
+        "day": "Friday",
+        "description": "Independence Day / Parsi New Year"
+      },
+      {
+        "sr_no": 9,
+        "date": "2025-08-27",
+        "day": "Wednesday",
+        "description": "Shri Ganesh Chaturthi"
+      },
+      {
+        "sr_no": 10,
+        "date": "2025-10-02",
+        "day": "Thursday",
+        "description": "Mahatma Gandhi Jayanti"
+      },
+      {
+        "sr_no": 11,
+        "date": "2025-10-21",
+        "day": "Tuesday",
+        "description": "Diwali Laxmi Pujan",
+        "notes": "Muhurat Trading will be conducted. Timings for Muhurat Trading to be notified separately."
+      },
+      {
+        "sr_no": 12,
+        "date": "2025-10-22",
+        "day": "Wednesday",
+        "description": "Balipratipada"
+      },
+      {
+        "sr_no": 13,
+        "date": "2025-11-05",
+        "day": "Wednesday",
+        "description": "Prakash Gurpurb Sri Guru Nanak Dev"
+      },
+      {
+        "sr_no": 14,
+        "date": "2025-12-25",
+        "day": "Thursday",
+        "description": "Christmas"
+      }
+    ],
+    "weekend_non_trading_days": [
+      {
+        "sr_no": 1,
+        "date": "2025-01-26",
+        "day": "Sunday",
+        "description": "Republic Day"
+      },
+      {
+        "sr_no": 2,
+        "date": "2025-04-06",
+        "day": "Sunday",
+        "description": "Shri Ram Navami"
+      },
+      {
+        "sr_no": 3,
+        "date": "2025-06-07",
+        "day": "Saturday",
+        "description": "Bakri Id"
+      },
+      {
+        "sr_no": 4,
+        "date": "2025-07-06",
+        "day": "Sunday",
+        "description": "Muharram"
+      }
+    ],
+    "notes": [
+      "Trading on the equities segment does not take place on Saturdays, Sundays, and holidays declared by the Exchange in advance.",
+      "Timings for Muhurat Trading on Diwali Laxmi Pujan (October 21, 2025) will be notified separately.",
+      "All holidays listed here are based on the official Exchange Communications for the calendar year 2025."
+    ],
+    "trading_hours": {
+      "pre_open_session": {
+        "order_entry_modify_open": "09:00",
+        "order_entry_modify_close": "09:08 (random closure in last minute)"
+      },
+      "regular_trading": {
+        "market_open": "09:15",
+        "market_close": "15:30"
+      },
+      "closing_session": {
+        "start": "15:40",
+        "end": "16:00"
+      },
+      "block_deal_windows": {
+        "morning": "08:45 to 09:00",
+        "afternoon": "14:05 to 14:20"
+      }
+    }
+  }
+  

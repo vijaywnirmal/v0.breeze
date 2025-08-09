@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCredentialManager } from '../context/CredentialManager';
 
-const BACKEND_URL = "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const SESSION_LINK = 'https://api.icicidirect.com/apiuser/home';
 
 export type BrokerCredentials = {
@@ -19,10 +20,10 @@ const initialState: BrokerCredentials = {
 
 export const CredentialForm: React.FC = () => {
   const [form, setForm] = useState<BrokerCredentials>(initialState);
-  const [persist, setPersist] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setCredentials } = useCredentialManager();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,13 +48,9 @@ export const CredentialForm: React.FC = () => {
         const data = await res.json();
         throw new Error(data.detail || 'Login failed');
       }
-      // Save credentials and session token
-      localStorage.setItem('breeze_broker_credentials', JSON.stringify({
-        apiKey: form.apiKey,
-        apiSecret: form.apiSecret,
-        sessionToken: form.sessionToken,
-      }));
-      localStorage.setItem('breeze_session_token', form.sessionToken);
+      
+      // Save credentials using the context (always persist for session)
+      setCredentials(form, true);
 
       // Fetch customer details immediately after login
       const customerRes = await fetch(`${BACKEND_URL}/account/details?api_session=${form.sessionToken}`);
@@ -61,11 +58,14 @@ export const CredentialForm: React.FC = () => {
         throw new Error('Failed to fetch customer details after login');
       }
       const customerData = await customerRes.json();
-      localStorage.setItem('breeze_customer_data', JSON.stringify(customerData));
+      // Store only the SDK payload if wrapped, else store as-is for backward compatibility
+      const toStore = customerData && customerData.customer ? customerData.customer : customerData;
+      localStorage.setItem('breeze_customer_data', JSON.stringify(toStore));
 
       router.push('/account');
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Login failed';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -126,18 +126,7 @@ export const CredentialForm: React.FC = () => {
           required
         />
       </div>
-      <div className="flex items-center mb-4">
-        <input
-          id="persist"
-          type="checkbox"
-          checked={persist}
-          onChange={() => setPersist((v) => !v)}
-          className="mr-2"
-        />
-        <label htmlFor="persist" className="text-sm text-gray-700 dark:text-gray-300">
-          Save credentials in this browser (less secure, for convenience only)
-        </label>
-      </div>
+
       <div className="mb-4">
         <a
           href={SESSION_LINK}
