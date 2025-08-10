@@ -7,6 +7,7 @@ import logging
 import traceback
 import time
 import asyncio
+import uuid
 from typing import Dict, Any, Optional, List, Tuple
 from datetime import datetime, timedelta, date, time as dt_time
 from collections import defaultdict, deque
@@ -34,9 +35,9 @@ class Settings(BaseSettings):
     BREEZE_LIMIT_REQUESTS: int = 100
     BREEZE_LIMIT_WINDOW: int = 60  # seconds (Breeze doc: 100/min)
     MARKET_CLOSE_HOUR: int = 15
-    MARKET_CLOSE_MINUTE: int = 31  # treat >= 15:31 IST as market closed for the day
+    MARKET_CLOSE_MINUTE: int = 30  # treat >= 15:30 IST as market closed for the day
     MARKET_OPEN_HOUR: int = 9
-    MARKET_OPEN_MINUTE: int = 30   # treat < 09:30 IST as market closed (use last trading day)
+    MARKET_OPEN_MINUTE: int = 15   # treat < 09:15 IST as market closed (use last trading day)
     # For maintainability, holidays should be externalized; kept here for demonstration
     HOLIDAY_YEAR_LIST: int = 2025
     # Optional service credentials used by scheduled compute
@@ -108,11 +109,45 @@ def check_rate_limit_per_ip(client_ip: str) -> bool:
 
 @app.middleware("http")
 async def rate_limit_middleware(request: Request, call_next):
-    client_ip = request.client.host if request.client else "unknown"
+    # Try to respect proxy headers for real client IP
+    client_ip = request.headers.get("X-Forwarded-For", "").split(",")[0].strip() or (
+        request.client.host if request.client else "unknown"
+    )
     if not check_rate_limit_per_ip(client_ip):
         logger.warning(f"Rate limit exceeded for IP: {client_ip}")
         return JSONResponse(status_code=429, content={"detail": "Rate limit exceeded. Try again later."})
     return await call_next(request)
+
+
+# ---------------------------
+# Request ID + basic timing metrics
+# ---------------------------
+from collections import defaultdict as _defaultdict
+
+request_metrics: Dict[str, Any] = {
+    "total_requests": 0,
+    "per_path": _defaultdict(lambda: {"count": 0, "durations_ms": deque(maxlen=1000)}),
+}
+
+
+@app.middleware("http")
+async def request_id_and_timing_middleware(request: Request, call_next):
+    request_id = request.headers.get("X-Request-ID") or str(uuid.uuid4())
+    start = time.perf_counter()
+    try:
+        response = await call_next(request)
+    finally:
+        duration_ms = (time.perf_counter() - start) * 1000.0
+        path = request.url.path
+        try:
+            request_metrics["total_requests"] += 1
+            bucket = request_metrics["per_path"][path]
+            bucket["count"] += 1
+            bucket["durations_ms"].append(duration_ms)
+        except Exception:
+            pass
+    response.headers["X-Request-ID"] = request_id
+    return response
 
 
 @app.on_event("startup")
@@ -136,6 +171,116 @@ async def on_startup():
     except Exception as e:
         logger.warning(f"APScheduler not started: {e}")
         logger.debug(traceback.format_exc())
+
+
+# ---------------------------
+# Market status helper
+# ---------------------------
+def get_market_status_backend(now_ist: Optional[datetime] = None) -> Dict[str, Any]:
+    if now_ist is None:
+        now_ist = datetime.now(IST)
+    today = now_ist.date()
+    is_holiday_today = is_market_holiday(today)
+    is_weekend_today = is_weekend(today)
+
+    open_time = now_ist.replace(
+        hour=settings.MARKET_OPEN_HOUR,
+        minute=settings.MARKET_OPEN_MINUTE,
+        second=0,
+        microsecond=0,
+    )
+    close_cutoff = now_ist.replace(
+        hour=settings.MARKET_CLOSE_HOUR,
+        minute=settings.MARKET_CLOSE_MINUTE,
+        second=0,
+        microsecond=0,
+    )
+
+    closed_now = market_closed_now(now_ist)
+    status = "open"
+    if closed_now:
+        status = "pre-open" if now_ist < open_time and not (is_weekend_today or is_holiday_today) else "closed"
+
+    # determine next open time
+    if status == "open":
+        next_market_open_iso = None
+    else:
+        next_day = today
+        if now_ist >= close_cutoff:
+            next_day = today + timedelta(days=1)
+        # advance to next trading day
+        while True:
+            if not is_market_closed_today(next_day):
+                break
+            next_day += timedelta(days=1)
+        next_open_dt = datetime.combine(next_day, dt_time(settings.MARKET_OPEN_HOUR, settings.MARKET_OPEN_MINUTE, 0)).astimezone(IST)
+        next_market_open_iso = next_open_dt.isoformat()
+
+    last_market_day = find_last_market_day(today)
+
+    return {
+        "is_market_open": not closed_now,
+        "status": status,
+        "current_time": now_ist.isoformat(),
+        "market_open_time": dt_time(settings.MARKET_OPEN_HOUR, settings.MARKET_OPEN_MINUTE).isoformat(),
+        "market_close_cutoff": dt_time(settings.MARKET_CLOSE_HOUR, settings.MARKET_CLOSE_MINUTE).isoformat(),
+        "current_day": now_ist.strftime("%A"),
+        "is_weekend": is_weekend_today,
+        "is_holiday": is_holiday_today,
+        "last_trading_day": last_market_day.isoformat(),
+        "next_market_open": next_market_open_iso,
+    }
+
+
+@app.get("/market/status")
+async def market_status():
+    return get_market_status_backend()
+
+
+# ---------------------------
+# Health and readiness
+# ---------------------------
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
+
+@app.get("/readyz")
+async def readyz():
+    # Basic readiness: instruments loaded
+    try:
+        inst_count = len(INSTRUMENTS)
+        return {"status": "ready", "instruments": inst_count}
+    except Exception:
+        return JSONResponse(status_code=503, content={"status": "not_ready"})
+
+
+@app.get("/metrics/basic")
+async def basic_metrics():
+    # Provide small summary to avoid heavy payloads
+    summary = {
+        "total_requests": request_metrics.get("total_requests", 0),
+        "paths": {},
+    }
+    per_path = request_metrics.get("per_path", {})
+    for path, data in per_path.items():
+        durations = list(data.get("durations_ms", []))
+        if durations:
+            durations_sorted = sorted(durations)
+            p50 = durations_sorted[len(durations_sorted)//2]
+            p90 = durations_sorted[int(len(durations_sorted)*0.9)-1]
+            p99 = durations_sorted[int(len(durations_sorted)*0.99)-1] if len(durations_sorted) > 1 else durations_sorted[-1]
+            avg = sum(durations)/len(durations)
+        else:
+            p50 = p90 = p99 = avg = 0.0
+        summary["paths"][path] = {
+            "count": data.get("count", 0),
+            "avg_ms": round(avg, 2),
+            "p50_ms": round(p50, 2),
+            "p90_ms": round(p90, 2),
+            "p99_ms": round(p99, 2),
+        }
+    return summary
 
 
 # ---------------------------
@@ -522,7 +667,14 @@ async def login(data: SessionData):
         logger.info(f"Login attempt for API key prefix: {short_key}")
         await session_store.add_session(data.session_token, data.api_key, data.api_secret)
         logger.info(f"Session created for token prefix: {data.session_token[:8]}...")
-        return {"status": "session initialized"}
+        # Return customer details directly to save a follow-up request
+        session_info = await session_store.get_session(data.session_token)
+        customer_details = session_info.get("customer_details") if session_info else None
+        return {
+            "status": "session initialized",
+            "api_session": data.session_token,
+            "customer": customer_details,
+        }
     except Exception as e:
         logger.error(f"Error initializing session: {e}")
         logger.error(traceback.format_exc())
@@ -730,6 +882,7 @@ async def get_market_indices(api_session: str):
         raise HTTPException(status_code=500, detail="Failed to get market indices")
 
 
+@app.get("/stocks/eod-screener", response_model=PaginatedResponse)
 @app.get("/api/stocks/eod-screener", response_model=PaginatedResponse)
 async def eod_screener(
     request: Request,
@@ -753,6 +906,14 @@ async def eod_screener(
     try:
         await get_session_or_401(api_session)
         items = SCREENER_CACHE.get("items", [])
+        # Accept alternate param name used by frontend (min_1w_vol_diff_pct)
+        if min_week_vol_diff_pct is None:
+            alt = request.query_params.get("min_1w_vol_diff_pct")
+            if alt is not None:
+                try:
+                    min_week_vol_diff_pct = float(alt)
+                except Exception:
+                    pass
         # Filter
         def passes(row: dict[str, Any]) -> bool:
             price = row.get("close_price")
@@ -824,9 +985,10 @@ async def eod_screener(
     except Exception as e:
         logger.error(f"Error in eod_screener: {e}")
         logger.error(traceback.format_exc())
-        raise HTTPException(status_code=500, detail="Failed to fetch EOD screener data")
+        raise HTTPException(status_code=500, detail="Failed to fetch Screener data")
 
 
+@app.get("/stocks/intraday-screener", response_model=PaginatedResponse)
 @app.get("/api/stocks/intraday-screener", response_model=PaginatedResponse)
 async def intraday_screener(
     api_session: str,

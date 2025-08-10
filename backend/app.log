@@ -833,3 +833,304 @@
 2025-08-10 05:03:55,772 - APILogger - DEBUG - Get Historical data V2 response
 2025-08-10 05:03:55,977 - APILogger - DEBUG - Get Historical data V2 response
 2025-08-10 05:03:56,170 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:37:13,080 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:37:13,080 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:37:13,081 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:37:13,081 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:37:13,081 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:37:13,084 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:37:13,128 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:37:13,258 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:37:13,260 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:37:13,260 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:37:13,260 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 11:39:50,712 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 11:39:58,538 - APILogger - DEBUG - <Response [200]>
+2025-08-10 11:39:58,539 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 11:39:58', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 11:39:58,540 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 11:39:59,383 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:39:59,578 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:39:59,775 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:40:00,015 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:40:00,232 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:40:00,453 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:40:00,654 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:40:00,854 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:35,970 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:36,164 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:36,364 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:36,559 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:36,764 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:36,971 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:37,160 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:37,366 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:37,582 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:37,788 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:38,004 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:38,204 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:38,408 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:38,609 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:38,808 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:39,010 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:39,204 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:39,484 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:39,684 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:42:39,930 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 11:54:06,871 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:54:06,872 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:54:06,873 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:54:06,873 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:54:06,873 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:54:06,875 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:54:06,914 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:54:07,069 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:54:07,071 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:54:07,071 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:54:07,071 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 11:59:02,098 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:59:02,099 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:59:02,099 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:59:02,099 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:59:02,100 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:59:02,102 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:59:02,141 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:59:02,250 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:59:02,251 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:59:02,251 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:59:02,251 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 11:59:05,278 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:59:05,278 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:59:05,278 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:59:05,279 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:59:05,279 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:59:05,282 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:59:05,323 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:59:05,434 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:59:05,435 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:59:05,436 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:59:05,436 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 11:59:37,542 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:59:37,543 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:59:37,543 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:59:37,544 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:59:37,544 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:59:37,548 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:59:37,587 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:59:37,697 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:59:37,700 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:59:37,700 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:59:37,700 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 11:59:40,640 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 11:59:40,641 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 11:59:40,641 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 11:59:40,641 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 11:59:40,641 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 11:59:40,645 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 11:59:40,686 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 11:59:40,796 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 11:59:40,798 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 11:59:40,798 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 11:59:40,799 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:02:41,521 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:02:52,051 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:02:52,052 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:02:52', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:02:52,053 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:02:55,137 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:02:55,138 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:02:55,138 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:02:55,139 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:02:55,139 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:02:55,142 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:02:55,186 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:02:55,302 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:02:55,304 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:02:55,304 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:02:55,304 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:04:24,665 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:04:35,294 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:04:35,295 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:04:35', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:04:35,295 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:05:55,807 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:56,001 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:56,206 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:56,407 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:56,649 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:56,885 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:57,090 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:05:57,386 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:08:41,099 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:08:41,100 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:08:41,100 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:08:41,100 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:08:41,101 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:08:41,103 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:08:41,144 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:08:41,262 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:08:41,267 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:08:41,268 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:08:41,268 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:08:45,142 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:08:45,143 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:08:45,143 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:08:45,143 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:08:45,144 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:08:45,148 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:08:45,202 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:08:45,339 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:08:45,341 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:08:45,341 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:08:45,341 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:09:13,759 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:09:20,575 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:09:20,576 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:09:20', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:09:20,576 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:09:21,203 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:21,450 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:21,641 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:21,892 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:22,089 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:22,282 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:22,489 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:09:22,678 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:18:58,976 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:19:08,059 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:19:08,060 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:19:08', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:19:08,061 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:20:47,586 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:20:47,587 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:20:47,587 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:20:47,588 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:20:47,588 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:20:47,591 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:20:47,630 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:20:47,737 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:20:47,738 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:20:47,739 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:20:47,739 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:20:50,267 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:20:50,267 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:20:50,267 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:20:50,267 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:20:50,268 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:20:50,271 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:20:50,321 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:20:50,439 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:20:50,440 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:20:50,441 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:20:50,441 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:25:31,353 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:25:31,354 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:25:31,354 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:25:31,354 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:25:31,355 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:25:31,357 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:25:31,397 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:25:31,500 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:25:31,501 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:25:31,501 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:25:31,502 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:25:44,471 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:25:51,975 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:25:51,976 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:25:52', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:25:51,977 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:25:52,450 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:52,695 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:52,892 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:53,095 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:53,311 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:53,542 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:53,737 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:25:53,983 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:00,185 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:00,406 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:00,648 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:00,851 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:01,049 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:01,257 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:01,461 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:01,650 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:02,056 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:02,300 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:54,446 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:54,653 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:54,853 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:55,055 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:55,321 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:55,532 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:55,709 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:55,927 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:56,136 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:26:56,347 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:45,883 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:46,079 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:46,282 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:46,482 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:46,730 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:46,935 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:47,140 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:47,341 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:47,571 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:47,772 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:28:51,039 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-10 12:28:51,040 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-10 12:28:51,041 - breeze_api - INFO - Session expiry hours: 24
+2025-08-10 12:28:51,041 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-10 12:28:51,041 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-10 12:28:51,044 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-10 12:28:51,095 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-10 12:28:51,253 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-10 12:28:51,254 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-10 12:28:51,254 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-10 12:28:51,255 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-10 12:29:07,893 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-10 12:29:17,691 - APILogger - DEBUG - <Response [200]>
+2025-08-10 12:29:17,692 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:29:17', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:29:17,693 - breeze_api - INFO - Session created for token prefix: 52547203...
+2025-08-10 12:29:18,198 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:18,415 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:18,614 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:18,825 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:19,049 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:19,243 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:19,447 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:19,642 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:28,057 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:28,243 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:28,477 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:28,684 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:28,884 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:29,126 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:29,331 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:29,553 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:29,769 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:29:29,977 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:32,841 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:33,133 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:33,362 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:33,596 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:33,873 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:34,135 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:34,356 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:34,581 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:34,806 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:30:35,055 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:08,984 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:09,274 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:09,477 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:09,677 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:09,877 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:10,130 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:10,312 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:10,520 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:10,722 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:34:10,926 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:32,871 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:33,070 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:33,321 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:33,804 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:33,995 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:34,209 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:34,433 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:34,636 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:34,840 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-10 12:37:35,037 - APILogger - DEBUG - Get Historical data V2 response

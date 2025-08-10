@@ -8,10 +8,11 @@ export const TopHeader: React.FC = () => {
   const [profileOpen, setProfileOpen] = React.useState(false);
   const [userId, setUserId] = React.useState<string>('');
   const [userName, setUserName] = React.useState<string>('');
-  const [mounted, setMounted] = React.useState<boolean>(() => {
-    // If window exists during render (client), mark as mounted to avoid SSR mismatch
-    return typeof window !== 'undefined';
-  });
+  const [mounted, setMounted] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -45,16 +46,28 @@ export const TopHeader: React.FC = () => {
     <div className="w-full">
       {/* Top bar: Home icon (left) + Profile (right) */}
       <div className="w-full max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a
-          href="/dashboard"
-          aria-label="Go to Dashboard"
-          className="inline-flex items-center justify-center w-9 h-9 rounded bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
-          title="Home"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-            <path d="M12 3.172 2.293 12.879a1 1 0 1 0 1.414 1.414L5 13.999V20a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2v-6l1.293 1.294a1 1 0 0 0 1.414-1.414L12 3.172z" />
-          </svg>
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href="/dashboard"
+            aria-label="Go to Dashboard"
+            className="inline-flex items-center justify-center w-9 h-9 rounded bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
+            title="Home"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+              <path d="M12 3.172 2.293 12.879a1 1 0 1 0 1.414 1.414L5 13.999V20a2 2 0 0 0 2 2h3v-6h4v6h3a2 2 0 0 0 2-2v-6l1.293 1.294a1 1 0 0 0 1.414-1.414L12 3.172z" />
+            </svg>
+          </a>
+          <a
+            href="/screener"
+            className="inline-flex items-center gap-2 px-3 h-9 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium"
+            title="Screeners"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+              <path d="M3 4a1 1 0 0 1 1-1h16a1 1 0 0 1 .8 1.6l-6.2 8.267V19a1 1 0 0 1-1.447.894l-3-1.5A1 1 0 0 1 9 17.5v-3.633L3.2 5.6A1 1 0 0 1 3 5V4z"/>
+            </svg>
+            <span>Screeners</span>
+          </a>
+        </div>
 
         <div className="relative">
           <button

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCredentialManager } from '../context/CredentialManager';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || ""; // prefer Next.js rewrite when empty
 const SESSION_LINK = 'https://api.icicidirect.com/apiuser/home';
 
 export type BrokerCredentials = {
@@ -39,7 +39,7 @@ export const CredentialForm: React.FC = () => {
         api_secret: form.apiSecret,
         session_token: form.sessionToken,
       };
-      const res = await fetch(BACKEND_URL + '/login', {
+      const res = await fetch((BACKEND_URL || '') + '/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -48,19 +48,14 @@ export const CredentialForm: React.FC = () => {
         const data = await res.json();
         throw new Error(data.detail || 'Login failed');
       }
-      
-      // Save credentials using the context (always persist for session)
-      setCredentials(form, true);
-
-      // Fetch customer details immediately after login
-      const customerRes = await fetch(`${BACKEND_URL}/account/details?api_session=${form.sessionToken}`);
-      if (!customerRes.ok) {
-        throw new Error('Failed to fetch customer details after login');
+      const loginData = await res.json();
+      // Save ONLY session token client-side; do not persist apiSecret/apiKey
+      setCredentials({ sessionToken: loginData?.api_session || form.sessionToken }, true);
+      // Store customer details if present
+      const toStore = loginData && loginData.customer ? loginData.customer : null;
+      if (toStore) {
+        localStorage.setItem('breeze_customer_data', JSON.stringify(toStore));
       }
-      const customerData = await customerRes.json();
-      // Store only the SDK payload if wrapped, else store as-is for backward compatibility
-      const toStore = customerData && customerData.customer ? customerData.customer : customerData;
-      localStorage.setItem('breeze_customer_data', JSON.stringify(toStore));
 
       router.push('/dashboard');
     } catch (err: unknown) {

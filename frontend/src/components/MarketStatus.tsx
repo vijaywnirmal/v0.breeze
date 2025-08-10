@@ -1,10 +1,44 @@
 "use client";
-import React from 'react';
-import { getMarketState } from '../utils/marketState';
+import React, { useEffect, useState } from 'react';
+
+type MarketStatusResponse = {
+  is_market_open: boolean;
+  status: 'open' | 'closed' | 'pre-open';
+  current_time: string;
+  market_open_time: string;
+  market_close_cutoff: string;
+  current_day: string;
+  is_weekend: boolean;
+  is_holiday: boolean;
+  last_trading_day: string;
+  next_market_open?: string | null;
+};
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 export const MarketStatus: React.FC = () => {
-  const marketState = getMarketState();
-  
+  const [marketState, setMarketState] = useState<MarketStatusResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      setError(null);
+      try {
+        const url = (API_BASE ? `${API_BASE}/market/status` : `/api/market/status`);
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Failed to load market status');
+        const data = await res.json();
+        if (!cancelled) setMarketState(data);
+      } catch (e) {
+        if (!cancelled) setError('Unable to load market status');
+      }
+    }
+    load();
+    const t = setInterval(load, 60_000);
+    return () => { cancelled = true; clearInterval(t); };
+  }, []);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open':
@@ -13,8 +47,6 @@ export const MarketStatus: React.FC = () => {
         return 'text-red-600 dark:text-red-400';
       case 'pre-open':
         return 'text-yellow-600 dark:text-yellow-400';
-      case 'weekend':
-        return 'text-gray-600 dark:text-gray-400';
       default:
         return 'text-gray-600 dark:text-gray-400';
     }
@@ -40,12 +72,6 @@ export const MarketStatus: React.FC = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         );
-      case 'weekend':
-        return (
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        );
       default:
         return null;
     }
@@ -56,16 +82,21 @@ export const MarketStatus: React.FC = () => {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         Market Status
       </h3>
-      
+      {error && (
+        <div className="text-sm text-red-600 dark:text-red-400 mb-2">{error}</div>
+      )}
+      {!marketState && !error && (
+        <div className="text-sm text-gray-500">Loading...</div>
+      )}
+
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <span className="text-gray-600 dark:text-gray-400">NSE Status:</span>
           <div className="flex items-center space-x-2">
-            {getStatusIcon(marketState.marketStatus)}
-            <span className={`font-medium ${getStatusColor(marketState.marketStatus)}`}>
-              {marketState.marketStatus === 'open' ? 'Open' : 
-               marketState.marketStatus === 'closed' ? 'Closed' :
-               marketState.marketStatus === 'pre-open' ? 'Pre-Open' : 'Weekend'}
+            {getStatusIcon(marketState?.status || 'closed')}
+            <span className={`font-medium ${getStatusColor(marketState?.status || 'closed')}`}>
+              {marketState?.status === 'open' ? 'Open' : 
+               marketState?.status === 'closed' ? 'Closed' : 'Pre-Open'}
             </span>
           </div>
         </div>
@@ -73,28 +104,18 @@ export const MarketStatus: React.FC = () => {
         <div className="flex justify-between items-center">
           <span className="text-gray-600 dark:text-gray-400">BSE Status:</span>
           <div className="flex items-center space-x-2">
-            {getStatusIcon(marketState.marketStatus)}
-            <span className={`font-medium ${getStatusColor(marketState.marketStatus)}`}>
-              {marketState.marketStatus === 'open' ? 'Open' : 
-               marketState.marketStatus === 'closed' ? 'Closed' :
-               marketState.marketStatus === 'pre-open' ? 'Pre-Open' : 'Weekend'}
+            {getStatusIcon(marketState?.status || 'closed')}
+            <span className={`font-medium ${getStatusColor(marketState?.status || 'closed')}`}>
+              {marketState?.status === 'open' ? 'Open' : 
+               marketState?.status === 'closed' ? 'Closed' : 'Pre-Open'}
             </span>
           </div>
         </div>
         
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600 dark:text-gray-400">Data Source:</span>
-          <span className="text-gray-900 dark:text-gray-100 font-medium">
-            3:30 PM IST
-          </span>
-        </div>
+        {/* Data source row removed per request */}
       </div>
       
-      <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          {marketState.description}
-        </p>
-      </div>
+      {/* Footer description removed per request */}
     </div>
   );
 };

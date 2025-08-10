@@ -3,9 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { MarketIndices as MarketIndicesType, MarketIndex } from '../types/market';
 import { LoadingSpinner } from './LoadingSpinner';
 import { fetchMarketIndices } from '../services/marketApi';
-import { getMarketState } from '../utils/marketState';
 import { useCredentialManager } from '../context/CredentialManager';
-import { MarketState } from '../utils/marketState';
 
 interface MarketIndicesProps {
   className?: string;
@@ -17,7 +15,7 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
   const [marketData, setMarketData] = useState<MarketIndicesType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [marketState, setMarketState] = useState<MarketState | null>(null);
+  const [isMarketOpen, setIsMarketOpen] = useState<boolean>(false);
   const [flashMap, setFlashMap] = useState<Record<string, 'up' | 'down' | null>>({});
   const lastPricesRef = React.useRef<Record<string, number | null>>({});
   const { credentials } = useCredentialManager();
@@ -26,9 +24,15 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
     try {
       setError(null);
       
-      // Get current market state
-      const currentMarketState = getMarketState();
-      setMarketState(currentMarketState);
+      // Fetch canonical market status from backend
+      try {
+        const base = process.env.NEXT_PUBLIC_API_URL || '';
+        const resp = await fetch(`${base || ''}/api/market/status`, { cache: 'no-store' });
+        if (resp.ok) {
+          const status = await resp.json();
+          setIsMarketOpen(Boolean(status?.is_market_open));
+        }
+      } catch {}
       
       if (!credentials?.sessionToken) {
         throw new Error('No session token available');
@@ -82,9 +86,8 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
     fetchMarketData();
 
     // Poll periodically when market is open
-    const current = getMarketState();
     let intervalId: number | null = null;
-    if (current.isOpen) {
+    if (isMarketOpen) {
       intervalId = window.setInterval(() => {
         fetchMarketData();
       }, 60_000);
@@ -93,7 +96,7 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
     return () => {
       if (intervalId) window.clearInterval(intervalId);
     };
-  }, [credentials?.sessionToken, fetchMarketData]);
+  }, [credentials?.sessionToken, fetchMarketData, isMarketOpen]);
 
   const formatNumber = (num: number): string => {
     return num.toLocaleString('en-IN', {

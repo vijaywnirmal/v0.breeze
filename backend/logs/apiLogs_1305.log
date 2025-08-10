@@ -560,3 +560,147 @@
 2025-08-10 05:03:55,772 - Get Historical data V2 response
 2025-08-10 05:03:55,977 - Get Historical data V2 response
 2025-08-10 05:03:56,170 - Get Historical data V2 response
+2025-08-10 11:39:58,538 - <Response [200]>
+2025-08-10 11:39:58,539 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 11:39:58', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 11:39:59,383 - Get Historical data V2 response
+2025-08-10 11:39:59,578 - Get Historical data V2 response
+2025-08-10 11:39:59,775 - Get Historical data V2 response
+2025-08-10 11:40:00,015 - Get Historical data V2 response
+2025-08-10 11:40:00,232 - Get Historical data V2 response
+2025-08-10 11:40:00,453 - Get Historical data V2 response
+2025-08-10 11:40:00,654 - Get Historical data V2 response
+2025-08-10 11:40:00,854 - Get Historical data V2 response
+2025-08-10 11:42:35,970 - Get Historical data V2 response
+2025-08-10 11:42:36,164 - Get Historical data V2 response
+2025-08-10 11:42:36,364 - Get Historical data V2 response
+2025-08-10 11:42:36,559 - Get Historical data V2 response
+2025-08-10 11:42:36,764 - Get Historical data V2 response
+2025-08-10 11:42:36,971 - Get Historical data V2 response
+2025-08-10 11:42:37,160 - Get Historical data V2 response
+2025-08-10 11:42:37,366 - Get Historical data V2 response
+2025-08-10 11:42:37,582 - Get Historical data V2 response
+2025-08-10 11:42:37,788 - Get Historical data V2 response
+2025-08-10 11:42:38,004 - Get Historical data V2 response
+2025-08-10 11:42:38,204 - Get Historical data V2 response
+2025-08-10 11:42:38,408 - Get Historical data V2 response
+2025-08-10 11:42:38,609 - Get Historical data V2 response
+2025-08-10 11:42:38,808 - Get Historical data V2 response
+2025-08-10 11:42:39,010 - Get Historical data V2 response
+2025-08-10 11:42:39,204 - Get Historical data V2 response
+2025-08-10 11:42:39,484 - Get Historical data V2 response
+2025-08-10 11:42:39,684 - Get Historical data V2 response
+2025-08-10 11:42:39,930 - Get Historical data V2 response
+2025-08-10 12:02:52,051 - <Response [200]>
+2025-08-10 12:02:52,052 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:02:52', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:04:35,294 - <Response [200]>
+2025-08-10 12:04:35,295 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:04:35', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:05:55,807 - Get Historical data V2 response
+2025-08-10 12:05:56,001 - Get Historical data V2 response
+2025-08-10 12:05:56,206 - Get Historical data V2 response
+2025-08-10 12:05:56,407 - Get Historical data V2 response
+2025-08-10 12:05:56,649 - Get Historical data V2 response
+2025-08-10 12:05:56,885 - Get Historical data V2 response
+2025-08-10 12:05:57,090 - Get Historical data V2 response
+2025-08-10 12:05:57,386 - Get Historical data V2 response
+2025-08-10 12:09:20,575 - <Response [200]>
+2025-08-10 12:09:20,576 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:09:20', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:09:21,203 - Get Historical data V2 response
+2025-08-10 12:09:21,450 - Get Historical data V2 response
+2025-08-10 12:09:21,641 - Get Historical data V2 response
+2025-08-10 12:09:21,892 - Get Historical data V2 response
+2025-08-10 12:09:22,089 - Get Historical data V2 response
+2025-08-10 12:09:22,282 - Get Historical data V2 response
+2025-08-10 12:09:22,489 - Get Historical data V2 response
+2025-08-10 12:09:22,678 - Get Historical data V2 response
+2025-08-10 12:19:08,059 - <Response [200]>
+2025-08-10 12:19:08,060 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:19:08', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:25:51,975 - <Response [200]>
+2025-08-10 12:25:51,976 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:25:52', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:25:52,450 - Get Historical data V2 response
+2025-08-10 12:25:52,695 - Get Historical data V2 response
+2025-08-10 12:25:52,892 - Get Historical data V2 response
+2025-08-10 12:25:53,095 - Get Historical data V2 response
+2025-08-10 12:25:53,311 - Get Historical data V2 response
+2025-08-10 12:25:53,542 - Get Historical data V2 response
+2025-08-10 12:25:53,737 - Get Historical data V2 response
+2025-08-10 12:25:53,983 - Get Historical data V2 response
+2025-08-10 12:26:00,185 - Get Historical data V2 response
+2025-08-10 12:26:00,406 - Get Historical data V2 response
+2025-08-10 12:26:00,648 - Get Historical data V2 response
+2025-08-10 12:26:00,851 - Get Historical data V2 response
+2025-08-10 12:26:01,049 - Get Historical data V2 response
+2025-08-10 12:26:01,257 - Get Historical data V2 response
+2025-08-10 12:26:01,461 - Get Historical data V2 response
+2025-08-10 12:26:01,650 - Get Historical data V2 response
+2025-08-10 12:26:02,056 - Get Historical data V2 response
+2025-08-10 12:26:02,300 - Get Historical data V2 response
+2025-08-10 12:26:54,446 - Get Historical data V2 response
+2025-08-10 12:26:54,653 - Get Historical data V2 response
+2025-08-10 12:26:54,853 - Get Historical data V2 response
+2025-08-10 12:26:55,055 - Get Historical data V2 response
+2025-08-10 12:26:55,321 - Get Historical data V2 response
+2025-08-10 12:26:55,532 - Get Historical data V2 response
+2025-08-10 12:26:55,709 - Get Historical data V2 response
+2025-08-10 12:26:55,927 - Get Historical data V2 response
+2025-08-10 12:26:56,136 - Get Historical data V2 response
+2025-08-10 12:26:56,347 - Get Historical data V2 response
+2025-08-10 12:28:45,883 - Get Historical data V2 response
+2025-08-10 12:28:46,079 - Get Historical data V2 response
+2025-08-10 12:28:46,282 - Get Historical data V2 response
+2025-08-10 12:28:46,482 - Get Historical data V2 response
+2025-08-10 12:28:46,730 - Get Historical data V2 response
+2025-08-10 12:28:46,935 - Get Historical data V2 response
+2025-08-10 12:28:47,140 - Get Historical data V2 response
+2025-08-10 12:28:47,341 - Get Historical data V2 response
+2025-08-10 12:28:47,571 - Get Historical data V2 response
+2025-08-10 12:28:47,772 - Get Historical data V2 response
+2025-08-10 12:29:17,691 - <Response [200]>
+2025-08-10 12:29:17,692 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '10-Aug-2025 12:29:17', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-10 12:29:18,198 - Get Historical data V2 response
+2025-08-10 12:29:18,415 - Get Historical data V2 response
+2025-08-10 12:29:18,614 - Get Historical data V2 response
+2025-08-10 12:29:18,825 - Get Historical data V2 response
+2025-08-10 12:29:19,049 - Get Historical data V2 response
+2025-08-10 12:29:19,243 - Get Historical data V2 response
+2025-08-10 12:29:19,447 - Get Historical data V2 response
+2025-08-10 12:29:19,642 - Get Historical data V2 response
+2025-08-10 12:29:28,057 - Get Historical data V2 response
+2025-08-10 12:29:28,243 - Get Historical data V2 response
+2025-08-10 12:29:28,477 - Get Historical data V2 response
+2025-08-10 12:29:28,684 - Get Historical data V2 response
+2025-08-10 12:29:28,884 - Get Historical data V2 response
+2025-08-10 12:29:29,126 - Get Historical data V2 response
+2025-08-10 12:29:29,331 - Get Historical data V2 response
+2025-08-10 12:29:29,553 - Get Historical data V2 response
+2025-08-10 12:29:29,769 - Get Historical data V2 response
+2025-08-10 12:29:29,977 - Get Historical data V2 response
+2025-08-10 12:30:32,841 - Get Historical data V2 response
+2025-08-10 12:30:33,133 - Get Historical data V2 response
+2025-08-10 12:30:33,362 - Get Historical data V2 response
+2025-08-10 12:30:33,596 - Get Historical data V2 response
+2025-08-10 12:30:33,873 - Get Historical data V2 response
+2025-08-10 12:30:34,135 - Get Historical data V2 response
+2025-08-10 12:30:34,356 - Get Historical data V2 response
+2025-08-10 12:30:34,581 - Get Historical data V2 response
+2025-08-10 12:30:34,806 - Get Historical data V2 response
+2025-08-10 12:30:35,055 - Get Historical data V2 response
+2025-08-10 12:34:08,984 - Get Historical data V2 response
+2025-08-10 12:34:09,274 - Get Historical data V2 response
+2025-08-10 12:34:09,477 - Get Historical data V2 response
+2025-08-10 12:34:09,677 - Get Historical data V2 response
+2025-08-10 12:34:09,877 - Get Historical data V2 response
+2025-08-10 12:34:10,130 - Get Historical data V2 response
+2025-08-10 12:34:10,312 - Get Historical data V2 response
+2025-08-10 12:34:10,520 - Get Historical data V2 response
+2025-08-10 12:34:10,722 - Get Historical data V2 response
+2025-08-10 12:34:10,926 - Get Historical data V2 response
+2025-08-10 12:37:32,871 - Get Historical data V2 response
+2025-08-10 12:37:33,070 - Get Historical data V2 response
+2025-08-10 12:37:33,321 - Get Historical data V2 response
+2025-08-10 12:37:33,804 - Get Historical data V2 response
+2025-08-10 12:37:33,995 - Get Historical data V2 response
+2025-08-10 12:37:34,209 - Get Historical data V2 response
+2025-08-10 12:37:34,433 - Get Historical data V2 response
+2025-08-10 12:37:34,636 - Get Historical data V2 response
+2025-08-10 12:37:34,840 - Get Historical data V2 response
+2025-08-10 12:37:35,037 - Get Historical data V2 response

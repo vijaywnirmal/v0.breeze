@@ -6,8 +6,8 @@ from typing import Optional, List
 IST = pytz.timezone('Asia/Kolkata')
 
 # Market hours
-MARKET_OPEN_TIME = time(9, 15)  # 9:15 AM IST
-MARKET_CLOSE_TIME = time(15, 30)  # 3:30 PM IST
+MARKET_OPEN_TIME = time(9, 15)   # 9:15 AM IST
+MARKET_CLOSE_TIME = time(15, 30)  # 3:30 PM cutoff IST
 
 def is_market_open() -> bool:
     """Check if the market is currently open."""

@@ -10,19 +10,30 @@ export default function ScreenerPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   // Default to only RELIND and TCS for initial testing
-  const [query, setQuery] = React.useState<ScreenerQuery>({ limit: 50, offset: 0, min_change_pct: 1, sort_field: 'change_pct', sort_order: 'desc', symbols: 'RELIND,TCS' });
+  const [query, setQuery] = React.useState<ScreenerQuery>({ limit: 50, offset: 0, min_change_pct: 1, sort_field: 'change_pct', sort_order: 'desc' });
 
   const load = React.useCallback(async () => {
     if (!credentials?.sessionToken) return;
     setLoading(true);
     setError(null);
     try {
-      // If screener cache is empty on server (e.g., before EOD build), fall back to intraday page 1
-      let resp = await fetchEodScreener(credentials.sessionToken, query);
-      if (!resp.items || resp.items.length === 0) {
+      // If screener cache is empty on server (or endpoint unavailable), fall back to intraday
+      let resp: ScreenerResponse | null = null;
+      try {
+        resp = await fetchEodScreener(credentials.sessionToken, query);
+      } catch (err: any) {
+        const msg = String(err?.message || '');
+        if (msg.includes('404')) {
+          // Endpoint not found; fall back to intraday
+          resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
+        } else {
+          throw err;
+        }
+      }
+      if (resp && (!resp.items || resp.items.length === 0)) {
         resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
       }
-      setData(resp);
+      if (resp) setData(resp);
     } catch (e: any) {
       setError(e?.message || 'Failed to load screener');
     } finally {
@@ -46,7 +57,7 @@ export default function ScreenerPage() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
       <div className="flex items-center justify-between py-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">EOD Screener</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Screeners</h1>
         <div className="flex gap-2">
           <input type="number" className="px-3 py-2 rounded border bg-white dark:bg-gray-800 text-sm w-40" placeholder="Min % change" value={query.min_change_pct ?? ''} onChange={(e) => onChange({ min_change_pct: e.target.value === '' ? undefined : Number(e.target.value) })} />
           <input type="number" className="px-3 py-2 rounded border bg-white dark:bg-gray-800 text-sm w-40" placeholder="Min volume" value={query.min_volume ?? ''} onChange={(e) => onChange({ min_volume: e.target.value === '' ? undefined : Number(e.target.value) })} />

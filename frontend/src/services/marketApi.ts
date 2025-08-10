@@ -33,15 +33,17 @@ interface MarketIndicesResponseNew {
 
 // Fetch market indices data with proper change calculations
 export async function fetchMarketIndices(sessionToken: string): Promise<MarketIndices> {
-  if (!API_URL) throw new Error('API URL is not set');
+  // Allow empty API_URL on the client so Next.js rewrite can proxy to the backend
+  if (!API_URL && typeof window === 'undefined') throw new Error('API URL is not set');
   
   try {
     // Try new router path first, fall back to legacy
     // Prefer the original main.py endpoint first
+    const base = API_URL || '';
     const urlCandidates = [
-      `${API_URL}/market/indices`,
-      `${API_URL}/api/market/indices`,
-      `${API_URL}/api/indices`
+      `${base}/api/market/indices`,
+      `${base}/api/indices`,
+      `${base}/market/indices`,
     ];
 
     let data: unknown | null = null;
@@ -194,15 +196,29 @@ export interface ScreenerQuery {
 }
 
 export async function fetchEodScreener(sessionToken: string, query: ScreenerQuery = {}): Promise<ScreenerResponse> {
-  if (!API_URL) throw new Error('API URL is not set');
+  if (!API_URL && typeof window === 'undefined') throw new Error('API URL is not set');
   const params = new URLSearchParams();
   params.set('api_session', sessionToken);
   Object.entries(query).forEach(([k, v]) => {
     if (v !== undefined && v !== null) params.set(k, String(v));
   });
-  const url = `${API_URL}/api/stocks/eod-screener?${params.toString()}`;
-  const resp = await axios.get(url, { headers: { 'Content-Type': 'application/json' } });
-  return resp.data as ScreenerResponse;
+  const base = API_URL || '';
+  const url = `${base}/api/stocks/eod-screener?${params.toString()}`;
+  try {
+    const resp = await axios.get(url, { headers: { 'Content-Type': 'application/json' } });
+    return resp.data as ScreenerResponse;
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err) && err.response && err.response.status === 404) {
+      // Gracefully degrade: return empty so caller can fall back to intraday
+      return {
+        total: 0,
+        items: [],
+        limit: Number(params.get('limit') || 50),
+        offset: Number(params.get('offset') || 0),
+      } as ScreenerResponse;
+    }
+    throw err;
+  }
 }
 
 export interface IntradayQuery {
@@ -212,7 +228,7 @@ export interface IntradayQuery {
 }
 
 export async function fetchIntradayScreener(sessionToken: string, query: IntradayQuery = {}): Promise<ScreenerResponse> {
-  if (!API_URL) throw new Error('API URL is not set');
+  if (!API_URL && typeof window === 'undefined') throw new Error('API URL is not set');
   const params = new URLSearchParams();
   params.set('api_session', sessionToken);
   if (query.page) params.set('page', String(query.page));

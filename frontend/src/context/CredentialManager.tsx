@@ -4,9 +4,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 // Types for credentials
 export type BrokerCredentials = {
-  apiKey: string;
-  apiSecret: string;
-  sessionToken: string;
+  apiKey?: string;      // avoid persisting; optional for compatibility
+  apiSecret?: string;   // avoid persisting; optional for compatibility
+  sessionToken: string; // only this is persisted
 };
 
 export type CredentialContextType = {
@@ -18,14 +18,14 @@ export type CredentialContextType = {
 
 const CredentialContext = createContext<CredentialContextType | undefined>(undefined);
 
-const SESSION_STORAGE_KEY = 'breeze_broker_credentials';
+const SESSION_STORAGE_KEY = 'breeze_session_token';
 
 export const CredentialProvider = ({ children }: { children: ReactNode }) => {
   // Hydrate from sessionStorage synchronously to avoid logout flashes between pages
   const [credentials, setCredentialsState] = useState<BrokerCredentials | null>(() => {
     if (typeof window === 'undefined') return null;
-    const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
-    try { return stored ? (JSON.parse(stored) as BrokerCredentials) : null; } catch { return null; }
+    const token = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    return token ? { sessionToken: token } : null;
   });
   const [isPersisted, setIsPersisted] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
@@ -34,9 +34,10 @@ export const CredentialProvider = ({ children }: { children: ReactNode }) => {
 
   // Set credentials and persist to sessionStorage
   const setCredentials = (creds: BrokerCredentials, persist = false) => {
-    setCredentialsState(creds);
+    // Always store only the session token
+    setCredentialsState({ sessionToken: creds.sessionToken });
     if (persist) {
-      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(creds));
+      sessionStorage.setItem(SESSION_STORAGE_KEY, creds.sessionToken);
       setIsPersisted(true);
     } else {
       sessionStorage.removeItem(SESSION_STORAGE_KEY);

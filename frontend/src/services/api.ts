@@ -1,6 +1,20 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || ""; // use Next.js rewrite when empty
+
+// Shared axios instance with baseURL and request id header
+let httpClient: AxiosInstance | null = null;
+export function getHttpClient(): AxiosInstance {
+  if (httpClient) return httpClient;
+  const base = API_URL || '';
+  httpClient = axios.create({ baseURL: base || undefined, withCredentials: false });
+  httpClient.interceptors.request.use((config) => {
+    const rid = Math.random().toString(36).slice(2);
+    (config.headers as Record<string, string>)["X-Request-ID"] = rid;
+    return config;
+  });
+  return httpClient;
+}
 
 export type BrokerCredentials = {
   apiKey: string;
@@ -23,10 +37,11 @@ export type AccountDetails = {
 
 // Fetch account details using the session token
 export async function fetchAccountDetails(sessionToken: string): Promise<AccountDetails> {
-  if (!API_URL) throw new Error('API URL is not set');
+  if (!API_URL && typeof window === 'undefined') throw new Error('API URL is not set');
   try {
-    const response = await axios.get(
-      `${API_URL}/account/details`,
+    const client = getHttpClient();
+    const response = await client.get(
+      `/api/account/details`,
       {
         params: { api_session: sessionToken },
         headers: {

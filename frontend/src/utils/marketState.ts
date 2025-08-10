@@ -16,22 +16,22 @@ export function getMarketState(): MarketState {
   todayOpen.setHours(9, 15, 0, 0);
   
   const todayClose = new Date(istTime);
-  todayClose.setHours(15, 30, 0, 0);
+  todayClose.setHours(15, 31, 0, 0);
   
   // Use 15:30:00 for the closing candle (30-minute interval)
   const todayCloseCandle = new Date(istTime);
-  todayCloseCandle.setHours(15, 30, 0, 0);
+  todayCloseCandle.setHours(15, 31, 0, 0);
   
   // Weekend logic
   if (weekday === 0 || weekday === 6) { // Sunday or Saturday
     const friday = new Date(istTime);
     const daysToSubtract = weekday === 0 ? 2 : 1; // Sunday: go back 2 days, Saturday: go back 1 day
     friday.setDate(friday.getDate() - daysToSubtract);
-    friday.setHours(15, 30, 0, 0); // Use 15:30:00 for Friday's closing candle
+    friday.setHours(15, 31, 0, 0); // Use 15:31:00 for Friday's closing candle
     
     const previousFriday = new Date(friday);
     previousFriday.setDate(previousFriday.getDate() - 7);
-    previousFriday.setHours(15, 30, 0, 0);
+    previousFriday.setHours(15, 31, 0, 0);
     
           return {
         isOpen: false,
@@ -61,7 +61,7 @@ export function getMarketState(): MarketState {
       yesterday.setDate(yesterday.getDate() - 1);
     }
     
-    yesterday.setHours(15, 30, 0, 0); // Use 15:30:00 for yesterday's closing candle
+    yesterday.setHours(15, 31, 0, 0); // Use 15:31:00 for yesterday's closing candle
     
     const dayBeforeYesterday = new Date(yesterday);
     dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 1);
@@ -70,7 +70,7 @@ export function getMarketState(): MarketState {
     } else if (dayBeforeYesterday.getDay() === 6) {
       dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 1);
     }
-    dayBeforeYesterday.setHours(15, 30, 0, 0);
+    dayBeforeYesterday.setHours(15, 31, 0, 0);
     
           return {
         isOpen: false,
@@ -82,7 +82,7 @@ export function getMarketState(): MarketState {
       };
   }
   
-  // After market close (after 15:30 IST)
+  // After market close (after 15:31 IST)
   if (currentTime > closeTime) {
     const dayBeforeYesterday = new Date(istTime);
     dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 1);
@@ -95,19 +95,19 @@ export function getMarketState(): MarketState {
       dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 1);
     }
     
-    dayBeforeYesterday.setHours(15, 30, 0, 0);
+    dayBeforeYesterday.setHours(15, 31, 0, 0);
     
           return {
         isOpen: false,
         isWeekend: false,
-        relevantDate: todayCloseCandle, // Use 15:30:00 for today's closing candle
+        relevantDate: todayCloseCandle, // Use 15:31:00 for today's closing candle
         previousDate: dayBeforeYesterday,
         marketStatus: 'closed',
         description: 'Market closed'
       };
   }
   
-  // Market is open (between 09:15-15:30 IST)
+  // Market is open (between 09:15-15:31 IST)
   const yesterday = new Date(istTime);
   yesterday.setDate(yesterday.getDate() - 1);
   
@@ -119,7 +119,7 @@ export function getMarketState(): MarketState {
     yesterday.setDate(yesterday.getDate() - 1);
   }
   
-  yesterday.setHours(15, 30, 0, 0); // Use 15:30:00 for yesterday's closing candle
+  yesterday.setHours(15, 31, 0, 0); // Use 15:31:00 for yesterday's closing candle
   
   return {
     isOpen: true,

@@ -7,7 +7,7 @@ export default function Home() {
       <CredentialForm />
       <div className="flex gap-4">
         <Link href="/dashboard" className="text-blue-600 hover:underline text-sm">Go to Dashboard</Link>
-        <Link href="/screener" className="text-blue-600 hover:underline text-sm">Open EOD Screener</Link>
+        <Link href="/screener" className="text-blue-600 hover:underline text-sm">Open Screeners</Link>
       </div>
     </div>
   );
