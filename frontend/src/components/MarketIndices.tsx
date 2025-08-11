@@ -142,8 +142,6 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
   }
 
   const indices = [marketData.nifty, marketData.sensex, marketData.bankNifty, marketData.finNifty].filter(i => i !== null) as MarketIndex[];
-  const anyClosed = indices.find(i => i.marketClosed);
-  const lastTradingDay = indices.find(i => i.lastTradingDay)?.lastTradingDay || null;
 
   return (
     <div className={`bg-[#111] dark:bg-[#111] border-b border-neutral-800 py-2 ${className}`}>
@@ -151,7 +149,6 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
         <div className="flex items-center gap-8 whitespace-nowrap">
           {indices.map((index: MarketIndex) => {
             const isUp = index.isPositive === true;
-            const isDown = index.isPositive === false;
             const flash = flashMap[index.symbol];
             return (
               <div

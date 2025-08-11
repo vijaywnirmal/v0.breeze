@@ -5,12 +5,9 @@ import { useCredentialManager } from '../../context/CredentialManager';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { MarketStatus } from '../../components/MarketStatus';
 
-interface CustomerData {
-  Success?: { idirect_userid?: string; idirect_user_name?: string };
-}
+
 
 export default function DashboardPage() {
-  const [customer, setCustomer] = useState<CustomerData | null>(null);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const { credentials } = useCredentialManager();
@@ -24,11 +21,6 @@ export default function DashboardPage() {
     if (!credentials?.sessionToken) {
       router.push('/');
       return;
-    }
-    if (typeof window === 'undefined') return;
-    const storedCustomer = localStorage.getItem('breeze_customer_data');
-    if (storedCustomer) {
-      try { setCustomer(JSON.parse(storedCustomer)); } catch { setCustomer(null); }
     }
   }, [mounted, credentials, router]);
 

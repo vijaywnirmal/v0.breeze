@@ -30,7 +30,7 @@ export const MarketStatus: React.FC = () => {
         if (!res.ok) throw new Error('Failed to load market status');
         const data = await res.json();
         if (!cancelled) setMarketState(data);
-      } catch (e) {
+      } catch {
         if (!cancelled) setError('Unable to load market status');
       }
     }

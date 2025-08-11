@@ -73,7 +73,13 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
     // New shape A: plain list (from new router) -> [{ name, last_price, change, percent_change, prev_close, date }]
     if (Array.isArray(data)) {
       const indicesMap: Record<string, MarketIndex> = {};
-      (data as Array<any>).forEach((idx) => {
+      (data as Array<{
+        name?: string;
+        last_price?: number;
+        change?: number;
+        percent_change?: number;
+        prev_close?: number;
+      }>).forEach((idx) => {
         const symbol = String(idx.name || '').toUpperCase();
         if (!symbol) return;
         const currentClose = Number(idx.last_price);

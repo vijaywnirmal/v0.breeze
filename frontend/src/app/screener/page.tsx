@@ -21,8 +21,8 @@ export default function ScreenerPage() {
       let resp: ScreenerResponse | null = null;
       try {
         resp = await fetchEodScreener(credentials.sessionToken, query);
-      } catch (err: any) {
-        const msg = String(err?.message || '');
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
         if (msg.includes('404')) {
           // Endpoint not found; fall back to intraday
           resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
@@ -34,8 +34,8 @@ export default function ScreenerPage() {
         resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
       }
       if (resp) setData(resp);
-    } catch (e: any) {
-      setError(e?.message || 'Failed to load screener');
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to load screener');
     } finally {
       setLoading(false);
     }
