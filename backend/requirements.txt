@@ -19,7 +19,7 @@ pandas>=2.2.4
 numpy>=2.1.0
 
 # Scheduling
-apscheduler>=4.0.0
+apscheduler>=3.11.0,<4.0.0
 
 # Security & Auth
 python-jose[cryptography]>=3.3.0
