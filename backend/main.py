@@ -237,6 +237,11 @@ def get_market_status_backend(now_ist: Optional[datetime] = None) -> Dict[str, A
     }
 
 
+@app.get("/")
+def read_root():
+    return {"status": "ok", "message": "Breeze API backend is running"}
+
+
 @app.get("/market/status")
 async def market_status():
     return get_market_status_backend()
