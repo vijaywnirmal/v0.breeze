@@ -73,6 +73,11 @@ logger.info(f"Session expiry hours: {settings.SESSION_EXPIRY_HOURS}")
 logger.info(f"Server rate limit: {settings.RATE_LIMIT_REQUESTS} / {settings.RATE_LIMIT_WINDOW}s")
 logger.info(f"Breeze rate limit: {settings.BREEZE_LIMIT_REQUESTS} / {settings.BREEZE_LIMIT_WINDOW}s")
 
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.getenv("PORT", "8000"))  # Render uses $PORT, defaulting to 8000 if not set
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
+
 # ---------------------------
 # FastAPI app + CORS
 # ---------------------------

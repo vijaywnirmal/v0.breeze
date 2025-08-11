@@ -31289,3 +31289,47 @@ Exception: Error in get_historical_data_v2(): HTTPSConnectionPool(host='breezeap
 2025-08-11 16:30:55,388 - APILogger - DEBUG - Get Historical data V2 response
 2025-08-11 16:30:55,660 - APILogger - DEBUG - Get Historical data V2 response
 2025-08-11 16:30:55,917 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 17:32:15,119 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 17:32:15,120 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 17:32:15,120 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 17:32:15,120 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 17:32:15,121 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 17:32:15,125 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 17:32:15,181 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 17:32:15,308 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 17:32:15,310 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 17:32:15,310 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 17:32:15,310 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 17:32:20,770 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 17:32:20,770 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 17:32:20,771 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 17:32:20,771 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 17:32:20,771 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 17:32:20,775 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 17:32:20,818 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 17:32:20,933 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 17:32:20,935 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 17:32:20,935 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 17:32:20,935 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 17:32:51,393 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 17:32:51,394 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 17:32:51,394 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 17:32:51,395 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 17:32:51,395 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 17:32:51,397 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 17:32:51,438 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 17:32:51,538 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 17:32:51,539 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 17:32:51,540 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 17:32:51,540 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 17:33:14,611 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 17:33:14,612 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 17:33:14,612 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 17:33:14,612 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 17:33:14,613 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 17:33:14,616 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 17:33:14,660 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 17:33:14,772 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 17:33:14,773 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 17:33:14,774 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 17:33:14,774 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
