@@ -31208,3 +31208,35 @@ Exception: Error in get_historical_data_v2(): HTTPSConnectionPool(host='breezeap
 2025-08-11 16:23:21,157 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
 2025-08-11 16:23:21,158 - apscheduler.scheduler - INFO - Scheduler started
 2025-08-11 16:23:21,158 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 16:24:12,952 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 16:24:12,953 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 16:24:12,953 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 16:24:12,954 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 16:24:12,954 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 16:24:12,958 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 16:24:13,001 - breeze_api - INFO - Mapped company 'RELIANCE INDUSTRIES' -> short_name 'RELIND' (raw: 'RELIANCE INDUSTRIES', norm: 'RELIANCE INDUSTRIES')
+2025-08-11 16:24:13,003 - breeze_api - INFO - Mapped company 'TATA CONSULTANCY SERVICES LTD' -> short_name 'TCS' (raw: 'TATA CONSULTANCY SERVICES LTD', norm: 'TATA CONSULTANCY SERVICES')
+2025-08-11 16:24:13,005 - breeze_api - INFO - Added manual mapping: 'RELIANCE INDUSTRIES LIMITED' -> 'RELIND' (raw: 'RELIANCE INDUSTRIES LIMITED', norm: 'RELIANCE INDUSTRIES')
+2025-08-11 16:24:13,006 - breeze_api - INFO - Added manual mapping: 'RELIANCE INDUSTRIES LTD' -> 'RELIND' (raw: 'RELIANCE INDUSTRIES LTD', norm: 'RELIANCE INDUSTRIES')
+2025-08-11 16:24:13,006 - breeze_api - INFO - Added manual mapping: 'RELIANCE INDUSTRIES' -> 'RELIND' (raw: 'RELIANCE INDUSTRIES', norm: 'RELIANCE INDUSTRIES')
+2025-08-11 16:24:13,006 - breeze_api - INFO - Added manual mapping: 'RELIANCE' -> 'RELIND' (raw: 'RELIANCE', norm: 'RELIANCE')
+2025-08-11 16:24:13,006 - breeze_api - INFO - Added manual mapping: 'TATA CONSULTANCY SERVICES LIMITED' -> 'TCS' (raw: 'TATA CONSULTANCY SERVICES LIMITED', norm: 'TATA CONSULTANCY SERVICES')
+2025-08-11 16:24:13,007 - breeze_api - INFO - Added manual mapping: 'TATA CONSULTANCY SERVICES LTD' -> 'TCS' (raw: 'TATA CONSULTANCY SERVICES LTD', norm: 'TATA CONSULTANCY SERVICES')
+2025-08-11 16:24:13,007 - breeze_api - INFO - Added manual mapping: 'TATA CONSULTANCY SERVICES' -> 'TCS' (raw: 'TATA CONSULTANCY SERVICES', norm: 'TATA CONSULTANCY SERVICES')
+2025-08-11 16:24:13,008 - breeze_api - INFO - Added manual mapping: 'TCS' -> 'TCS' (raw: 'TCS', norm: 'TCS')
+2025-08-11 16:24:13,010 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 16:24:13,114 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 16:24:13,115 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 16:24:13,116 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 16:24:13,116 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 16:26:13,232 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 16:26:13,232 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 16:26:13,233 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 16:26:13,233 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 16:26:13,233 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 16:26:13,237 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 16:26:13,286 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 16:26:13,390 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 16:26:13,392 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 16:26:13,392 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 16:26:13,392 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
