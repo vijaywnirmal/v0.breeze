@@ -9,6 +9,8 @@ export default function ScreenerPage() {
   const [data, setData] = React.useState<ScreenerResponse | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const sseRef = React.useRef<EventSource | null>(null);
+  const mountedRef = React.useRef(true);
   // Default to only RELIND and TCS for initial testing
   const [query, setQuery] = React.useState<ScreenerQuery>({ limit: 50, offset: 0, min_change_pct: 1, sort_field: 'change_pct', sort_order: 'desc' });
 
@@ -17,21 +19,25 @@ export default function ScreenerPage() {
     setLoading(true);
     setError(null);
     try {
-      // If screener cache is empty on server (or endpoint unavailable), fall back to intraday
+      // Prefer intraday during market hours; fall back to EOD if needed
       let resp: ScreenerResponse | null = null;
       try {
-        resp = await fetchEodScreener(credentials.sessionToken, query);
+        resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
       } catch (err: any) {
-        const msg = String(err?.message || '');
-        if (msg.includes('404')) {
-          // Endpoint not found; fall back to intraday
-          resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
-        } else {
+        // If intraday is temporarily unavailable, try EOD snapshot
+        try {
+          resp = await fetchEodScreener(credentials.sessionToken, query);
+        } catch (err2) {
           throw err;
         }
       }
       if (resp && (!resp.items || resp.items.length === 0)) {
-        resp = await fetchIntradayScreener(credentials.sessionToken, { page: 1, page_size: query.limit ?? 50, exchange: 'NSE' });
+        // Last attempt: the other endpoint
+        try {
+          resp = await fetchEodScreener(credentials.sessionToken, query);
+        } catch {
+          // ignore
+        }
       }
       if (resp) setData(resp);
     } catch (e: any) {
@@ -42,8 +48,68 @@ export default function ScreenerPage() {
   }, [credentials?.sessionToken, query]);
 
   React.useEffect(() => {
+    mountedRef.current = true;
     load();
+    return () => { mountedRef.current = false; };
   }, [load]);
+
+  // Wire SSE to current table symbols; re-open when symbol set changes
+  React.useEffect(() => {
+    if (!data || !Array.isArray(data.items) || data.items.length === 0) {
+      if (sseRef.current) { try { sseRef.current.close(); } catch {} sseRef.current = null; }
+      return;
+    }
+    const symbols = Array.from(new Set(
+      data.items
+        .map((row: any) => String(row?.instrument?.short_name || '').toUpperCase())
+        .filter((s) => !!s)
+    ));
+    if (symbols.length === 0) return;
+
+    // Close prior stream if any
+    if (sseRef.current) { try { sseRef.current.close(); } catch {} sseRef.current = null; }
+
+    const base = process.env.NEXT_PUBLIC_API_URL || '';
+    const search = new URLSearchParams();
+    search.set('symbols', symbols.join(','));
+    if (credentials?.sessionToken) search.set('api_session', credentials.sessionToken);
+    const url = `${base || ''}/api/stream/screener?${search.toString()}`;
+    const es = new EventSource(url, { withCredentials: false } as any);
+    sseRef.current = es;
+    es.onmessage = (ev: MessageEvent) => {
+      if (!mountedRef.current) return;
+      try {
+        const payload = JSON.parse(ev.data);
+        const items = payload?.items || [];
+        if (!Array.isArray(items) || items.length === 0) return;
+        setData((prev) => {
+          if (!prev) return prev;
+          const nextItems = prev.items.map((row: any) => {
+            const sym = (row?.instrument?.short_name || '').toUpperCase();
+            const update = items.find((it: any) => (it.short_name || '').toUpperCase() === sym);
+            if (!update) return row;
+            const cp = update.close_price ?? row.close_price;
+            const pp = update.prev_close_price ?? row.prev_close_price;
+            const ch = update.change_abs ?? (cp != null && pp ? Number((cp - pp).toFixed(2)) : row.change_abs);
+            const pct = update.change_pct ?? (cp != null && pp ? Number(((cp - pp) / pp * 100).toFixed(2)) : row.change_pct);
+            const vol = update.volume ?? row.volume;
+            return {
+              ...row,
+              close_price: cp,
+              prev_close_price: pp,
+              change_abs: ch,
+              change_pct: pct,
+              volume: vol,
+            };
+          });
+          return { ...prev, items: nextItems };
+        });
+      } catch {}
+    };
+    es.onerror = () => { /* let EventSource auto-reconnect */ };
+
+    return () => { if (sseRef.current === es) { try { es.close(); } catch {} sseRef.current = null; } };
+  }, [credentials?.sessionToken, data?.items?.length]);
 
   const onChange = (patch: Partial<ScreenerQuery>) => setQuery((q) => ({ ...q, ...patch, offset: 0 }));
 

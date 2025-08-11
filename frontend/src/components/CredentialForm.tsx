@@ -44,11 +44,16 @@ export const CredentialForm: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      const contentType = res.headers.get('content-type') || '';
+      const parseJson = async () => contentType.includes('application/json') ? await res.json() : null;
+      const parseText = async () => !contentType.includes('application/json') ? await res.text() : null;
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.detail || 'Login failed');
+        const data = await parseJson();
+        const txt = data ? null : await parseText();
+        const detail = (data && (data.detail || data.message)) || (txt && txt.trim()) || 'Login failed';
+        throw new Error(detail);
       }
-      const loginData = await res.json();
+      const loginData = (await parseJson()) || {};
       // Save ONLY session token client-side; do not persist apiSecret/apiKey
       setCredentials({ sessionToken: loginData?.api_session || form.sessionToken }, true);
       // Store customer details if present

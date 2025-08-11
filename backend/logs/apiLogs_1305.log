@@ -736,3 +736,986 @@
 2025-08-11 12:16:57,487 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8190>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
 2025-08-11 12:16:57,502 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F9BD0>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
 2025-08-11 12:16:57,512 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FA350>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,584 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FA990>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,598 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4A88F890>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,646 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE60D0>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,661 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE6850>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,682 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE6350>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,697 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE4F50>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,717 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE4190>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,730 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE7750>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,765 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FA710>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,777 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F9F90>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,792 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F9A90>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,801 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8550>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,817 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8B90>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,828 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8CD0>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,843 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FB750>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,853 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FBC50>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,878 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FB250>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,888 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFTY&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8E10>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,900 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F87D0>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,912 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=CNXBAN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F8190>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,928 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1F9E50>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,937 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=BSESEN&exch_code=BSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4D1FA350>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,950 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-11T00%3A00%3A01.000Z&to_date=2025-08-11T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE7C50>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:17:45,961 - Exception in get_historical_data_v2 : HTTPSConnectionPool(host='breezeapi.icicidirect.com', port=443): Max retries exceeded with url: /api/v2/historicalcharts?interval=30minute&from_date=2025-08-08T00%3A00%3A01.000Z&to_date=2025-08-08T23%3A59%3A59.000Z&stock_code=NIFFIN&exch_code=NSE&product_type=cash (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x0000020D4AFE4CD0>: Failed to resolve 'breezeapi.icicidirect.com' ([Errno 11001] getaddrinfo failed)"))
+2025-08-11 12:19:02,506 - <Response [200]>
+2025-08-11 12:19:02,507 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:19:02', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:19:03,377 - Get Historical data V2 response
+2025-08-11 12:19:03,708 - Get Historical data V2 response
+2025-08-11 12:19:04,006 - Get Historical data V2 response
+2025-08-11 12:19:04,341 - Get Historical data V2 response
+2025-08-11 12:19:04,620 - Get Historical data V2 response
+2025-08-11 12:19:04,891 - Get Historical data V2 response
+2025-08-11 12:19:05,181 - Get Historical data V2 response
+2025-08-11 12:19:05,487 - Get Historical data V2 response
+2025-08-11 12:19:05,785 - Get Historical data V2 response
+2025-08-11 12:19:06,034 - Get Historical data V2 response
+2025-08-11 12:19:06,392 - Get Historical data V2 response
+2025-08-11 12:19:06,674 - Get Historical data V2 response
+2025-08-11 12:19:06,967 - Get Historical data V2 response
+2025-08-11 12:19:07,237 - Get Historical data V2 response
+2025-08-11 12:19:07,550 - Get Historical data V2 response
+2025-08-11 12:19:07,835 - Get Historical data V2 response
+2025-08-11 12:19:08,092 - Get Historical data V2 response
+2025-08-11 12:19:08,405 - Get Historical data V2 response
+2025-08-11 12:19:08,732 - Get Historical data V2 response
+2025-08-11 12:19:09,066 - Get Historical data V2 response
+2025-08-11 12:19:09,367 - Get Historical data V2 response
+2025-08-11 12:19:09,642 - Get Historical data V2 response
+2025-08-11 12:19:09,936 - Get Historical data V2 response
+2025-08-11 12:19:10,241 - Get Historical data V2 response
+2025-08-11 12:20:04,080 - Get Historical data V2 response
+2025-08-11 12:20:04,346 - Get Historical data V2 response
+2025-08-11 12:20:04,652 - Get Historical data V2 response
+2025-08-11 12:20:05,002 - Get Historical data V2 response
+2025-08-11 12:20:05,267 - Get Historical data V2 response
+2025-08-11 12:20:05,563 - Get Historical data V2 response
+2025-08-11 12:20:05,879 - Get Historical data V2 response
+2025-08-11 12:20:06,155 - Get Historical data V2 response
+2025-08-11 12:21:04,107 - Get Historical data V2 response
+2025-08-11 12:21:04,419 - Get Historical data V2 response
+2025-08-11 12:21:04,752 - Get Historical data V2 response
+2025-08-11 12:21:05,101 - Get Historical data V2 response
+2025-08-11 12:21:05,453 - Get Historical data V2 response
+2025-08-11 12:21:05,775 - Get Historical data V2 response
+2025-08-11 12:21:06,093 - Get Historical data V2 response
+2025-08-11 12:21:06,457 - Get Historical data V2 response
+2025-08-11 12:22:04,050 - Get Historical data V2 response
+2025-08-11 12:22:04,300 - Get Historical data V2 response
+2025-08-11 12:22:04,621 - Get Historical data V2 response
+2025-08-11 12:22:04,890 - Get Historical data V2 response
+2025-08-11 12:22:05,175 - Get Historical data V2 response
+2025-08-11 12:22:05,442 - Get Historical data V2 response
+2025-08-11 12:22:05,748 - Get Historical data V2 response
+2025-08-11 12:22:06,006 - Get Historical data V2 response
+2025-08-11 12:23:04,095 - Get Historical data V2 response
+2025-08-11 12:23:04,381 - Get Historical data V2 response
+2025-08-11 12:23:04,709 - Get Historical data V2 response
+2025-08-11 12:23:04,974 - Get Historical data V2 response
+2025-08-11 12:23:05,264 - Get Historical data V2 response
+2025-08-11 12:23:05,599 - Get Historical data V2 response
+2025-08-11 12:23:05,865 - Get Historical data V2 response
+2025-08-11 12:23:06,128 - Get Historical data V2 response
+2025-08-11 12:24:04,099 - Get Historical data V2 response
+2025-08-11 12:24:04,352 - Get Historical data V2 response
+2025-08-11 12:24:04,657 - Get Historical data V2 response
+2025-08-11 12:24:04,972 - Get Historical data V2 response
+2025-08-11 12:24:05,304 - Get Historical data V2 response
+2025-08-11 12:24:05,612 - Get Historical data V2 response
+2025-08-11 12:24:05,917 - Get Historical data V2 response
+2025-08-11 12:24:06,282 - Get Historical data V2 response
+2025-08-11 12:25:04,151 - Get Historical data V2 response
+2025-08-11 12:25:04,456 - Get Historical data V2 response
+2025-08-11 12:25:04,792 - Get Historical data V2 response
+2025-08-11 12:25:05,113 - Get Historical data V2 response
+2025-08-11 12:25:05,379 - Get Historical data V2 response
+2025-08-11 12:25:05,662 - Get Historical data V2 response
+2025-08-11 12:25:05,925 - Get Historical data V2 response
+2025-08-11 12:25:06,257 - Get Historical data V2 response
+2025-08-11 12:26:10,083 - Get Historical data V2 response
+2025-08-11 12:26:10,377 - Get Historical data V2 response
+2025-08-11 12:26:10,654 - Get Historical data V2 response
+2025-08-11 12:26:10,914 - Get Historical data V2 response
+2025-08-11 12:26:11,204 - Get Historical data V2 response
+2025-08-11 12:26:11,475 - Get Historical data V2 response
+2025-08-11 12:26:11,826 - Get Historical data V2 response
+2025-08-11 12:26:12,124 - Get Historical data V2 response
+2025-08-11 12:27:10,097 - Get Historical data V2 response
+2025-08-11 12:27:10,379 - Get Historical data V2 response
+2025-08-11 12:27:10,670 - Get Historical data V2 response
+2025-08-11 12:27:10,955 - Get Historical data V2 response
+2025-08-11 12:27:11,231 - Get Historical data V2 response
+2025-08-11 12:27:11,532 - Get Historical data V2 response
+2025-08-11 12:27:11,883 - Get Historical data V2 response
+2025-08-11 12:27:12,224 - Get Historical data V2 response
+2025-08-11 12:28:42,415 - <Response [200]>
+2025-08-11 12:28:42,416 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:28:42', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:28:43,513 - Get Historical data V2 response
+2025-08-11 12:28:43,813 - Get Historical data V2 response
+2025-08-11 12:28:44,099 - Get Historical data V2 response
+2025-08-11 12:28:44,361 - Get Historical data V2 response
+2025-08-11 12:28:44,670 - Get Historical data V2 response
+2025-08-11 12:28:44,960 - Get Historical data V2 response
+2025-08-11 12:28:45,271 - Get Historical data V2 response
+2025-08-11 12:28:45,611 - Get Historical data V2 response
+2025-08-11 12:28:45,944 - Get Historical data V2 response
+2025-08-11 12:28:46,293 - Get Historical data V2 response
+2025-08-11 12:28:46,649 - Get Historical data V2 response
+2025-08-11 12:28:46,937 - Get Historical data V2 response
+2025-08-11 12:29:44,043 - Get Historical data V2 response
+2025-08-11 12:29:44,374 - Get Historical data V2 response
+2025-08-11 12:31:17,090 - <Response [200]>
+2025-08-11 12:31:17,091 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:31:17', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:31:18,015 - Get Historical data V2 response
+2025-08-11 12:31:18,306 - Get Historical data V2 response
+2025-08-11 12:31:18,615 - Get Historical data V2 response
+2025-08-11 12:31:18,949 - Get Historical data V2 response
+2025-08-11 12:31:19,290 - Get Historical data V2 response
+2025-08-11 12:31:19,582 - Get Historical data V2 response
+2025-08-11 12:31:19,884 - Get Historical data V2 response
+2025-08-11 12:31:20,171 - Get Historical data V2 response
+2025-08-11 12:31:20,546 - Get Historical data V2 response
+2025-08-11 12:31:20,869 - Get Historical data V2 response
+2025-08-11 12:31:21,190 - Get Historical data V2 response
+2025-08-11 12:31:21,499 - Get Historical data V2 response
+2025-08-11 12:31:33,811 - Get Historical data V2 response
+2025-08-11 12:31:34,103 - Get Historical data V2 response
+2025-08-11 12:31:34,396 - Get Historical data V2 response
+2025-08-11 12:31:34,692 - Get Historical data V2 response
+2025-08-11 12:31:34,979 - Get Historical data V2 response
+2025-08-11 12:31:35,351 - Get Historical data V2 response
+2025-08-11 12:32:26,021 - Get Historical data V2 response
+2025-08-11 12:32:26,324 - Get Historical data V2 response
+2025-08-11 12:32:26,612 - Get Historical data V2 response
+2025-08-11 12:32:26,998 - Get Historical data V2 response
+2025-08-11 12:32:27,287 - Get Historical data V2 response
+2025-08-11 12:32:27,548 - Get Historical data V2 response
+2025-08-11 12:32:55,672 - Get Historical data V2 response
+2025-08-11 12:32:55,997 - Get Historical data V2 response
+2025-08-11 12:32:56,338 - Get Historical data V2 response
+2025-08-11 12:32:56,647 - Get Historical data V2 response
+2025-08-11 12:32:57,052 - Get Historical data V2 response
+2025-08-11 12:32:57,347 - Get Historical data V2 response
+2025-08-11 12:33:56,080 - Get Historical data V2 response
+2025-08-11 12:33:56,385 - Get Historical data V2 response
+2025-08-11 12:37:21,274 - <Response [200]>
+2025-08-11 12:37:21,275 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:37:21', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:37:22,353 - Get Historical data V2 response
+2025-08-11 12:37:22,634 - Get Historical data V2 response
+2025-08-11 12:37:22,904 - Get Historical data V2 response
+2025-08-11 12:37:23,162 - Get Historical data V2 response
+2025-08-11 12:37:23,428 - Get Historical data V2 response
+2025-08-11 12:37:23,740 - Get Historical data V2 response
+2025-08-11 12:37:24,002 - Get Historical data V2 response
+2025-08-11 12:37:24,274 - Get Historical data V2 response
+2025-08-11 12:37:24,610 - Get Historical data V2 response
+2025-08-11 12:37:24,949 - Get Historical data V2 response
+2025-08-11 12:37:25,230 - Get Historical data V2 response
+2025-08-11 12:37:25,534 - Get Historical data V2 response
+2025-08-11 12:37:41,996 - Get Historical data V2 response
+2025-08-11 12:37:42,282 - Get Historical data V2 response
+2025-08-11 12:37:42,542 - Get Historical data V2 response
+2025-08-11 12:37:42,813 - Get Historical data V2 response
+2025-08-11 12:37:43,169 - Get Historical data V2 response
+2025-08-11 12:37:43,504 - Get Historical data V2 response
+2025-08-11 12:37:49,921 - Get Historical data V2 response
+2025-08-11 12:37:50,198 - Get Historical data V2 response
+2025-08-11 12:37:50,453 - Get Historical data V2 response
+2025-08-11 12:37:50,729 - Get Historical data V2 response
+2025-08-11 12:37:55,020 - Get Historical data V2 response
+2025-08-11 12:37:55,362 - Get Historical data V2 response
+2025-08-11 12:37:59,996 - Get Historical data V2 response
+2025-08-11 12:38:00,308 - Get Historical data V2 response
+2025-08-11 12:38:05,075 - Get Historical data V2 response
+2025-08-11 12:38:05,351 - Get Historical data V2 response
+2025-08-11 12:41:00,023 - <Response [200]>
+2025-08-11 12:41:00,024 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:41:00', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:41:29,301 - <Response [200]>
+2025-08-11 12:41:29,302 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:41:29', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:41:30,276 - Get Historical data V2 response
+2025-08-11 12:41:30,562 - Get Historical data V2 response
+2025-08-11 12:41:30,854 - Get Historical data V2 response
+2025-08-11 12:41:31,151 - Get Historical data V2 response
+2025-08-11 12:41:31,445 - Get Historical data V2 response
+2025-08-11 12:41:31,782 - Get Historical data V2 response
+2025-08-11 12:41:32,076 - Get Historical data V2 response
+2025-08-11 12:41:32,394 - Get Historical data V2 response
+2025-08-11 12:41:32,672 - Get Historical data V2 response
+2025-08-11 12:41:33,012 - Get Historical data V2 response
+2025-08-11 12:41:33,300 - Get Historical data V2 response
+2025-08-11 12:41:33,632 - Get Historical data V2 response
+2025-08-11 12:41:35,992 - Get Historical data V2 response
+2025-08-11 12:41:36,310 - Get Historical data V2 response
+2025-08-11 12:41:41,174 - Get Historical data V2 response
+2025-08-11 12:41:41,487 - Get Historical data V2 response
+2025-08-11 12:41:45,257 - Get Historical data V2 response
+2025-08-11 12:41:45,611 - Get Historical data V2 response
+2025-08-11 12:41:50,221 - Get Historical data V2 response
+2025-08-11 12:41:50,533 - Get Historical data V2 response
+2025-08-11 12:41:56,095 - Get Historical data V2 response
+2025-08-11 12:41:56,452 - Get Historical data V2 response
+2025-08-11 12:42:01,070 - Get Historical data V2 response
+2025-08-11 12:42:01,396 - Get Historical data V2 response
+2025-08-11 12:42:06,050 - Get Historical data V2 response
+2025-08-11 12:42:06,361 - Get Historical data V2 response
+2025-08-11 12:42:11,014 - Get Historical data V2 response
+2025-08-11 12:42:11,296 - Get Historical data V2 response
+2025-08-11 12:42:16,716 - Get Historical data V2 response
+2025-08-11 12:42:17,310 - Get Historical data V2 response
+2025-08-11 12:42:21,095 - Get Historical data V2 response
+2025-08-11 12:42:21,387 - Get Historical data V2 response
+2025-08-11 12:42:25,995 - Get Historical data V2 response
+2025-08-11 12:42:26,400 - Get Historical data V2 response
+2025-08-11 12:42:31,075 - Get Historical data V2 response
+2025-08-11 12:42:31,385 - Get Historical data V2 response
+2025-08-11 12:42:36,070 - Get Historical data V2 response
+2025-08-11 12:42:36,380 - Get Historical data V2 response
+2025-08-11 12:42:41,108 - Get Historical data V2 response
+2025-08-11 12:42:41,392 - Get Historical data V2 response
+2025-08-11 12:42:46,019 - Get Historical data V2 response
+2025-08-11 12:42:46,310 - Get Historical data V2 response
+2025-08-11 12:42:51,050 - Get Historical data V2 response
+2025-08-11 12:42:51,377 - Get Historical data V2 response
+2025-08-11 12:42:55,999 - Get Historical data V2 response
+2025-08-11 12:42:56,315 - Get Historical data V2 response
+2025-08-11 12:43:00,153 - Get Historical data V2 response
+2025-08-11 12:43:00,448 - Get Historical data V2 response
+2025-08-11 12:43:04,133 - Get Historical data V2 response
+2025-08-11 12:43:04,456 - Get Historical data V2 response
+2025-08-11 12:43:05,066 - Get Historical data V2 response
+2025-08-11 12:43:05,344 - Get Historical data V2 response
+2025-08-11 12:43:06,096 - Get Historical data V2 response
+2025-08-11 12:43:06,390 - Get Historical data V2 response
+2025-08-11 12:43:07,108 - Get Historical data V2 response
+2025-08-11 12:43:07,434 - Get Historical data V2 response
+2025-08-11 12:43:08,167 - Get Historical data V2 response
+2025-08-11 12:43:08,439 - Get Historical data V2 response
+2025-08-11 12:43:09,094 - Get Historical data V2 response
+2025-08-11 12:43:09,369 - Get Historical data V2 response
+2025-08-11 12:43:10,089 - Get Historical data V2 response
+2025-08-11 12:43:10,349 - Get Historical data V2 response
+2025-08-11 12:43:11,119 - Get Historical data V2 response
+2025-08-11 12:43:11,440 - Get Historical data V2 response
+2025-08-11 12:43:12,105 - Get Historical data V2 response
+2025-08-11 12:43:12,407 - Get Historical data V2 response
+2025-08-11 12:43:13,079 - Get Historical data V2 response
+2025-08-11 12:43:13,406 - Get Historical data V2 response
+2025-08-11 12:43:14,102 - Get Historical data V2 response
+2025-08-11 12:43:14,383 - Get Historical data V2 response
+2025-08-11 12:43:15,167 - Get Historical data V2 response
+2025-08-11 12:43:15,507 - Get Historical data V2 response
+2025-08-11 12:43:16,078 - Get Historical data V2 response
+2025-08-11 12:43:16,386 - Get Historical data V2 response
+2025-08-11 12:43:17,179 - Get Historical data V2 response
+2025-08-11 12:43:17,509 - Get Historical data V2 response
+2025-08-11 12:43:18,147 - Get Historical data V2 response
+2025-08-11 12:43:18,493 - Get Historical data V2 response
+2025-08-11 12:43:19,122 - Get Historical data V2 response
+2025-08-11 12:43:19,501 - Get Historical data V2 response
+2025-08-11 12:43:20,112 - Get Historical data V2 response
+2025-08-11 12:43:20,412 - Get Historical data V2 response
+2025-08-11 12:43:21,094 - Get Historical data V2 response
+2025-08-11 12:43:21,419 - Get Historical data V2 response
+2025-08-11 12:43:22,148 - Get Historical data V2 response
+2025-08-11 12:43:22,440 - Get Historical data V2 response
+2025-08-11 12:43:23,117 - Get Historical data V2 response
+2025-08-11 12:43:23,437 - Get Historical data V2 response
+2025-08-11 12:43:24,157 - Get Historical data V2 response
+2025-08-11 12:43:24,479 - Get Historical data V2 response
+2025-08-11 12:46:08,239 - <Response [200]>
+2025-08-11 12:46:08,241 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:46:08', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:46:09,219 - Get Historical data V2 response
+2025-08-11 12:46:09,519 - Get Historical data V2 response
+2025-08-11 12:46:09,836 - Get Historical data V2 response
+2025-08-11 12:46:10,109 - Get Historical data V2 response
+2025-08-11 12:46:10,382 - Get Historical data V2 response
+2025-08-11 12:46:10,636 - Get Historical data V2 response
+2025-08-11 12:46:10,933 - Get Historical data V2 response
+2025-08-11 12:46:11,219 - Get Historical data V2 response
+2025-08-11 12:46:11,514 - Get Historical data V2 response
+2025-08-11 12:46:11,801 - Get Historical data V2 response
+2025-08-11 12:46:12,087 - Get Historical data V2 response
+2025-08-11 12:46:12,382 - Get Historical data V2 response
+2025-08-11 12:46:12,693 - Get Historical data V2 response
+2025-08-11 12:46:13,005 - Get Historical data V2 response
+2025-08-11 12:46:13,286 - Get Historical data V2 response
+2025-08-11 12:46:13,573 - Get Historical data V2 response
+2025-08-11 12:46:13,827 - Get Historical data V2 response
+2025-08-11 12:46:14,085 - Get Historical data V2 response
+2025-08-11 12:46:14,322 - Get Historical data V2 response
+2025-08-11 12:46:14,617 - Get Historical data V2 response
+2025-08-11 12:46:14,859 - Get Historical data V2 response
+2025-08-11 12:46:15,158 - Get Historical data V2 response
+2025-08-11 12:46:15,498 - Get Historical data V2 response
+2025-08-11 12:46:15,753 - Get Historical data V2 response
+2025-08-11 12:46:16,172 - Get Historical data V2 response
+2025-08-11 12:46:16,428 - Get Historical data V2 response
+2025-08-11 12:46:17,123 - Get Historical data V2 response
+2025-08-11 12:46:17,403 - Get Historical data V2 response
+2025-08-11 12:46:19,022 - Get Historical data V2 response
+2025-08-11 12:46:19,316 - Get Historical data V2 response
+2025-08-11 12:46:19,979 - Get Historical data V2 response
+2025-08-11 12:46:20,321 - Get Historical data V2 response
+2025-08-11 12:46:21,008 - Get Historical data V2 response
+2025-08-11 12:46:21,271 - Get Historical data V2 response
+2025-08-11 12:46:21,571 - Get Historical data V2 response
+2025-08-11 12:46:21,813 - Get Historical data V2 response
+2025-08-11 12:46:22,106 - Get Historical data V2 response
+2025-08-11 12:46:22,372 - Get Historical data V2 response
+2025-08-11 12:46:23,125 - Get Historical data V2 response
+2025-08-11 12:46:23,502 - Get Historical data V2 response
+2025-08-11 12:46:24,129 - Get Historical data V2 response
+2025-08-11 12:46:24,388 - Get Historical data V2 response
+2025-08-11 12:46:25,178 - Get Historical data V2 response
+2025-08-11 12:46:25,438 - Get Historical data V2 response
+2025-08-11 12:46:26,123 - Get Historical data V2 response
+2025-08-11 12:46:26,413 - Get Historical data V2 response
+2025-08-11 12:46:27,158 - Get Historical data V2 response
+2025-08-11 12:46:27,429 - Get Historical data V2 response
+2025-08-11 12:46:28,124 - Get Historical data V2 response
+2025-08-11 12:46:28,406 - Get Historical data V2 response
+2025-08-11 12:46:29,157 - Get Historical data V2 response
+2025-08-11 12:46:29,422 - Get Historical data V2 response
+2025-08-11 12:46:30,143 - Get Historical data V2 response
+2025-08-11 12:46:30,433 - Get Historical data V2 response
+2025-08-11 12:46:31,137 - Get Historical data V2 response
+2025-08-11 12:46:31,408 - Get Historical data V2 response
+2025-08-11 12:46:32,176 - Get Historical data V2 response
+2025-08-11 12:46:32,438 - Get Historical data V2 response
+2025-08-11 12:46:33,107 - Get Historical data V2 response
+2025-08-11 12:46:33,412 - Get Historical data V2 response
+2025-08-11 12:46:34,178 - Get Historical data V2 response
+2025-08-11 12:46:34,508 - Get Historical data V2 response
+2025-08-11 12:46:35,132 - Get Historical data V2 response
+2025-08-11 12:46:35,437 - Get Historical data V2 response
+2025-08-11 12:46:36,128 - Get Historical data V2 response
+2025-08-11 12:46:36,378 - Get Historical data V2 response
+2025-08-11 12:46:37,152 - Get Historical data V2 response
+2025-08-11 12:46:37,395 - Get Historical data V2 response
+2025-08-11 12:46:38,133 - Get Historical data V2 response
+2025-08-11 12:46:38,477 - Get Historical data V2 response
+2025-08-11 12:46:39,203 - Get Historical data V2 response
+2025-08-11 12:46:39,496 - Get Historical data V2 response
+2025-08-11 12:46:40,201 - Get Historical data V2 response
+2025-08-11 12:46:40,523 - Get Historical data V2 response
+2025-08-11 12:46:41,163 - Get Historical data V2 response
+2025-08-11 12:46:41,476 - Get Historical data V2 response
+2025-08-11 12:46:42,243 - Get Historical data V2 response
+2025-08-11 12:46:42,596 - Get Historical data V2 response
+2025-08-11 12:46:43,183 - Get Historical data V2 response
+2025-08-11 12:46:43,553 - Get Historical data V2 response
+2025-08-11 12:46:44,178 - Get Historical data V2 response
+2025-08-11 12:46:44,611 - Get Historical data V2 response
+2025-08-11 12:53:05,660 - <Response [200]>
+2025-08-11 12:53:05,661 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:53:05', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:53:42,120 - <Response [200]>
+2025-08-11 12:53:42,121 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 12:53:42', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 12:53:43,094 - Get Historical data V2 response
+2025-08-11 12:53:43,500 - Get Historical data V2 response
+2025-08-11 12:53:43,773 - Get Historical data V2 response
+2025-08-11 12:53:44,029 - Get Historical data V2 response
+2025-08-11 12:53:44,382 - Get Historical data V2 response
+2025-08-11 12:53:44,700 - Get Historical data V2 response
+2025-08-11 12:53:45,065 - Get Historical data V2 response
+2025-08-11 12:53:45,442 - Get Historical data V2 response
+2025-08-11 12:53:45,770 - Get Historical data V2 response
+2025-08-11 12:53:46,078 - Get Historical data V2 response
+2025-08-11 12:53:46,353 - Get Historical data V2 response
+2025-08-11 12:53:46,700 - Get Historical data V2 response
+2025-08-11 12:53:47,108 - Get Historical data V2 response
+2025-08-11 12:53:47,465 - Get Historical data V2 response
+2025-08-11 12:53:47,758 - Get Historical data V2 response
+2025-08-11 12:53:48,104 - Get Historical data V2 response
+2025-08-11 12:53:48,434 - Get Historical data V2 response
+2025-08-11 12:53:48,844 - Get Historical data V2 response
+2025-08-11 12:53:49,205 - Get Historical data V2 response
+2025-08-11 12:53:49,540 - Get Historical data V2 response
+2025-08-11 12:53:49,864 - Get Historical data V2 response
+2025-08-11 12:53:50,220 - Get Historical data V2 response
+2025-08-11 12:53:50,494 - Get Historical data V2 response
+2025-08-11 12:53:50,786 - Get Historical data V2 response
+2025-08-11 12:53:51,059 - Get Historical data V2 response
+2025-08-11 12:53:51,405 - Get Historical data V2 response
+2025-08-11 12:53:51,873 - Get Historical data V2 response
+2025-08-11 12:53:52,222 - Get Historical data V2 response
+2025-08-11 12:53:52,781 - Get Historical data V2 response
+2025-08-11 12:53:53,234 - Get Historical data V2 response
+2025-08-11 12:53:53,674 - Get Historical data V2 response
+2025-08-11 12:53:53,993 - Get Historical data V2 response
+2025-08-11 12:53:54,338 - Get Historical data V2 response
+2025-08-11 12:53:54,660 - Get Historical data V2 response
+2025-08-11 12:53:55,098 - Get Historical data V2 response
+2025-08-11 12:53:55,467 - Get Historical data V2 response
+2025-08-11 12:53:56,099 - Get Historical data V2 response
+2025-08-11 12:53:56,393 - Get Historical data V2 response
+2025-08-11 12:53:57,090 - Get Historical data V2 response
+2025-08-11 12:53:57,369 - Get Historical data V2 response
+2025-08-11 12:53:58,084 - Get Historical data V2 response
+2025-08-11 12:53:58,325 - Get Historical data V2 response
+2025-08-11 12:53:59,140 - Get Historical data V2 response
+2025-08-11 12:53:59,499 - Get Historical data V2 response
+2025-08-11 12:54:00,139 - Get Historical data V2 response
+2025-08-11 12:54:00,729 - Get Historical data V2 response
+2025-08-11 12:54:01,063 - Get Historical data V2 response
+2025-08-11 12:54:01,388 - Get Historical data V2 response
+2025-08-11 12:54:02,064 - Get Historical data V2 response
+2025-08-11 12:54:02,447 - Get Historical data V2 response
+2025-08-11 12:54:03,067 - Get Historical data V2 response
+2025-08-11 12:54:03,379 - Get Historical data V2 response
+2025-08-11 12:54:04,052 - Get Historical data V2 response
+2025-08-11 12:54:04,359 - Get Historical data V2 response
+2025-08-11 12:54:05,085 - Get Historical data V2 response
+2025-08-11 12:54:05,386 - Get Historical data V2 response
+2025-08-11 12:54:06,104 - Get Historical data V2 response
+2025-08-11 12:54:06,435 - Get Historical data V2 response
+2025-08-11 12:54:07,159 - Get Historical data V2 response
+2025-08-11 12:54:07,464 - Get Historical data V2 response
+2025-08-11 12:54:08,069 - Get Historical data V2 response
+2025-08-11 12:54:08,387 - Get Historical data V2 response
+2025-08-11 12:54:09,075 - Get Historical data V2 response
+2025-08-11 12:54:09,362 - Get Historical data V2 response
+2025-08-11 12:54:10,098 - Get Historical data V2 response
+2025-08-11 12:54:10,459 - Get Historical data V2 response
+2025-08-11 12:54:11,147 - Get Historical data V2 response
+2025-08-11 12:54:11,424 - Get Historical data V2 response
+2025-08-11 12:54:12,194 - Get Historical data V2 response
+2025-08-11 12:54:12,548 - Get Historical data V2 response
+2025-08-11 12:54:13,069 - Get Historical data V2 response
+2025-08-11 12:54:13,377 - Get Historical data V2 response
+2025-08-11 12:54:14,056 - Get Historical data V2 response
+2025-08-11 12:54:14,449 - Get Historical data V2 response
+2025-08-11 13:05:45,528 - <Response [200]>
+2025-08-11 13:05:45,529 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:05:45', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:05:46,586 - Get Historical data V2 response
+2025-08-11 13:05:46,888 - Get Historical data V2 response
+2025-08-11 13:05:47,172 - Get Historical data V2 response
+2025-08-11 13:05:47,459 - Get Historical data V2 response
+2025-08-11 13:05:47,716 - Get Historical data V2 response
+2025-08-11 13:05:47,981 - Get Historical data V2 response
+2025-08-11 13:05:48,329 - Get Historical data V2 response
+2025-08-11 13:05:48,583 - Get Historical data V2 response
+2025-08-11 13:05:48,907 - Get Historical data V2 response
+2025-08-11 13:05:49,228 - Get Historical data V2 response
+2025-08-11 13:05:49,589 - Get Historical data V2 response
+2025-08-11 13:05:49,911 - Get Historical data V2 response
+2025-08-11 13:06:39,556 - <Response [200]>
+2025-08-11 13:06:39,558 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:06:39', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:06:40,687 - Get Historical data V2 response
+2025-08-11 13:06:41,058 - Get Historical data V2 response
+2025-08-11 13:06:41,316 - Get Historical data V2 response
+2025-08-11 13:06:41,719 - Get Historical data V2 response
+2025-08-11 13:06:42,048 - Get Historical data V2 response
+2025-08-11 13:06:42,321 - Get Historical data V2 response
+2025-08-11 13:06:42,665 - Get Historical data V2 response
+2025-08-11 13:06:43,000 - Get Historical data V2 response
+2025-08-11 13:06:43,399 - Get Historical data V2 response
+2025-08-11 13:06:43,744 - Get Historical data V2 response
+2025-08-11 13:06:44,231 - Get Historical data V2 response
+2025-08-11 13:06:44,689 - Get Historical data V2 response
+2025-08-11 13:06:54,511 - Get Historical data V2 response
+2025-08-11 13:06:54,820 - Get Historical data V2 response
+2025-08-11 13:06:55,105 - Get Historical data V2 response
+2025-08-11 13:06:55,455 - Get Historical data V2 response
+2025-08-11 13:06:55,750 - Get Historical data V2 response
+2025-08-11 13:06:56,081 - Get Historical data V2 response
+2025-08-11 13:06:56,399 - Get Historical data V2 response
+2025-08-11 13:06:56,721 - Get Historical data V2 response
+2025-08-11 13:06:57,110 - Get Historical data V2 response
+2025-08-11 13:06:57,447 - Get Historical data V2 response
+2025-08-11 13:07:24,355 - Get Historical data V2 response
+2025-08-11 13:07:24,673 - Get Historical data V2 response
+2025-08-11 13:07:25,034 - Get Historical data V2 response
+2025-08-11 13:07:25,319 - Get Historical data V2 response
+2025-08-11 13:07:25,581 - Get Historical data V2 response
+2025-08-11 13:07:25,821 - Get Historical data V2 response
+2025-08-11 13:09:07,717 - Get Historical data V2 response
+2025-08-11 13:09:08,102 - Get Historical data V2 response
+2025-08-11 13:09:08,432 - Get Historical data V2 response
+2025-08-11 13:09:08,732 - Get Historical data V2 response
+2025-08-11 13:09:09,021 - Get Historical data V2 response
+2025-08-11 13:09:09,317 - Get Historical data V2 response
+2025-08-11 13:09:09,641 - Get Historical data V2 response
+2025-08-11 13:09:09,918 - Get Historical data V2 response
+2025-08-11 13:09:10,223 - Get Historical data V2 response
+2025-08-11 13:09:10,598 - Get Historical data V2 response
+2025-08-11 13:13:01,754 - <Response [200]>
+2025-08-11 13:13:01,754 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:13:01', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:13:02,911 - Get Historical data V2 response
+2025-08-11 13:13:03,351 - Get Historical data V2 response
+2025-08-11 13:13:03,649 - Get Historical data V2 response
+2025-08-11 13:13:03,999 - Get Historical data V2 response
+2025-08-11 13:13:04,265 - Get Historical data V2 response
+2025-08-11 13:13:04,631 - Get Historical data V2 response
+2025-08-11 13:13:04,961 - Get Historical data V2 response
+2025-08-11 13:13:05,285 - Get Historical data V2 response
+2025-08-11 13:13:05,615 - Get Historical data V2 response
+2025-08-11 13:13:06,027 - Get Historical data V2 response
+2025-08-11 13:13:06,576 - Get Historical data V2 response
+2025-08-11 13:13:06,915 - Get Historical data V2 response
+2025-08-11 13:13:27,445 - Get Historical data V2 response
+2025-08-11 13:13:27,795 - Get Historical data V2 response
+2025-08-11 13:13:28,248 - Get Historical data V2 response
+2025-08-11 13:13:28,580 - Get Historical data V2 response
+2025-08-11 13:13:28,950 - Get Historical data V2 response
+2025-08-11 13:13:29,235 - Get Historical data V2 response
+2025-08-11 13:13:29,536 - Get Historical data V2 response
+2025-08-11 13:13:29,854 - Get Historical data V2 response
+2025-08-11 13:13:30,279 - Get Historical data V2 response
+2025-08-11 13:13:30,670 - Get Historical data V2 response
+2025-08-11 13:17:17,467 - <Response [200]>
+2025-08-11 13:17:17,468 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:17:17', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:17:18,378 - Get Historical data V2 response
+2025-08-11 13:17:18,732 - Get Historical data V2 response
+2025-08-11 13:17:19,000 - Get Historical data V2 response
+2025-08-11 13:17:19,307 - Get Historical data V2 response
+2025-08-11 13:17:19,612 - Get Historical data V2 response
+2025-08-11 13:17:19,944 - Get Historical data V2 response
+2025-08-11 13:17:20,247 - Get Historical data V2 response
+2025-08-11 13:17:20,538 - Get Historical data V2 response
+2025-08-11 13:17:28,792 - Get Historical data V2 response
+2025-08-11 13:17:29,108 - Get Historical data V2 response
+2025-08-11 13:17:29,457 - Get Historical data V2 response
+2025-08-11 13:17:29,755 - Get Historical data V2 response
+2025-08-11 13:19:27,299 - <Response [200]>
+2025-08-11 13:19:27,299 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:19:27', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:19:28,617 - Get Historical data V2 response
+2025-08-11 13:19:28,905 - Get Historical data V2 response
+2025-08-11 13:19:29,248 - Get Historical data V2 response
+2025-08-11 13:19:29,534 - Get Historical data V2 response
+2025-08-11 13:19:29,845 - Get Historical data V2 response
+2025-08-11 13:19:30,103 - Get Historical data V2 response
+2025-08-11 13:19:30,378 - Get Historical data V2 response
+2025-08-11 13:19:30,650 - Get Historical data V2 response
+2025-08-11 13:19:36,911 - Get Historical data V2 response
+2025-08-11 13:19:37,272 - Get Historical data V2 response
+2025-08-11 13:19:37,517 - Get Historical data V2 response
+2025-08-11 13:19:37,842 - Get Historical data V2 response
+2025-08-11 13:22:47,079 - <Response [200]>
+2025-08-11 13:22:47,080 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:22:47', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:22:48,035 - Get Historical data V2 response
+2025-08-11 13:22:48,383 - Get Historical data V2 response
+2025-08-11 13:22:48,704 - Get Historical data V2 response
+2025-08-11 13:22:49,033 - Get Historical data V2 response
+2025-08-11 13:22:49,456 - Get Historical data V2 response
+2025-08-11 13:22:49,857 - Get Historical data V2 response
+2025-08-11 13:22:50,223 - Get Historical data V2 response
+2025-08-11 13:22:50,644 - Get Historical data V2 response
+2025-08-11 13:22:56,606 - Get Historical data V2 response
+2025-08-11 13:22:56,989 - Get Historical data V2 response
+2025-08-11 13:22:57,285 - Get Historical data V2 response
+2025-08-11 13:22:57,562 - Get Historical data V2 response
+2025-08-11 13:26:06,418 - Get Historical data V2 response
+2025-08-11 13:26:06,762 - Get Historical data V2 response
+2025-08-11 13:26:07,203 - Get Historical data V2 response
+2025-08-11 13:26:07,615 - Get Historical data V2 response
+2025-08-11 13:27:09,471 - <Response [200]>
+2025-08-11 13:27:09,471 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:27:09', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:27:20,355 - Get Historical data V2 response
+2025-08-11 13:27:20,641 - Get Historical data V2 response
+2025-08-11 13:27:20,934 - Get Historical data V2 response
+2025-08-11 13:27:21,243 - Get Historical data V2 response
+2025-08-11 13:31:28,066 - Get Historical data V2 response
+2025-08-11 13:31:28,347 - Get Historical data V2 response
+2025-08-11 13:31:28,617 - Get Historical data V2 response
+2025-08-11 13:31:28,882 - Get Historical data V2 response
+2025-08-11 13:31:38,187 - Get Historical data V2 response
+2025-08-11 13:31:38,497 - Get Historical data V2 response
+2025-08-11 13:31:38,822 - Get Historical data V2 response
+2025-08-11 13:31:39,106 - Get Historical data V2 response
+2025-08-11 13:31:39,605 - Get Historical data V2 response
+2025-08-11 13:31:39,903 - Get Historical data V2 response
+2025-08-11 13:31:40,190 - Get Historical data V2 response
+2025-08-11 13:31:40,452 - Get Historical data V2 response
+2025-08-11 13:35:21,342 - Get Historical data V2 response
+2025-08-11 13:35:21,651 - Get Historical data V2 response
+2025-08-11 13:35:21,959 - Get Historical data V2 response
+2025-08-11 13:35:22,206 - Get Historical data V2 response
+2025-08-11 13:45:44,358 - <Response [200]>
+2025-08-11 13:45:44,358 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:45:44', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:45:45,422 - Get Historical data V2 response
+2025-08-11 13:45:45,747 - Get Historical data V2 response
+2025-08-11 13:45:46,007 - Get Historical data V2 response
+2025-08-11 13:45:46,337 - Get Historical data V2 response
+2025-08-11 13:45:46,636 - Get Historical data V2 response
+2025-08-11 13:45:46,927 - Get Historical data V2 response
+2025-08-11 13:45:47,217 - Get Historical data V2 response
+2025-08-11 13:45:47,544 - Get Historical data V2 response
+2025-08-11 13:47:36,912 - Get Historical data V2 response
+2025-08-11 13:47:37,167 - Get Historical data V2 response
+2025-08-11 13:47:37,448 - Get Historical data V2 response
+2025-08-11 13:47:37,765 - Get Historical data V2 response
+2025-08-11 13:54:29,742 - <Response [200]>
+2025-08-11 13:54:29,743 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 13:54:29', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 13:54:30,661 - Get Historical data V2 response
+2025-08-11 13:54:30,975 - Get Historical data V2 response
+2025-08-11 13:54:31,323 - Get Historical data V2 response
+2025-08-11 13:54:31,640 - Get Historical data V2 response
+2025-08-11 13:54:31,920 - Get Historical data V2 response
+2025-08-11 13:54:32,241 - Get Historical data V2 response
+2025-08-11 13:54:32,607 - Get Historical data V2 response
+2025-08-11 13:54:32,916 - Get Historical data V2 response
+2025-08-11 13:54:37,534 - Get Historical data V2 response
+2025-08-11 13:54:37,829 - Get Historical data V2 response
+2025-08-11 13:54:38,170 - Get Historical data V2 response
+2025-08-11 13:54:38,481 - Get Historical data V2 response
+2025-08-11 13:56:11,693 - Get Historical data V2 response
+2025-08-11 13:56:11,989 - Get Historical data V2 response
+2025-08-11 13:56:12,283 - Get Historical data V2 response
+2025-08-11 13:56:12,555 - Get Historical data V2 response
+2025-08-11 13:57:16,230 - Get Historical data V2 response
+2025-08-11 13:57:16,546 - Get Historical data V2 response
+2025-08-11 13:57:16,800 - Get Historical data V2 response
+2025-08-11 13:57:17,097 - Get Historical data V2 response
+2025-08-11 14:10:18,083 - <Response [200]>
+2025-08-11 14:10:18,084 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 14:10:18', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 14:10:19,448 - Get Historical data V2 response
+2025-08-11 14:10:19,763 - Get Historical data V2 response
+2025-08-11 14:10:20,104 - Get Historical data V2 response
+2025-08-11 14:10:20,461 - Get Historical data V2 response
+2025-08-11 14:10:20,737 - Get Historical data V2 response
+2025-08-11 14:10:21,078 - Get Historical data V2 response
+2025-08-11 14:10:21,408 - Get Historical data V2 response
+2025-08-11 14:10:21,677 - Get Historical data V2 response
+2025-08-11 14:10:28,152 - Get Historical data V2 response
+2025-08-11 14:10:28,473 - Get Historical data V2 response
+2025-08-11 14:10:28,824 - Get Historical data V2 response
+2025-08-11 14:10:29,153 - Get Historical data V2 response
+2025-08-11 14:10:43,887 - Get Historical data V2 response
+2025-08-11 14:10:44,157 - Get Historical data V2 response
+2025-08-11 14:10:44,473 - Get Historical data V2 response
+2025-08-11 14:10:44,787 - Get Historical data V2 response
+2025-08-11 14:42:20,787 - <Response [200]>
+2025-08-11 14:42:20,788 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 14:42:20', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 14:42:22,160 - Get Historical data V2 response
+2025-08-11 14:42:22,472 - Get Historical data V2 response
+2025-08-11 14:42:22,742 - Get Historical data V2 response
+2025-08-11 14:42:23,080 - Get Historical data V2 response
+2025-08-11 14:42:23,357 - Get Historical data V2 response
+2025-08-11 14:42:23,647 - Get Historical data V2 response
+2025-08-11 14:42:23,915 - Get Historical data V2 response
+2025-08-11 14:42:24,222 - Get Historical data V2 response
+2025-08-11 14:42:30,667 - Get Historical data V2 response
+2025-08-11 14:42:30,967 - Get Historical data V2 response
+2025-08-11 14:42:31,305 - Get Historical data V2 response
+2025-08-11 14:42:31,696 - Get Historical data V2 response
+2025-08-11 14:49:34,865 - <Response [200]>
+2025-08-11 14:49:34,866 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 14:49:35', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 14:49:35,845 - Get Historical data V2 response
+2025-08-11 14:49:36,130 - Get Historical data V2 response
+2025-08-11 14:49:36,413 - Get Historical data V2 response
+2025-08-11 14:49:36,760 - Get Historical data V2 response
+2025-08-11 14:49:37,050 - Get Historical data V2 response
+2025-08-11 14:49:37,340 - Get Historical data V2 response
+2025-08-11 14:49:37,678 - Get Historical data V2 response
+2025-08-11 14:49:38,029 - Get Historical data V2 response
+2025-08-11 14:49:43,879 - Get Historical data V2 response
+2025-08-11 14:49:44,175 - Get Historical data V2 response
+2025-08-11 14:49:44,479 - Get Historical data V2 response
+2025-08-11 14:49:44,781 - Get Historical data V2 response
+2025-08-11 14:50:41,816 - Get Historical data V2 response
+2025-08-11 14:50:42,144 - Get Historical data V2 response
+2025-08-11 14:50:42,418 - Get Historical data V2 response
+2025-08-11 14:50:42,734 - Get Historical data V2 response
+2025-08-11 14:53:47,826 - Get Historical data V2 response
+2025-08-11 14:53:48,089 - Get Historical data V2 response
+2025-08-11 14:53:48,440 - Get Historical data V2 response
+2025-08-11 14:53:48,783 - Get Historical data V2 response
+2025-08-11 14:55:11,156 - <Response [200]>
+2025-08-11 14:55:11,157 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 14:55:11', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 14:55:12,150 - Get Historical data V2 response
+2025-08-11 14:55:12,490 - Get Historical data V2 response
+2025-08-11 14:55:12,811 - Get Historical data V2 response
+2025-08-11 14:55:13,170 - Get Historical data V2 response
+2025-08-11 14:55:13,511 - Get Historical data V2 response
+2025-08-11 14:55:13,810 - Get Historical data V2 response
+2025-08-11 14:55:14,154 - Get Historical data V2 response
+2025-08-11 14:55:14,414 - Get Historical data V2 response
+2025-08-11 15:01:31,997 - <Response [200]>
+2025-08-11 15:01:31,998 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:01:32', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:01:32,892 - Get Historical data V2 response
+2025-08-11 15:01:33,238 - Get Historical data V2 response
+2025-08-11 15:01:33,614 - Get Historical data V2 response
+2025-08-11 15:01:33,979 - Get Historical data V2 response
+2025-08-11 15:01:34,285 - Get Historical data V2 response
+2025-08-11 15:01:34,560 - Get Historical data V2 response
+2025-08-11 15:01:34,956 - Get Historical data V2 response
+2025-08-11 15:01:35,415 - Get Historical data V2 response
+2025-08-11 15:01:50,059 - Get Historical data V2 response
+2025-08-11 15:01:50,486 - Get Historical data V2 response
+2025-08-11 15:01:50,742 - Get Historical data V2 response
+2025-08-11 15:01:51,238 - Get Historical data V2 response
+2025-08-11 15:02:22,038 - Get Historical data V2 response
+2025-08-11 15:02:22,497 - Get Historical data V2 response
+2025-08-11 15:02:22,742 - Get Historical data V2 response
+2025-08-11 15:02:23,099 - Get Historical data V2 response
+2025-08-11 15:02:28,356 - Get Historical data V2 response
+2025-08-11 15:02:28,751 - Get Historical data V2 response
+2025-08-11 15:02:29,082 - Get Historical data V2 response
+2025-08-11 15:02:29,547 - Get Historical data V2 response
+2025-08-11 15:02:33,708 - Get Historical data V2 response
+2025-08-11 15:02:34,178 - Get Historical data V2 response
+2025-08-11 15:02:34,413 - Get Historical data V2 response
+2025-08-11 15:02:34,816 - Get Historical data V2 response
+2025-08-11 15:04:09,469 - Get Historical data V2 response
+2025-08-11 15:04:09,929 - Get Historical data V2 response
+2025-08-11 15:04:10,193 - Get Historical data V2 response
+2025-08-11 15:04:10,678 - Get Historical data V2 response
+2025-08-11 15:09:20,056 - <Response [200]>
+2025-08-11 15:09:20,057 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:09:20', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:09:20,970 - Get Historical data V2 response
+2025-08-11 15:09:21,270 - Get Historical data V2 response
+2025-08-11 15:09:21,590 - Get Historical data V2 response
+2025-08-11 15:09:21,860 - Get Historical data V2 response
+2025-08-11 15:09:22,133 - Get Historical data V2 response
+2025-08-11 15:09:22,413 - Get Historical data V2 response
+2025-08-11 15:09:22,661 - Get Historical data V2 response
+2025-08-11 15:09:22,970 - Get Historical data V2 response
+2025-08-11 15:09:23,289 - Get Historical data V2 response
+2025-08-11 15:09:23,606 - Get Historical data V2 response
+2025-08-11 15:09:23,910 - Get Historical data V2 response
+2025-08-11 15:09:24,187 - Get Historical data V2 response
+2025-08-11 15:09:24,504 - Get Historical data V2 response
+2025-08-11 15:09:24,783 - Get Historical data V2 response
+2025-08-11 15:09:25,079 - Get Historical data V2 response
+2025-08-11 15:09:25,376 - Get Historical data V2 response
+2025-08-11 15:09:25,634 - Get Historical data V2 response
+2025-08-11 15:09:25,927 - Get Historical data V2 response
+2025-08-11 15:09:26,210 - Get Historical data V2 response
+2025-08-11 15:09:26,505 - Get Historical data V2 response
+2025-08-11 15:09:26,855 - Get Historical data V2 response
+2025-08-11 15:09:27,136 - Get Historical data V2 response
+2025-08-11 15:09:27,405 - Get Historical data V2 response
+2025-08-11 15:09:27,652 - Get Historical data V2 response
+2025-08-11 15:11:26,067 - Get Historical data V2 response
+2025-08-11 15:11:26,364 - Get Historical data V2 response
+2025-08-11 15:11:26,675 - Get Historical data V2 response
+2025-08-11 15:11:27,003 - Get Historical data V2 response
+2025-08-11 15:11:27,301 - Get Historical data V2 response
+2025-08-11 15:11:27,642 - Get Historical data V2 response
+2025-08-11 15:11:27,931 - Get Historical data V2 response
+2025-08-11 15:11:28,202 - Get Historical data V2 response
+2025-08-11 15:11:28,521 - Get Historical data V2 response
+2025-08-11 15:11:28,775 - Get Historical data V2 response
+2025-08-11 15:11:29,052 - Get Historical data V2 response
+2025-08-11 15:11:29,346 - Get Historical data V2 response
+2025-08-11 15:11:29,621 - Get Historical data V2 response
+2025-08-11 15:11:29,912 - Get Historical data V2 response
+2025-08-11 15:11:30,259 - Get Historical data V2 response
+2025-08-11 15:11:30,547 - Get Historical data V2 response
+2025-08-11 15:11:30,870 - Get Historical data V2 response
+2025-08-11 15:11:31,140 - Get Historical data V2 response
+2025-08-11 15:11:31,411 - Get Historical data V2 response
+2025-08-11 15:11:31,695 - Get Historical data V2 response
+2025-08-11 15:11:31,941 - Get Historical data V2 response
+2025-08-11 15:11:32,192 - Get Historical data V2 response
+2025-08-11 15:11:32,472 - Get Historical data V2 response
+2025-08-11 15:11:32,724 - Get Historical data V2 response
+2025-08-11 15:12:24,464 - <Response [200]>
+2025-08-11 15:12:24,465 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:12:24', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:12:25,734 - Get Historical data V2 response
+2025-08-11 15:12:26,120 - Get Historical data V2 response
+2025-08-11 15:12:26,410 - Get Historical data V2 response
+2025-08-11 15:12:26,680 - Get Historical data V2 response
+2025-08-11 15:12:26,979 - Get Historical data V2 response
+2025-08-11 15:12:27,306 - Get Historical data V2 response
+2025-08-11 15:12:27,614 - Get Historical data V2 response
+2025-08-11 15:12:27,863 - Get Historical data V2 response
+2025-08-11 15:12:37,677 - Get Historical data V2 response
+2025-08-11 15:12:38,088 - Get Historical data V2 response
+2025-08-11 15:12:38,360 - Get Historical data V2 response
+2025-08-11 15:12:38,784 - Get Historical data V2 response
+2025-08-11 15:16:19,973 - <Response [200]>
+2025-08-11 15:16:19,974 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:16:20', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:16:20,890 - Get Historical data V2 response
+2025-08-11 15:16:21,335 - Get Historical data V2 response
+2025-08-11 15:16:21,667 - Get Historical data V2 response
+2025-08-11 15:16:22,022 - Get Historical data V2 response
+2025-08-11 15:16:22,339 - Get Historical data V2 response
+2025-08-11 15:16:22,694 - Get Historical data V2 response
+2025-08-11 15:16:23,021 - Get Historical data V2 response
+2025-08-11 15:16:23,390 - Get Historical data V2 response
+2025-08-11 15:16:34,716 - Get Historical data V2 response
+2025-08-11 15:16:35,177 - Get Historical data V2 response
+2025-08-11 15:16:35,508 - Get Historical data V2 response
+2025-08-11 15:16:35,986 - Get Historical data V2 response
+2025-08-11 15:18:36,441 - <Response [200]>
+2025-08-11 15:18:36,442 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:18:36,776 - <Response [200]>
+2025-08-11 15:18:36,777 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:18:36', 'best_bid_price': 3040.0, 'best_bid_quantity': '65', 'best_offer_price': 3040.1, 'best_offer_quantity': '3668', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1722261', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3041.0, 'ltt': '11-Aug-2025 15:18:36', 'best_bid_price': 3039.35, 'best_bid_quantity': '12', 'best_offer_price': 3040.05, 'best_offer_quantity': '10', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.21420332839018, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '70453', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:19:01,641 - <Response [200]>
+2025-08-11 15:19:01,642 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:01,988 - <Response [503]>
+2025-08-11 15:19:01,988 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:19:12,539 - <Response [200]>
+2025-08-11 15:19:12,540 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:12,874 - <Response [200]>
+2025-08-11 15:19:12,875 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.1, 'ltt': '11-Aug-2025 15:19:06', 'best_bid_price': 3040.0, 'best_bid_quantity': '49', 'best_offer_price': 3040.1, 'best_offer_quantity': '4458', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.121854828085891, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1730093', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3039.6, 'ltt': '11-Aug-2025 15:19:12', 'best_bid_price': 3039.4, 'best_bid_quantity': '12', 'best_offer_price': 3041.0, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.168067226890756, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '70553', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:19:23,473 - <Response [200]>
+2025-08-11 15:19:23,473 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:23,792 - <Response [200]>
+2025-08-11 15:19:23,793 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.1, 'ltt': '11-Aug-2025 15:19:19', 'best_bid_price': 3040.0, 'best_bid_quantity': '45', 'best_offer_price': 3040.1, 'best_offer_quantity': '4042', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.121854828085891, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1732502', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.05, 'ltt': '11-Aug-2025 15:19:23', 'best_bid_price': 3039.35, 'best_bid_quantity': '5', 'best_offer_price': 3040.85, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.182896688086999, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '70566', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:19:34,250 - <Response [200]>
+2025-08-11 15:19:34,250 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:34,587 - <Response [200]>
+2025-08-11 15:19:34,588 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.1, 'ltt': '11-Aug-2025 15:19:31', 'best_bid_price': 3040.0, 'best_bid_quantity': '258', 'best_offer_price': 3040.1, 'best_offer_quantity': '3625', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.121854828085891, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1733791', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.05, 'ltt': '11-Aug-2025 15:19:33', 'best_bid_price': 3039.45, 'best_bid_quantity': '30', 'best_offer_price': 3041.0, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.182896688086999, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '70566', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:19:45,013 - <Response [200]>
+2025-08-11 15:19:45,014 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:45,300 - <Response [503]>
+2025-08-11 15:19:45,301 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:19:55,506 - <Response [200]>
+2025-08-11 15:19:55,508 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:19:55,866 - <Response [200]>
+2025-08-11 15:19:55,867 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:19:55', 'best_bid_price': 3040.0, 'best_bid_quantity': '10', 'best_offer_price': 3040.1, 'best_offer_quantity': '3552', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1738959', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:19:55', 'best_bid_price': 3039.85, 'best_bid_quantity': '1', 'best_offer_price': 3041.25, 'best_offer_quantity': '40', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '70576', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:20:33,531 - <Response [200]>
+2025-08-11 15:20:33,532 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:20:33,875 - <Response [200]>
+2025-08-11 15:20:33,876 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3038.8, 'ltt': '11-Aug-2025 15:20:33', 'best_bid_price': 3038.7, 'best_bid_quantity': '68', 'best_offer_price': 3038.8, 'best_offer_quantity': '62', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.0790409695692267, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1750570', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:20:33', 'best_bid_price': 3040.0, 'best_bid_quantity': '96', 'best_offer_price': 3040.15, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '73538', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:20:44,306 - <Response [200]>
+2025-08-11 15:20:44,306 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:20:44,665 - <Response [200]>
+2025-08-11 15:20:44,666 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3038.7, 'ltt': '11-Aug-2025 15:20:44', 'best_bid_price': 3038.7, 'best_bid_quantity': '255', 'best_offer_price': 3038.9, 'best_offer_quantity': '1069', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.0757475958371756, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1758193', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:20:44', 'best_bid_price': 3040.0, 'best_bid_quantity': '9', 'best_offer_price': 3040.1, 'best_offer_quantity': '11', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '77226', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:20:55,045 - <Response [200]>
+2025-08-11 15:20:55,046 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:20:55,358 - <Response [503]>
+2025-08-11 15:20:55,358 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:21:05,805 - <Response [200]>
+2025-08-11 15:21:05,806 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:06,195 - <Response [200]>
+2025-08-11 15:21:06,196 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:05', 'best_bid_price': 3039.9, 'best_bid_quantity': '163', 'best_offer_price': 3040.0, 'best_offer_quantity': '1091', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1764585', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.2, 'ltt': '11-Aug-2025 15:21:05', 'best_bid_price': 3040.2, 'best_bid_quantity': '6', 'best_offer_price': 3041.15, 'best_offer_quantity': '3', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.187839841819081, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '77665', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:21:16,680 - <Response [200]>
+2025-08-11 15:21:16,681 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:16,979 - <Response [200]>
+2025-08-11 15:21:16,980 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3039.9, 'ltt': '11-Aug-2025 15:21:16', 'best_bid_price': 3039.9, 'best_bid_quantity': '225', 'best_offer_price': 3040.0, 'best_offer_quantity': '683', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.115268080621789, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1766146', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:17', 'best_bid_price': 3040.0, 'best_bid_quantity': '270', 'best_offer_price': 3040.9, 'best_offer_quantity': '3', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '77907', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:21:27,405 - <Response [200]>
+2025-08-11 15:21:27,406 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:27,770 - <Response [200]>
+2025-08-11 15:21:27,771 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:27', 'best_bid_price': 3039.9, 'best_bid_quantity': '231', 'best_offer_price': 3040.0, 'best_offer_quantity': '929', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1767399', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:27', 'best_bid_price': 3040.0, 'best_bid_quantity': '286', 'best_offer_price': 3040.85, 'best_offer_quantity': '3', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '78202', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:21:39,049 - <Response [200]>
+2025-08-11 15:21:39,050 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:39,349 - <Response [200]>
+2025-08-11 15:21:39,350 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:39', 'best_bid_price': 3039.9, 'best_bid_quantity': '265', 'best_offer_price': 3040.0, 'best_offer_quantity': '934', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1768582', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.1, 'ltt': '11-Aug-2025 15:21:38', 'best_bid_price': 3040.05, 'best_bid_quantity': '2', 'best_offer_price': 3041.0, 'best_offer_quantity': '100', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.184544405997693, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '78433', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:21:48,770 - <Response [200]>
+2025-08-11 15:21:48,771 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:49,109 - <Response [200]>
+2025-08-11 15:21:49,110 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3039.9, 'ltt': '11-Aug-2025 15:21:49', 'best_bid_price': 3039.9, 'best_bid_quantity': '308', 'best_offer_price': 3040.0, 'best_offer_quantity': '846', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.115268080621789, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1769697', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:49', 'best_bid_price': 3040.0, 'best_bid_quantity': '150', 'best_offer_price': 3040.95, 'best_offer_quantity': '10', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '78654', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:21:59,508 - <Response [200]>
+2025-08-11 15:21:59,508 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:21:59,838 - <Response [200]>
+2025-08-11 15:21:59,839 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:21:59', 'best_bid_price': 3039.9, 'best_bid_quantity': '303', 'best_offer_price': 3040.0, 'best_offer_quantity': '1645', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1771264', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:22:00', 'best_bid_price': 3040.0, 'best_bid_quantity': '35', 'best_offer_price': 3040.95, 'best_offer_quantity': '6', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '78773', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:22:10,219 - <Response [200]>
+2025-08-11 15:22:10,220 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:22:10,563 - <Response [200]>
+2025-08-11 15:22:10,564 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:22:06', 'best_bid_price': 3039.9, 'best_bid_quantity': '314', 'best_offer_price': 3040.0, 'best_offer_quantity': '1800', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1771811', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:22:10', 'best_bid_price': 3040.0, 'best_bid_quantity': '61', 'best_offer_price': 3041.0, 'best_offer_quantity': '100', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '79074', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:22:20,994 - <Response [200]>
+2025-08-11 15:22:20,995 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:22:21,376 - <Response [200]>
+2025-08-11 15:22:21,378 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:22:19', 'best_bid_price': 3039.9, 'best_bid_quantity': '385', 'best_offer_price': 3040.0, 'best_offer_quantity': '1033', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.11856145435384, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1776450', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.95, 'ltt': '11-Aug-2025 15:22:20', 'best_bid_price': 3040.0, 'best_bid_quantity': '146', 'best_offer_price': 3040.95, 'best_offer_quantity': '2', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.212555610479486, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '79290', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:22:51,352 - <Response [200]>
+2025-08-11 15:22:51,353 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:22:51', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:22:52,235 - Get Historical data V2 response
+2025-08-11 15:22:52,522 - Get Historical data V2 response
+2025-08-11 15:22:52,802 - Get Historical data V2 response
+2025-08-11 15:22:53,083 - Get Historical data V2 response
+2025-08-11 15:22:53,326 - Get Historical data V2 response
+2025-08-11 15:22:53,584 - Get Historical data V2 response
+2025-08-11 15:22:53,898 - Get Historical data V2 response
+2025-08-11 15:22:54,176 - Get Historical data V2 response
+2025-08-11 15:22:58,412 - Get Historical data V2 response
+2025-08-11 15:22:58,842 - Get Historical data V2 response
+2025-08-11 15:22:59,070 - Get Historical data V2 response
+2025-08-11 15:22:59,441 - Get Historical data V2 response
+2025-08-11 15:23:00,857 - <Response [200]>
+2025-08-11 15:23:00,857 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:01,251 - <Response [200]>
+2025-08-11 15:23:01,252 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3039.9, 'ltt': '11-Aug-2025 15:22:57', 'best_bid_price': 3039.8, 'best_bid_quantity': '195', 'best_offer_price': 3039.9, 'best_offer_quantity': '307', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.115268080621789, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1782659', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:23:00', 'best_bid_price': 3040.0, 'best_bid_quantity': '303', 'best_offer_price': 3040.9, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80491', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:23:11,541 - <Response [200]>
+2025-08-11 15:23:11,542 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:11,902 - <Response [200]>
+2025-08-11 15:23:11,902 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3041.0, 'ltt': '11-Aug-2025 15:23:10', 'best_bid_price': 3040.6, 'best_bid_quantity': '392', 'best_offer_price': 3041.5, 'best_offer_quantity': '42', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.151495191674351, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1791636', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.2, 'ltt': '11-Aug-2025 15:23:11', 'best_bid_price': 3040.65, 'best_bid_quantity': '40', 'best_offer_price': 3040.95, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.187839841819081, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80492', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:23:20,021 - Get Historical data V2 response
+2025-08-11 15:23:20,427 - Get Historical data V2 response
+2025-08-11 15:23:20,671 - Get Historical data V2 response
+2025-08-11 15:23:21,138 - Get Historical data V2 response
+2025-08-11 15:23:23,517 - <Response [200]>
+2025-08-11 15:23:23,518 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:23,853 - <Response [200]>
+2025-08-11 15:23:23,853 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3041.8, 'ltt': '11-Aug-2025 15:23:23', 'best_bid_price': 3041.7, 'best_bid_quantity': '209', 'best_offer_price': 3041.8, 'best_offer_quantity': '71', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.17784218153076, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1794705', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3041.3, 'ltt': '11-Aug-2025 15:23:23', 'best_bid_price': 3041.35, 'best_bid_quantity': '4', 'best_offer_price': 3042.0, 'best_offer_quantity': '49', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.224089635854342, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80603', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:23:33,510 - <Response [200]>
+2025-08-11 15:23:33,511 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:33,867 - <Response [200]>
+2025-08-11 15:23:33,868 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3042.7, 'ltt': '11-Aug-2025 15:23:29', 'best_bid_price': 3042.7, 'best_bid_quantity': '35', 'best_offer_price': 3042.9, 'best_offer_quantity': '66', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.20748254511922, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1795791', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3042.55, 'ltt': '11-Aug-2025 15:23:33', 'best_bid_price': 3042.85, 'best_bid_quantity': '3', 'best_offer_price': 3043.8, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.265282583621684, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80805', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:23:43,933 - <Response [200]>
+2025-08-11 15:23:43,934 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:44,259 - <Response [200]>
+2025-08-11 15:23:44,259 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3043.8, 'ltt': '11-Aug-2025 15:23:42', 'best_bid_price': 3043.3, 'best_bid_quantity': '27', 'best_offer_price': 3043.8, 'best_offer_quantity': '604', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.243709656171782, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1803111', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3043.65, 'ltt': '11-Aug-2025 15:23:44', 'best_bid_price': 3042.3, 'best_bid_quantity': '15', 'best_offer_price': 3043.8, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.301532377656945, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80930', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:23:54,490 - <Response [200]>
+2025-08-11 15:23:54,491 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:23:54,836 - <Response [200]>
+2025-08-11 15:23:54,836 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3042.8, 'ltt': '11-Aug-2025 15:23:48', 'best_bid_price': 3042.6, 'best_bid_quantity': '1', 'best_offer_price': 3042.8, 'best_offer_quantity': '433', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.210775918851271, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1806238', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3043.55, 'ltt': '11-Aug-2025 15:23:54', 'best_bid_price': 3041.4, 'best_bid_quantity': '30', 'best_offer_price': 3043.55, 'best_offer_quantity': '13', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.298236941835558, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80933', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:24:10,492 - <Response [200]>
+2025-08-11 15:24:10,493 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:24:10,795 - <Response [200]>
+2025-08-11 15:24:10,796 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3042.2, 'ltt': '11-Aug-2025 15:24:10', 'best_bid_price': 3042.0, 'best_bid_quantity': '57', 'best_offer_price': 3042.2, 'best_offer_quantity': '886', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.191015676458965, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1809989', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3042.15, 'ltt': '11-Aug-2025 15:24:10', 'best_bid_price': 3041.4, 'best_bid_quantity': '2', 'best_offer_price': 3042.95, 'best_offer_quantity': '42', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.252100840336134, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '80979', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:24:55,487 - <Response [200]>
+2025-08-11 15:24:55,488 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:24:55,821 - <Response [200]>
+2025-08-11 15:24:55,822 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.4, 'ltt': '11-Aug-2025 15:24:54', 'best_bid_price': 3040.4, 'best_bid_quantity': '28', 'best_offer_price': 3040.5, 'best_offer_quantity': '821', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.131734949282044, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1820909', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.0, 'ltt': '11-Aug-2025 15:24:54', 'best_bid_price': 3040.5, 'best_bid_quantity': '1', 'best_offer_price': 3041.0, 'best_offer_quantity': '31', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.181248970176306, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81234', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:25:06,247 - <Response [200]>
+2025-08-11 15:25:06,248 - Get Quotes response : {'Success': None, 'Status': 500, 'Error': 'Check stock code:Stock may not be available for trading on website or on the selected exchange'}
+2025-08-11 15:25:07,502 - <Response [200]>
+2025-08-11 15:25:07,503 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.5, 'ltt': '11-Aug-2025 15:25:07', 'best_bid_price': 3040.4, 'best_bid_quantity': '181', 'best_offer_price': 3040.5, 'best_offer_quantity': '2726', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.135028323014096, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1822958', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.5, 'ltt': '11-Aug-2025 15:25:07', 'best_bid_price': 3040.0, 'best_bid_quantity': '153', 'best_offer_price': 3040.45, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.197726149283243, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81235', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:25:44,577 - <Response [200]>
+2025-08-11 15:25:44,578 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:25:44', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:25:45,713 - Get Historical data V2 response
+2025-08-11 15:25:46,010 - Get Historical data V2 response
+2025-08-11 15:25:46,296 - Get Historical data V2 response
+2025-08-11 15:25:46,563 - Get Historical data V2 response
+2025-08-11 15:25:46,872 - Get Historical data V2 response
+2025-08-11 15:25:47,141 - Get Historical data V2 response
+2025-08-11 15:25:47,442 - Get Historical data V2 response
+2025-08-11 15:25:47,720 - Get Historical data V2 response
+2025-08-11 15:25:50,717 - Get Historical data V2 response
+2025-08-11 15:25:51,051 - Get Historical data V2 response
+2025-08-11 15:25:51,305 - Get Historical data V2 response
+2025-08-11 15:25:51,656 - Get Historical data V2 response
+2025-08-11 15:26:09,499 - <Response [200]>
+2025-08-11 15:26:09,500 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.1, 'ltt': '11-Aug-2025 15:26:09', 'best_bid_price': 1384.0, 'best_bid_quantity': '301', 'best_offer_price': 1384.1, 'best_offer_quantity': '649', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.19169469220646, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9886768', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.15, 'ltt': '11-Aug-2025 15:26:09', 'best_bid_price': 1384.1, 'best_bid_quantity': '1', 'best_offer_price': 1384.15, 'best_offer_quantity': '173', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.18425381044629, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '895598', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:09,858 - <Response [200]>
+2025-08-11 15:26:09,866 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.4, 'ltt': '11-Aug-2025 15:26:09', 'best_bid_price': 3040.3, 'best_bid_quantity': '311', 'best_offer_price': 3040.4, 'best_offer_quantity': '1003', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.131734949282044, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1836992', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.95, 'ltt': '11-Aug-2025 15:26:09', 'best_bid_price': 3040.0, 'best_bid_quantity': '147', 'best_offer_price': 3040.95, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.212555610479486, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81314', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:21,262 - <Response [200]>
+2025-08-11 15:26:21,263 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1383.7, 'ltt': '11-Aug-2025 15:26:20', 'best_bid_price': 1383.5, 'best_bid_quantity': '816', 'best_offer_price': 1383.7, 'best_offer_quantity': '65', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.16245065067992, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9893861', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.0, 'ltt': '11-Aug-2025 15:26:21', 'best_bid_price': 1384.0, 'best_bid_quantity': '1219', 'best_offer_price': 1384.15, 'best_offer_quantity': '115', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.1732884973866, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '895670', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:21,554 - <Response [503]>
+2025-08-11 15:26:21,555 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:26:30,945 - <Response [200]>
+2025-08-11 15:26:30,946 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.7, 'ltt': '11-Aug-2025 15:26:30', 'best_bid_price': 1384.5, 'best_bid_quantity': '353', 'best_offer_price': 1384.7, 'best_offer_quantity': '1031', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.23556075449627, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9901345', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.15, 'ltt': '11-Aug-2025 15:26:31', 'best_bid_price': 1384.15, 'best_bid_quantity': '2', 'best_offer_price': 1384.8, 'best_offer_quantity': '5', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.18425381044629, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '896071', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:31,274 - <Response [200]>
+2025-08-11 15:26:31,275 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.5, 'ltt': '11-Aug-2025 15:26:28', 'best_bid_price': 3040.4, 'best_bid_quantity': '330', 'best_offer_price': 3040.5, 'best_offer_quantity': '208', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.135028323014096, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1843105', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.4, 'ltt': '11-Aug-2025 15:26:31', 'best_bid_price': 3040.05, 'best_bid_quantity': '1', 'best_offer_price': 3040.5, 'best_offer_quantity': '13', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.194430713461855, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81315', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:41,696 - <Response [200]>
+2025-08-11 15:26:41,696 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.5, 'ltt': '11-Aug-2025 15:26:40', 'best_bid_price': 1384.2, 'best_bid_quantity': '177', 'best_offer_price': 1384.5, 'best_offer_quantity': '11', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.220938733733, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9906276', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.7, 'ltt': '11-Aug-2025 15:26:41', 'best_bid_price': 1384.5, 'best_bid_quantity': '1', 'best_offer_price': 1384.95, 'best_offer_quantity': '5', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.22445995833181, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '896174', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:42,026 - <Response [200]>
+2025-08-11 15:26:42,027 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.5, 'ltt': '11-Aug-2025 15:26:41', 'best_bid_price': 3040.5, 'best_bid_quantity': '189', 'best_offer_price': 3040.7, 'best_offer_quantity': '828', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.135028323014096, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1847479', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.45, 'ltt': '11-Aug-2025 15:26:42', 'best_bid_price': 3040.35, 'best_bid_quantity': '1', 'best_offer_price': 3041.55, 'best_offer_quantity': '14', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.196078431372549, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81458', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:52,448 - <Response [200]>
+2025-08-11 15:26:52,449 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.2, 'ltt': '11-Aug-2025 15:26:52', 'best_bid_price': 1384.1, 'best_bid_quantity': '25', 'best_offer_price': 1384.2, 'best_offer_quantity': '40', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.1990057025881, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9914156', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.95, 'ltt': '11-Aug-2025 15:26:52', 'best_bid_price': 1384.7, 'best_bid_quantity': '3', 'best_offer_price': 1384.75, 'best_offer_quantity': '5', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.24273548009796, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '896176', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:26:52,750 - <Response [200]>
+2025-08-11 15:26:52,751 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.7, 'ltt': '11-Aug-2025 15:26:48', 'best_bid_price': 3040.6, 'best_bid_quantity': '17', 'best_offer_price': 3040.7, 'best_offer_quantity': '306', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.141615070478198, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1848440', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.45, 'ltt': '11-Aug-2025 15:26:52', 'best_bid_price': 3040.35, 'best_bid_quantity': '1', 'best_offer_price': 3041.5, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.196078431372549, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81458', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:27:03,196 - <Response [200]>
+2025-08-11 15:27:03,227 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1384.7, 'ltt': '11-Aug-2025 15:27:01', 'best_bid_price': 1384.6, 'best_bid_quantity': '275', 'best_offer_price': 1384.7, 'best_offer_quantity': '3335', 'open': 1370.0, 'high': 1388.0, 'low': 1361.2, 'previous_close': 1367.8, 'ltp_percent_change': 1.23556075449627, 'upper_circuit': 1504.5, 'lower_circuit': 1231.1, 'total_quantity_traded': '9917303', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'RELIND', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 1385.0, 'ltt': '11-Aug-2025 15:27:02', 'best_bid_price': 1384.5, 'best_bid_quantity': '16', 'best_offer_price': 1385.0, 'best_offer_quantity': '586', 'open': 1370.0, 'high': 1388.2, 'low': 1361.2, 'previous_close': 1367.95, 'ltp_percent_change': 1.24639058445119, 'upper_circuit': 1504.7, 'lower_circuit': 1231.2, 'total_quantity_traded': '896295', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:27:03,649 - <Response [200]>
+2025-08-11 15:27:03,650 - Get Quotes response : {'Success': [{'exchange_code': 'NSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3040.6, 'ltt': '11-Aug-2025 15:27:03', 'best_bid_price': 3040.6, 'best_bid_quantity': '1384', 'best_offer_price': 3040.7, 'best_offer_quantity': '356', 'open': 3036.4, 'high': 3049.9, 'low': 3021.3, 'previous_close': 3036.4, 'ltp_percent_change': 0.138321696746147, 'upper_circuit': 3340.0, 'lower_circuit': 2732.8, 'total_quantity_traded': '1850549', 'spot_price': None}, {'exchange_code': 'BSE', 'product_type': '', 'stock_code': 'TCS', 'expiry_date': None, 'right': None, 'strike_price': 0.0, 'ltp': 3041.8, 'ltt': '11-Aug-2025 15:27:03', 'best_bid_price': 3040.5, 'best_bid_quantity': '3', 'best_offer_price': 3041.8, 'best_offer_quantity': '12', 'open': 3048.0, 'high': 3049.15, 'low': 3021.9, 'previous_close': 3034.5, 'ltp_percent_change': 0.240566814961279, 'upper_circuit': 3337.95, 'lower_circuit': 2731.05, 'total_quantity_traded': '81460', 'spot_price': None}], 'Status': 200, 'Error': None}
+2025-08-11 15:27:56,337 - <Response [200]>
+2025-08-11 15:27:56,337 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '11-Aug-2025', 'BSE': '11-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'O', 'BSE': 'O', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 15:27:56', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'O'}, 'Status': 200, 'Error': None}
+2025-08-11 15:27:57,157 - Get Historical data V2 response
+2025-08-11 15:27:57,430 - Get Historical data V2 response
+2025-08-11 15:27:57,708 - Get Historical data V2 response
+2025-08-11 15:27:57,978 - Get Historical data V2 response
+2025-08-11 15:27:58,254 - Get Historical data V2 response
+2025-08-11 15:27:58,546 - Get Historical data V2 response
+2025-08-11 15:27:58,789 - Get Historical data V2 response
+2025-08-11 15:27:59,129 - Get Historical data V2 response
+2025-08-11 15:30:24,493 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:30:35,193 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:31:07,317 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:32:08,425 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 15:32:51,451 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)

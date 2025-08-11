@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field, validator
 
 import pytz
 from fastapi import FastAPI, HTTPException, Request, Depends, Query
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # Breeze SDK (synchronous). We'll call its methods from a threadpool.
@@ -64,6 +64,10 @@ logging.basicConfig(
     ],
 )
 logger = logging.getLogger("breeze_api")
+
+# Suppress verbose Breeze SDK logs
+logging.getLogger("APILogger").setLevel(logging.WARNING)
+logging.getLogger("WebsocketLogger").setLevel(logging.WARNING)
 
 IST = pytz.timezone("Asia/Kolkata")
 
@@ -171,6 +175,18 @@ async def on_startup():
     except Exception as e:
         logger.warning(f"APScheduler not started: {e}")
         logger.debug(traceback.format_exc())
+    # If service credentials exist and market is open, bring up WS for indices
+    try:
+        breeze = await get_service_breeze()
+        if breeze:
+            now_ist = datetime.now(IST)
+            if not market_closed_now(now_ist):
+                await WS_MANAGER.ensure_connected(breeze)
+                await WS_MANAGER.subscribe_indices()
+                logger.info("Initialized Breeze WS indices on startup (market open)")
+    except Exception:
+        logger.warning("Failed to initialize WS on startup")
+        logger.debug(traceback.format_exc())
 
 
 # ---------------------------
@@ -234,7 +250,131 @@ def get_market_status_backend(now_ist: Optional[datetime] = None) -> Dict[str, A
 
 @app.get("/market/status")
 async def market_status():
-    return get_market_status_backend()
+    # Also manage WS lifecycle heuristically based on market status
+    status = get_market_status_backend()
+    try:
+        breeze = await get_service_breeze()
+        if breeze:
+            if status.get("is_market_open"):
+                await WS_MANAGER.ensure_connected(breeze)
+                await WS_MANAGER.subscribe_indices()
+            else:
+                await WS_MANAGER.disconnect()
+    except Exception:
+        logger.debug("WS lifecycle handling in /market/status failed")
+    return status
+
+
+@app.get("/stream/indices")
+async def stream_indices(api_session: str | None = Query(None)):
+    """
+    Server-Sent Events stream of index updates. Uses Breeze WS under the hood.
+    Auto-connects WS when market open; otherwise streams a single snapshot and heartbeats.
+    """
+    # Ensure we have a breeze instance and WS if market open
+    now = datetime.now(IST)
+    try:
+        breeze = await get_breeze_or_401(api_session)
+        if not market_closed_now(now):
+            await WS_MANAGER.ensure_connected(breeze)
+            await WS_MANAGER.subscribe_indices()
+    except HTTPException:
+        raise
+    except Exception:
+        logger.debug("Failed to ready WS for SSE")
+
+    async def event_generator():
+        queue = await WS_MANAGER.add_subscriber()
+        try:
+            while True:
+                # Emit next queued update, or a periodic snapshot every 1s
+                try:
+                    item = await asyncio.wait_for(queue.get(), timeout=1.0)
+                    payload = item
+                except asyncio.TimeoutError:
+                    payload = WS_MANAGER.build_snapshot()
+                yield f"data: {json.dumps(payload, default=str)}\n\n".encode("utf-8")
+        except asyncio.CancelledError:
+            pass
+        finally:
+            WS_MANAGER.remove_subscriber(queue)
+
+    headers = {
+        "Cache-Control": "no-cache, no-transform",
+        "Content-Type": "text/event-stream",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no",
+    }
+    return StreamingResponse(event_generator(), headers=headers)
+
+
+@app.get("/stream/screener")
+async def stream_screener(api_session: str | None = Query(None), symbols: str | None = Query(None)):
+    """
+    SSE stream for live screener rows. Provide comma-separated `symbols` (short_name) to subscribe.
+    When market is closed, uses historical data instead of WebSocket.
+    """
+    now = datetime.now(IST)
+    is_market_closed = market_closed_now(now)
+    
+    try:
+        breeze = await get_breeze_or_401(api_session)
+        sym_list = [s.strip().upper() for s in (symbols.split(",") if symbols else []) if s.strip()]
+        logger.info(f"SSE screener stream requested for symbols: {sym_list} (market_closed: {is_market_closed})")
+        
+        if not is_market_closed:
+            # Only connect WebSocket when market is open
+            await WS_MANAGER.ensure_connected(breeze)
+            if sym_list:
+                await WS_MANAGER.subscribe_screener_symbols(sym_list)
+        else:
+            # When market is closed, immediately fetch historical data
+            if sym_list:
+                await WS_MANAGER.fetch_screener_fallback_prices(sym_list)
+                
+    except HTTPException:
+        raise
+    except Exception:
+        logger.debug("Failed to ready WS for screener SSE")
+
+    async def event_generator():
+        sym_list = [s.strip().upper() for s in (symbols.split(",") if symbols else []) if s.strip()]
+        queue = await WS_MANAGER.add_screener_subscriber(sym_list)
+        last_fallback_update = 0
+        try:
+            while True:
+                # Emit next queued update, or a periodic snapshot every 1s
+                try:
+                    item = await asyncio.wait_for(queue.get(), timeout=1.0)
+                    payload = item
+                except asyncio.TimeoutError:
+                    payload = WS_MANAGER.build_screener_snapshot(frozenset(sym_list))
+                    
+                    # Fetch updated prices: every 10s when market open, every 30s when closed
+                    current_time = time.time()
+                    update_interval = 30 if is_market_closed else 10
+                    if current_time - last_fallback_update > update_interval:
+                        try:
+                            await WS_MANAGER.fetch_screener_fallback_prices(sym_list)
+                            last_fallback_update = current_time
+                            # Rebuild snapshot with fresh data
+                            payload = WS_MANAGER.build_screener_snapshot(frozenset(sym_list))
+                        except Exception:
+                            pass
+                
+                yield f"data: {json.dumps(payload, default=str)}\n\n".encode("utf-8")
+        except asyncio.CancelledError:
+            pass
+        finally:
+            WS_MANAGER.remove_screener_subscriber(queue)
+
+    headers = {
+        "Cache-Control": "no-cache, no-transform",
+        "Content-Type": "text/event-stream",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no",
+    }
+    return StreamingResponse(event_generator(), headers=headers)
 
 
 # ---------------------------
@@ -431,6 +571,14 @@ SYMBOL_MAPPING = {
     "FINNIFTY": "NIFFIN",
 }
 
+# Some indices have multiple accepted stock_code variants in Breeze
+INDEX_CODE_CANDIDATES: Dict[str, list[str]] = {
+    "NIFTY": ["NIFTY"],
+    "BANKNIFTY": ["CNXBAN", "BANKNIFTY"],
+    "FINNIFTY": ["NIFFIN", "FINNIFTY"],
+    "SENSEX": ["BSESEN", "SENSEX"],
+}
+
 INDEX_LIST = [
     {"name": "NIFTY", "exchange": "NSE"},
     {"name": "BANKNIFTY", "exchange": "NSE"},
@@ -599,6 +747,482 @@ index_snapshot_cache: Dict[str, Dict[str, Any]] = {}
 
 # In-memory instruments and screener snapshot
 INSTRUMENTS: list[Dict[str, Any]] = []
+COMPANY_TO_SHORT: Dict[str, str] = {}
+COMPANY_TO_SHORT_NORM: Dict[str, str] = {}
+
+# ---------------------------
+# Breeze WebSocket live quotes (indices)
+# ---------------------------
+class LiveIndexQuote(BaseModel):
+    symbol: str
+    name: str
+    last: Optional[float] = None
+    prev_close: Optional[float] = None
+    change: Optional[float] = None
+    percent_change: Optional[float] = None
+    updated_at: Optional[datetime] = None
+
+
+class BreezeWSManager:
+    """
+    Manages a single Breeze websocket connection and live subscriptions for indices.
+    Uses exchange quotes stream to compute live last and change against previous close.
+    """
+    def __init__(self):
+        self._lock = asyncio.Lock()
+        self._connected = False
+        self._breeze: Optional[BreezeConnect] = None
+        self._live: Dict[str, LiveIndexQuote] = {}
+        self._subscribers: set[asyncio.Queue] = set()
+        # Screener live quotes keyed by short_name (e.g., RELIANCE, TCS)
+        self._screener_live: Dict[str, Dict[str, Any]] = {}
+        # Subscribers for screener with symbol filters
+        self._screener_subscribers: set[tuple[asyncio.Queue, frozenset[str]]] = set()
+        # Map short_name -> (exchange_code, stock_code) for active subscriptions
+        self._screener_sub_map: Dict[str, tuple[str, str]] = {}
+        # Map of index names to their subscription params
+        self._subs: Dict[str, Dict[str, str]] = {
+            "NIFTY": {"exchange_code": "NSE", "stock_code": "NIFTY"},
+            "BANKNIFTY": {"exchange_code": "NSE", "stock_code": "CNXBAN"},
+            "FINNIFTY": {"exchange_code": "NSE", "stock_code": "NIFFIN"},
+            "SENSEX": {"exchange_code": "BSE", "stock_code": "BSESEN"},
+        }
+
+    def _handle_tick(self, tick: Dict[str, Any]) -> None:
+        try:
+            stock_name = str(tick.get("stock_name") or "").upper()
+            
+            # Handle indices first
+            name_map = {
+                "NIFTY 50": "NIFTY",
+                "NIFTY BANK": "BANKNIFTY",
+                "NIFTY FINANCIAL SERVICES": "FINNIFTY",
+                "NIFTY FINANCIAL SERVICES INDEX": "FINNIFTY",
+                "S&P BSE SENSEX": "SENSEX",
+                "BSE SENSEX": "SENSEX",
+                "SENSEX": "SENSEX",
+            }
+            
+            idx_key: Optional[str] = None
+            if stock_name:
+                for k, v in name_map.items():
+                    if k in stock_name:
+                        idx_key = v
+                        break
+            
+            # Fallback by exchange_code + stock_code when present
+            if not idx_key:
+                exch = str(tick.get("exchange") or tick.get("exchange_code") or "").upper()
+                sym = str(tick.get("symbol") or "").upper()
+                if "SENSEX" in sym or (exch.startswith("BSE") and "SENSEX" in stock_name):
+                    idx_key = "SENSEX"
+            
+            # If this is an index tick, handle it and return
+            if idx_key:
+                last = tick.get("last")
+                prev_close = tick.get("close")
+                last_f = float(last) if last is not None else None
+                prev_f = float(prev_close) if prev_close is not None else None
+                change = None
+                pct = None
+                if last_f is not None and prev_f not in (None, 0):
+                    change = round(last_f - prev_f, 2)
+                    pct = round((change / prev_f) * 100.0, 2)
+
+                li = self._live.get(idx_key) or LiveIndexQuote(
+                    symbol=idx_key,
+                    name=get_index_display_name(idx_key),
+                )
+                li.last = last_f if last_f is not None else li.last
+                li.prev_close = prev_f if prev_f is not None else li.prev_close
+                li.change = change if change is not None else li.change
+                li.percent_change = pct if pct is not None else li.percent_change
+                li.updated_at = datetime.now(IST)
+                self._live[idx_key] = li
+                
+                # Broadcast to subscribers (best-effort)
+                snapshot = self.build_snapshot()
+                for q in list(self._subscribers):
+                    try:
+                        q.put_nowait(snapshot)
+                    except Exception:
+                        pass
+                return  # Exit early for index ticks
+
+            # Handle screener symbols: map tick's stock_name to our short_name via COMPANY_TO_SHORT
+            screener_key: Optional[str] = None
+            if stock_name:
+                # Try exact match first
+                short_guess = COMPANY_TO_SHORT.get(stock_name)
+                if not short_guess:
+                    # Try normalized match
+                    def _norm(s: str) -> str:
+                        u = s.upper()
+                        for suf in [" LIMITED", " LTD", ".", ",", " LIMITED."]:
+                            u = u.replace(suf, "")
+                        import re
+                        u = re.sub(r"[^A-Z0-9 ]+", "", u)
+                        u = re.sub(r"\s+", " ", u).strip()
+                        return u
+                    norm_name = _norm(stock_name)
+                    short_guess = COMPANY_TO_SHORT_NORM.get(norm_name)
+                
+                if short_guess:
+                    screener_key = short_guess
+                else:
+                    # Try to find a partial match for Reliance
+                    if "RELIANCE" in stock_name and "INDUSTRIES" in stock_name:
+                        screener_key = "RELIND"
+            
+            # Also try to match by stock_code if available
+            if not screener_key:
+                stock_code = str(tick.get("stock_code") or "").upper()
+                if stock_code:
+                    # Check if this stock_code maps to any of our screener symbols
+                    for short_name in ["RELIND", "TCS"]:
+                        exch, code = self._resolve_symbol_to_breeze(short_name)
+                        if code and code.upper() == stock_code:
+                            screener_key = short_name
+                            break
+            
+            if screener_key:
+                last = tick.get("last")
+                prev_close = tick.get("close")
+                sc_last = float(last) if last is not None else None
+                sc_prev = float(prev_close) if prev_close is not None else None
+                
+                # Volume from exchange quotes: use total traded quantity (ttq) if available
+                sc_vol = None
+                try:
+                    tv = tick.get("ttq")
+                    if tv is not None:
+                        sc_vol = int(tv)
+                except Exception:
+                    sc_vol = None
+                
+                ch = None
+                pct = None
+                if sc_last is not None and sc_prev not in (None, 0):
+                    ch = round(sc_last - sc_prev, 2)
+                    pct = round((ch / sc_prev) * 100.0, 2)
+                
+                self._screener_live[screener_key] = {
+                    "last": sc_last,
+                    "prev": sc_prev,
+                    "change": ch,
+                    "pct": pct,
+                    "volume": sc_vol,
+                    "updated_at": datetime.now(IST),
+                }
+                
+                # Broadcast to screener subscribers with matching filters
+                for (q, symbols) in list(self._screener_subscribers):
+                    if screener_key in symbols:
+                        try:
+                            q.put_nowait(self.build_screener_snapshot(symbols))
+                        except Exception:
+                            pass
+        except Exception as e:
+            logger.error(f"Failed to parse WS tick: {tick}, error: {e}")
+            logger.error(traceback.format_exc())
+
+    async def ensure_connected(self, breeze: BreezeConnect) -> None:
+        async with self._lock:
+            # Reuse existing connection if same instance and connected
+            if self._connected and self._breeze is breeze:
+                return
+            # If another instance, disconnect previous
+            try:
+                if self._connected and self._breeze:
+                    self._breeze.ws_disconnect()
+            except Exception:
+                pass
+            self._breeze = breeze
+            # Assign callback first
+            def _on_ticks(ticks: Dict[str, Any]):
+                self._handle_tick(ticks)
+            self._breeze.on_ticks = _on_ticks
+            # Connect (sync SDK call)
+            try:
+                self._breeze.ws_connect()
+                self._connected = True
+                logger.info("Breeze WS connected")
+            except Exception:
+                self._connected = False
+                logger.error("Failed to connect Breeze WS")
+                logger.error(traceback.format_exc())
+                raise
+
+    async def subscribe_indices(self) -> None:
+        async with self._lock:
+            if not (self._connected and self._breeze):
+                return
+            for key, params in self._subs.items():
+                try:
+                    self._breeze.subscribe_feeds(
+                        exchange_code=params["exchange_code"],
+                        stock_code=params["stock_code"],
+                        product_type="cash",
+                        get_market_depth=False,
+                        get_exchange_quotes=True,
+                    )
+                    # For SENSEX, also attempt alternate code subscription
+                    if key == "SENSEX":
+                        try:
+                            self._breeze.subscribe_feeds(
+                                exchange_code="BSE",
+                                stock_code="SENSEX",
+                                product_type="cash",
+                                get_market_depth=False,
+                                get_exchange_quotes=True,
+                            )
+                        except Exception:
+                            pass
+                    # initialize placeholder if not present
+                    if key not in self._live:
+                        self._live[key] = LiveIndexQuote(symbol=key, name=get_index_display_name(key))
+                    logger.info("Subscribed WS quotes for %s", key)
+                except Exception:
+                    logger.warning("Failed WS subscribe for %s", key)
+
+    def get_live(self, key: str) -> Optional[LiveIndexQuote]:
+        li = self._live.get(key)
+        if not li:
+            return None
+        # consider stale if older than 120 seconds
+        if li.updated_at and (datetime.now(IST) - li.updated_at).total_seconds() <= 120:
+            return li
+        return None
+
+    async def disconnect(self) -> None:
+        async with self._lock:
+            if self._connected and self._breeze:
+                try:
+                    self._breeze.ws_disconnect()
+                except Exception:
+                    pass
+            self._connected = False
+
+    def build_snapshot(self) -> Dict[str, Any]:
+        """Return a lightweight snapshot for all indices we track."""
+        out = []
+        for key in ["NIFTY", "BANKNIFTY", "SENSEX", "FINNIFTY"]:
+            li = self._live.get(key)
+            if not li:
+                continue
+            prev = li.prev_close
+            curr = li.last
+            ch = None
+            pct = None
+            if curr is not None and prev not in (None, 0):
+                ch = round(curr - prev, 2)
+                pct = round((ch / prev) * 100.0, 2)
+            out.append({
+                "symbol": key,
+                "displayName": get_index_display_name(key),
+                "previousClose": prev,
+                "currentClose": curr,
+                "change": ch,
+                "percentChange": pct,
+                "isPositive": (ch is not None and ch >= 0),
+            })
+        return {"status": "success", "data": out, "ts": datetime.now(IST).isoformat()}
+
+    def build_screener_snapshot(self, symbols: frozenset[str]) -> Dict[str, Any]:
+        rows: list[dict[str, Any]] = []
+        sym_set = set(symbols)
+        for sym in sym_set:
+            live = self._screener_live.get(sym)
+            if not live:
+                continue
+            rows.append({
+                "short_name": sym,
+                "close_price": live.get("last"),
+                "prev_close_price": live.get("prev"),
+                "change_abs": live.get("change"),
+                "change_pct": live.get("pct"),
+                "volume": live.get("volume"),
+            })
+        return {"status": "success", "items": rows, "ts": datetime.now(IST).isoformat()}
+
+    async def add_subscriber(self) -> asyncio.Queue:
+        q: asyncio.Queue = asyncio.Queue(maxsize=100)
+        self._subscribers.add(q)
+        # Push an initial snapshot if available
+        try:
+            snap = self.build_snapshot()
+            await q.put(snap)
+        except Exception:
+            pass
+        return q
+
+    def remove_subscriber(self, q: asyncio.Queue) -> None:
+        self._subscribers.discard(q)
+
+    async def subscribe_screener_symbols(self, symbols: list[str]) -> None:
+        async with self._lock:
+            if not (self._connected and self._breeze):
+                return
+            logger.info(f"Subscribing to screener symbols: {symbols}")
+            for sym in symbols:
+                code = sym.upper().strip()
+                exch, stock_code = self._resolve_symbol_to_breeze(code)
+                logger.info(f"Resolved {code} -> ({exch}, {stock_code})")
+                if not stock_code or not exch:
+                    logger.warning(f"Could not resolve screener symbol: {code}")
+                    continue
+                try:
+                    # Fix: Ensure all parameters are strings
+                    self._breeze.subscribe_feeds(
+                        exchange_code=str(exch), 
+                        stock_code=str(stock_code), 
+                        product_type="cash", 
+                        get_market_depth=False, 
+                        get_exchange_quotes=True
+                    )
+                    if code not in self._screener_live:
+                        self._screener_live[code] = {"last": None, "prev": None, "change": None, "pct": None, "volume": None}
+                    self._screener_sub_map[code] = (exch, stock_code)
+                    logger.info("Subscribed WS quotes for screener symbol %s -> (%s, %s)", code, exch, stock_code)
+                except Exception as e:
+                    logger.error("Failed WS subscribe for screener symbol %s: %s", code, e)
+                    logger.error(traceback.format_exc())
+
+    # Add a fallback method to fetch live prices via REST API when WebSocket fails
+    async def fetch_screener_fallback_prices(self, symbols: list[str]) -> None:
+        """Fallback to fetch prices - live quotes when market open, historical data when closed"""
+        if not self._breeze:
+            return
+            
+        now_ist = datetime.now(IST)
+        is_market_closed = market_closed_now(now_ist)
+        
+        for sym in symbols:
+            try:
+                exch, stock_code = self._resolve_symbol_to_breeze(sym)
+                if not stock_code or not exch:
+                    continue
+                
+                if is_market_closed:
+                    # When market is closed, use historical data
+                    today = now_ist.date()
+                    last_market_day = find_last_market_day(today)
+                    
+                    # Get the last candle from the most recent trading day
+                    try:
+                        current_candle = await fetch_last_candle(self._breeze, stock_code, exch, last_market_day)
+                        prev_market_day = find_last_market_day(last_market_day - timedelta(days=1))
+                        prev_candle = await fetch_last_candle(self._breeze, stock_code, exch, prev_market_day)
+                        
+                        if current_candle and prev_candle:
+                            last_f = _to_float(current_candle.get("close"))
+                            prev_f = _to_float(prev_candle.get("close"))
+                            vol_f = int(current_candle.get("volume") or 0)
+                            
+                            ch = None
+                            pct = None
+                            if last_f is not None and prev_f not in (None, 0):
+                                ch = round(last_f - prev_f, 2)
+                                pct = round((ch / prev_f) * 100.0, 2)
+                            
+                            self._screener_live[sym] = {
+                                "last": last_f,
+                                "prev": prev_f,
+                                "change": ch,
+                                "pct": pct,
+                                "volume": vol_f,
+                                "updated_at": datetime.now(IST),
+                            }
+                    except Exception as e:
+                        logger.debug(f"Historical data fallback failed for {sym}: {e}")
+                else:
+                    # When market is open, use live quotes
+                    quote_resp = self._breeze.get_quotes(
+                        stock_code=stock_code,
+                        exchange_code=exch,
+                        expiry_date="",
+                        product_type="cash",
+                        right="others",
+                        strike_price=""
+                    )
+                    
+                    if quote_resp and quote_resp.get("Success"):
+                        data = quote_resp.get("Result", {})
+                        if data:
+                            last = data.get("ltp")
+                            prev_close = data.get("close")
+                            volume = data.get("total_quantity_traded")
+                            
+                            last_f = float(last) if last is not None else None
+                            prev_f = float(prev_close) if prev_close is not None else None
+                            vol_f = int(volume) if volume is not None else None
+                            
+                            ch = None
+                            pct = None
+                            if last_f is not None and prev_f not in (None, 0):
+                                ch = round(last_f - prev_f, 2)
+                                pct = round((ch / prev_f) * 100.0, 2)
+                            
+                            self._screener_live[sym] = {
+                                "last": last_f,
+                                "prev": prev_f,
+                                "change": ch,
+                                "pct": pct,
+                                "volume": vol_f,
+                                "updated_at": datetime.now(IST),
+                            }
+                
+                # Broadcast to screener subscribers
+                for (q, symbols_filter) in list(self._screener_subscribers):
+                    if sym in symbols_filter:
+                        try:
+                            q.put_nowait(self.build_screener_snapshot(symbols_filter))
+                        except Exception:
+                            pass
+                                
+            except Exception as e:
+                logger.debug(f"Fallback price fetch failed for {sym}: {e}")
+
+    def _resolve_symbol_to_breeze(self, short_name: str) -> tuple[Optional[str], Optional[str]]:
+        # First, try exact short_name known normalizations used by normalize_stock_code
+        sn = short_name.upper().strip()
+        # Map common cases
+        if sn in {"RELIND", "RELIANCE", "RIL", "RELI"}:
+            return "NSE", "RELIND"  # Change this to RELIND instead of RELIANCE
+        if sn == "TCS":
+            return "NSE", "TCS"
+        # Try to infer from instruments list
+        for inst in INSTRUMENTS:
+            if (inst.get("short_name") or "").upper().strip() == sn:
+                # Prefer NSE when available
+                exch = (inst.get("exchange_code") or "NSE").upper()
+                # stock_code candidates
+                for code in normalize_stock_code(inst.get("short_name"), inst.get("exchange_code"), inst.get("company_name")):
+                    # Skip non-alpha codes that are obviously not tradable short codes
+                    if code.isalpha():
+                        result = ("NSE" if exch != "BSE" else "BSE"), code
+                        logger.info(f"Resolved symbol '{short_name}' -> ({result[0]}, {result[1]})")
+                        return result
+        logger.warning(f"Could not resolve symbol '{short_name}' to exchange and stock_code")
+        return None, None
+
+    async def add_screener_subscriber(self, symbols: list[str]) -> asyncio.Queue:
+        q: asyncio.Queue = asyncio.Queue(maxsize=200)
+        syms = frozenset(s.upper().strip() for s in symbols if s)
+        self._screener_subscribers.add((q, syms))
+        # Push initial snapshot
+        try:
+            snap = self.build_screener_snapshot(syms)
+            await q.put(snap)
+        except Exception:
+            pass
+        return q
+
+    def remove_screener_subscriber(self, q: asyncio.Queue) -> None:
+        self._screener_subscribers = {(qq, s) for (qq, s) in self._screener_subscribers if qq is not q}
+
+
+WS_MANAGER = BreezeWSManager()
 SCREENER_CACHE: Dict[str, Any] = {
     "snapshot_date": None,
     "items": [],  # list[dict]
@@ -643,6 +1267,21 @@ async def get_session_or_401(api_session: str) -> Dict[str, Any]:
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
     return session_info
 
+
+# Prefer user session Breeze, else fall back to service Breeze if configured
+async def get_breeze_or_401(api_session: Optional[str]) -> BreezeConnect:
+    if api_session:
+        try:
+            await session_store.cleanup_expired_sessions()
+            sess = await session_store.get_session(api_session)
+            if sess and sess.get("breeze"):
+                return sess["breeze"]
+        except Exception:
+            pass
+    service = await get_service_breeze()
+    if service:
+        return service
+    raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
 # ---------------------------
 # Exception handler
@@ -720,7 +1359,7 @@ async def get_historical_data(api_session: str, symbol: str, exchange: str, from
         stock_code = SYMBOL_MAPPING.get(symbol, symbol)
         resp = await breeze_call(
             breeze.get_historical_data_v2,
-            interval="30minute",
+            interval="30minute",  # Changed back from 5minute to 30minute
             from_date=from_date,
             to_date=to_date,
             stock_code=stock_code,
@@ -762,14 +1401,13 @@ async def get_historical_data(api_session: str, symbol: str, exchange: str, from
 
 
 @app.get("/market/indices")
-async def get_market_indices(api_session: str):
+async def get_market_indices(api_session: str | None = Query(None)):
     """
     Get current market indices with change calculations.
-    All candle fetching uses interval="30minute".
+    All candle fetching uses interval="30minute".  # Updated comment back
     """
     try:
-        session_info = await get_session_or_401(api_session)
-        breeze_inst = session_info["breeze"]
+        breeze_inst = await get_breeze_or_401(api_session)
         now_ist = datetime.now(IST)
         today_date = now_ist.date()
 
@@ -786,7 +1424,7 @@ async def get_market_indices(api_session: str):
             to_dt = f"{day.isoformat()}T23:59:59.000Z"
             data = await breeze_call(
                 breeze.get_historical_data_v2,
-                interval="30minute",
+                interval="30minute",  # Changed back from 5minute to 30minute
                 from_date=from_dt,
                 to_date=to_dt,
                 stock_code=stock_code,
@@ -817,17 +1455,24 @@ async def get_market_indices(api_session: str):
                 prev_close = _to_float(cache_entry.get("previousClose"))
                 curr_close = _to_float(cache_entry.get("currentClose"))
             else:
-                try:
-                    current_candle_task = fetch_last_candle(breeze_inst, stock_code, exchange, current_snapshot_day)
-                    prev_candle_task = fetch_last_candle(breeze_inst, stock_code, exchange, prev_market_day)
-                    current_candle, prev_candle = await asyncio.gather(current_candle_task, prev_candle_task)
-                    if not current_candle or not prev_candle:
-                        logger.warning(f"Missing candle data for {name}: current={bool(current_candle)} prev={bool(prev_candle)}")
-                    curr_close = _to_float(current_candle.get("close")) if current_candle else None
-                    prev_close = _to_float(prev_candle.get("close")) if prev_candle else None
-                except Exception as e:
-                    logger.error(f"Error fetching 30min last candles for {name}: {e}")
-                    logger.error(traceback.format_exc())
+                # If market is open and WS live quote is fresh, prefer it over REST
+                live = WS_MANAGER.get_live(name) if not is_closed_now else None
+                if live and live.last is not None and live.prev_close is not None:
+                    curr_close = live.last
+                    prev_close = live.prev_close
+                else:
+                    # When closed, always use last 30-minute candles to avoid polling
+                    try:
+                        current_candle_task = fetch_last_candle(breeze_inst, stock_code, exchange, current_snapshot_day)
+                        prev_candle_task = fetch_last_candle(breeze_inst, stock_code, exchange, prev_market_day)
+                        current_candle, prev_candle = await asyncio.gather(current_candle_task, prev_candle_task)
+                        if not current_candle or not prev_candle:
+                            logger.warning(f"Missing candle data for {name}: current={bool(current_candle)} prev={bool(prev_candle)}")
+                        curr_close = _to_float(current_candle.get("close")) if current_candle else None
+                        prev_close = _to_float(prev_candle.get("close")) if prev_candle else None
+                    except Exception as e:
+                        logger.error(f"Error fetching 30min last candles for {name}: {e}")
+                        logger.error(traceback.format_exc())
 
             # Cache snapshot for closed market to avoid recompute on subsequent calls same day
             if is_closed_now and curr_close is not None and prev_close is not None:
@@ -1004,9 +1649,8 @@ async def intraday_screener(
     await get_session_or_401(api_session)
     if not INSTRUMENTS:
         await load_instruments_into_memory()
-    breeze = await get_service_breeze()
-    if not breeze:
-        raise HTTPException(status_code=503, detail="No Breeze session available")
+    # Use either user session breeze or service breeze for the initial payload
+    breeze = await get_breeze_or_401(api_session)
 
     # Optional symbols filter
     allowed: set[str] | None = None
@@ -1032,20 +1676,32 @@ async def intraday_screener(
         candidates = normalize_stock_code(inst.get("short_name"), inst.get("exchange_code"), inst.get("company_name"))
         try:
             rows: list[dict[str, Any]] = []
-            for code in candidates:
-                for ex in [exchange, "BSE" if exchange != "BSE" else "NSE"]:
-                    data = await breeze_call(
-                        breeze.get_historical_data_v2,
-                        interval="30minute",
-                        from_date=from_dt,
-                        to_date=to_dt,
-                        stock_code=code,
-                        exchange_code=ex,
-                        product_type="cash",
-                    )
-                    tmp = data.get("Success") if isinstance(data, dict) else None
-                    if tmp:
-                        rows = tmp
+            # Try different intervals to get the most recent data
+            intervals = ["1minute", "5minute", "15minute", "30minute"]  # Changed back to 30minute
+            rows = None
+            
+            for interval in intervals:
+                for code in candidates:
+                    for ex in [exchange, "BSE" if exchange != "BSE" else "NSE"]:
+                        try:
+                            data = await breeze_call(
+                                breeze.get_historical_data_v2,
+                                interval=interval,
+                                from_date=from_dt,
+                                to_date=to_dt,
+                                stock_code=code,
+                                exchange_code=ex,
+                                product_type="cash",
+                            )
+                            tmp = data.get("Success") if isinstance(data, dict) else None
+                            if tmp and len(tmp) > 0:
+                                rows = tmp
+                                logger.info(f"Got {len(rows)} {interval} candles for {code} on {ex}")
+                                break
+                        except Exception as e:
+                            logger.debug(f"Failed to get {interval} data for {code} on {ex}: {e}")
+                            continue
+                    if rows:
                         break
                 if rows:
                     break
@@ -1203,6 +1859,8 @@ async def load_instruments_into_memory() -> None:
         except Exception as e:
             logger.error(f"Failed to read ScripMaster.csv: {e}")
     INSTRUMENTS.clear()
+    COMPANY_TO_SHORT.clear()
+    COMPANY_TO_SHORT_NORM.clear()
     # Restrict to test set for now: RELIANCE and TCS, with simple de-duplication by short_name
     allowed_short = {"RELIND", "RELIANCE", "TCS"}
     seen: set[str] = set()
@@ -1229,6 +1887,51 @@ async def load_instruments_into_memory() -> None:
             "exchange_code": exchange_code,
             "is_active": bool(exchange_code),
         })
+        # Map company name to short_name for quick lookup
+        if company_name:
+            key_raw = company_name.upper()
+            COMPANY_TO_SHORT[key_raw] = short_name.upper()
+            # Normalized key: strip common suffixes and non-alnum
+            def _norm(s: str) -> str:
+                u = s.upper()
+                for suf in [" LIMITED", " LTD", ".", ",", " LIMITED."]:
+                    u = u.replace(suf, "")
+                # collapse spaces and remove non-alnum except space
+                import re
+                u = re.sub(r"[^A-Z0-9 ]+", "", u)
+                u = re.sub(r"\s+", " ", u).strip()
+                return u
+            norm_key = _norm(company_name)
+            COMPANY_TO_SHORT_NORM[norm_key] = short_name.upper()
+            logger.info(f"Mapped company '{company_name}' -> short_name '{short_name.upper()}' (raw: '{key_raw}', norm: '{norm_key}')")
+
+    # Add manual mappings for critical stocks that might not be in the CSV or have different names
+    manual_mappings = {
+        "RELIANCE INDUSTRIES LIMITED": "RELIND",
+        "RELIANCE INDUSTRIES LTD": "RELIND", 
+        "RELIANCE INDUSTRIES": "RELIND",
+        "RELIANCE": "RELIND",
+        "TATA CONSULTANCY SERVICES LIMITED": "TCS",
+        "TATA CONSULTANCY SERVICES LTD": "TCS",
+        "TATA CONSULTANCY SERVICES": "TCS",
+        "TCS": "TCS",
+    }
+    
+    for company_name, short_name in manual_mappings.items():
+        key_raw = company_name.upper()
+        COMPANY_TO_SHORT[key_raw] = short_name.upper()
+        # Also add normalized version
+        def _norm(s: str) -> str:
+            u = s.upper()
+            for suf in [" LIMITED", " LTD", ".", ",", " LIMITED."]:
+                u = u.replace(suf, "")
+            import re
+            u = re.sub(r"[^A-Z0-9 ]+", "", u)
+            u = re.sub(r"\s+", " ", u).strip()
+            return u
+        norm_key = _norm(company_name)
+        COMPANY_TO_SHORT_NORM[norm_key] = short_name.upper()
+        logger.info(f"Added manual mapping: '{company_name}' -> '{short_name.upper()}' (raw: '{key_raw}', norm: '{norm_key}')")
 
 
 async def get_service_breeze() -> Optional[BreezeConnect]:
@@ -1267,7 +1970,7 @@ async def fetch_30min_today(breeze: BreezeConnect, stock_code: str, exchange: st
     to_dt = f"{day.isoformat()}T23:59:59.000Z"
     data = await breeze_call(
         breeze.get_historical_data_v2,
-        interval="30minute",
+        interval="5minute",  # Changed from 30minute to 5minute
         from_date=from_dt,
         to_date=to_dt,
         stock_code=stock_code,

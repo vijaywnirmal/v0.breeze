@@ -16,9 +16,11 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMarketOpen, setIsMarketOpen] = useState<boolean>(false);
-  const [flashMap, setFlashMap] = useState<Record<string, 'up' | 'down' | null>>({});
+  // Remove flashing animation
   const lastPricesRef = React.useRef<Record<string, number | null>>({});
   const { credentials } = useCredentialManager();
+  const isMountedRef = React.useRef(true);
+  const sseRef = React.useRef<EventSource | null>(null);
 
   const fetchMarketData = useCallback(async () => {
     try {
@@ -30,71 +32,113 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
         const resp = await fetch(`${base || ''}/api/market/status`, { cache: 'no-store' });
         if (resp.ok) {
           const status = await resp.json();
+          if (!isMountedRef.current) return;
           setIsMarketOpen(Boolean(status?.is_market_open));
         }
       } catch {}
       
-      if (!credentials?.sessionToken) {
-        throw new Error('No session token available');
-      }
-      
       // Fetch real market data
-      const data = await fetchMarketIndices(credentials.sessionToken);
+      const data = await fetchMarketIndices(credentials?.sessionToken);
 
-      // Micro-interaction: detect price changes to flash
+      // Track last prices for future diff logic; no flashing
       const next: Record<string, number | null> = {
         NIFTY: data.nifty?.currentClose ?? null,
         SENSEX: data.sensex?.currentClose ?? null,
         BANKNIFTY: data.bankNifty?.currentClose ?? null,
         FINNIFTY: data.finNifty?.currentClose ?? null,
       };
-      const prev = lastPricesRef.current;
-      const updates: Record<string, 'up' | 'down' | null> = {};
-      Object.entries(next).forEach(([symbol, curr]) => {
-        const previous = prev[symbol];
-        if (curr !== null && previous !== undefined && previous !== null && curr !== previous) {
-          updates[symbol] = curr > previous ? 'up' : 'down';
-        }
-      });
-      if (Object.keys(updates).length > 0) {
-        setFlashMap((m) => ({ ...m, ...updates }));
-        // clear flashes after 400ms
-        window.setTimeout(() => {
-          setFlashMap((m) => {
-            const cleared = { ...m };
-            Object.keys(updates).forEach((k) => (cleared[k] = null));
-            return cleared;
-          });
-        }, 400);
-      }
       lastPricesRef.current = next;
 
+      if (!isMountedRef.current) return;
       setMarketData(data);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to fetch market data';
-      setError(errorMessage);
+      // Keep previous values visible; surface error unobtrusively
+      if (isMountedRef.current) setError(errorMessage);
       console.error('Market data fetch error:', err);
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) setLoading(false);
     }
   }, [credentials?.sessionToken]);
 
   useEffect(() => {
-    if (!credentials?.sessionToken) return;
+    isMountedRef.current = true;
 
     // Initial fetch
     fetchMarketData();
 
-    // Poll periodically when market is open
+    // If market is open, prefer SSE stream over polling
     let intervalId: number | null = null;
     if (isMarketOpen) {
-      intervalId = window.setInterval(() => {
-        fetchMarketData();
-      }, 60_000);
+      try {
+        const base = process.env.NEXT_PUBLIC_API_URL || '';
+        const url = new URL(`${base || ''}/api/stream/indices`, window.location.href);
+        if (credentials?.sessionToken) url.searchParams.set('api_session', credentials.sessionToken);
+        const es = new EventSource(url.toString(), { withCredentials: false } as any);
+        sseRef.current = es;
+        es.onmessage = (ev: MessageEvent) => {
+          if (!isMountedRef.current) return;
+          try {
+            const payload = JSON.parse(ev.data);
+            const arr = Array.isArray(payload) ? payload : (payload?.data || []);
+            const bySymbol: Record<string, MarketIndex> = {} as any;
+            arr.forEach((idx: any) => {
+              const symbol = String(idx.symbol || '').toUpperCase();
+              if (!symbol) return;
+              bySymbol[symbol] = {
+                symbol,
+                name: idx.displayName || symbol,
+                previousClose: idx.previousClose ?? null,
+                currentClose: idx.currentClose ?? null,
+                change: idx.change ?? null,
+                percentChange: idx.percentChange ?? null,
+                isPositive: typeof idx.isPositive === 'boolean' ? idx.isPositive : (idx.change ?? 0) >= 0,
+                lastPrice: idx.currentClose ?? null,
+                changePercent: idx.percentChange ?? null,
+                marketClosed: false,
+                lastTradingDay: null,
+              } as any;
+            });
+            const nextData: MarketIndicesType = {
+              nifty: bySymbol['NIFTY'] || null,
+              sensex: bySymbol['SENSEX'] || null,
+              bankNifty: bySymbol['BANKNIFTY'] || null,
+              finNifty: bySymbol['FINNIFTY'] || null,
+            };
+            // Track last prices for future diff logic; no flashing
+            const next: Record<string, number | null> = {
+              NIFTY: nextData.nifty?.currentClose ?? null,
+              SENSEX: nextData.sensex?.currentClose ?? null,
+              BANKNIFTY: nextData.bankNifty?.currentClose ?? null,
+              FINNIFTY: nextData.finNifty?.currentClose ?? null,
+            };
+            lastPricesRef.current = next;
+            setMarketData(nextData);
+          } catch {}
+        };
+        es.onerror = () => {
+          // Fallback to polling if SSE fails
+          if (intervalId == null) {
+            intervalId = window.setInterval(() => {
+              fetchMarketData();
+            }, 1_000);
+          }
+        };
+      } catch {
+        // Fallback to polling if EventSource not available
+        intervalId = window.setInterval(() => {
+          fetchMarketData();
+        }, 1_000);
+      }
     }
 
     return () => {
       if (intervalId) window.clearInterval(intervalId);
+      isMountedRef.current = false;
+      if (sseRef.current) {
+        try { sseRef.current.close(); } catch {}
+        sseRef.current = null;
+      }
     };
   }, [credentials?.sessionToken, fetchMarketData, isMarketOpen]);
 
@@ -146,32 +190,29 @@ export const MarketIndices: React.FC<MarketIndicesProps> = ({
   const lastTradingDay = indices.find(i => i.lastTradingDay)?.lastTradingDay || null;
 
   return (
-    <div className={`bg-[#111] dark:bg-[#111] border-b border-neutral-800 py-2 ${className}`}>
+    <div className={`sticky top-0 z-20 bg-black dark:bg-black border-y border-neutral-800 py-2 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 overflow-x-auto">
-        <div className="flex items-center gap-8 whitespace-nowrap">
+        <div className="inline-flex items-center gap-10 whitespace-nowrap min-w-max py-0.5">
           {indices.map((index: MarketIndex) => {
             const isUp = index.isPositive === true;
             const isDown = index.isPositive === false;
-            const flash = flashMap[index.symbol];
             return (
               <div
                 key={index.symbol}
-                className={`inline-flex items-baseline gap-2 px-1 rounded transition-colors duration-300 ${
-                  flash === 'up' ? 'bg-green-900/20' : flash === 'down' ? 'bg-red-900/20' : ''
-                }`}
+                className="inline-flex items-baseline gap-3 pr-8"
               >
-                <span className="text-white font-extrabold tracking-wide">
+                <span className="text-white font-semibold tracking-wide text-sm uppercase">
                   {index.symbol}
                 </span>
-                <span className="text-gray-300 font-semibold tabular-nums">
+                <span className="text-gray-300 font-medium tabular-nums text-sm">
                   {index.currentClose !== null && index.currentClose !== undefined ? formatNumber(index.currentClose) : 'N/A'}
                 </span>
                 {index.change !== null && index.percentChange !== null && index.isPositive !== null ? (
                   <>
-                    <span className={`text-sm tabular-nums ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className={`text-xs tabular-nums ${isUp ? 'text-green-500' : 'text-red-500'}`}>
                       {formatChange(index.change)}
                     </span>
-                    <span className={`text-sm tabular-nums ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+                    <span className={`text-xs tabular-nums ${isUp ? 'text-green-500' : 'text-red-500'}`}>
                       ({formatChangePercent(index.percentChange)})
                     </span>
                   </>

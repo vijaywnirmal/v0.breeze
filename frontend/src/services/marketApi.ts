@@ -32,7 +32,7 @@ interface MarketIndicesResponseNew {
 }
 
 // Fetch market indices data with proper change calculations
-export async function fetchMarketIndices(sessionToken: string): Promise<MarketIndices> {
+export async function fetchMarketIndices(sessionToken?: string): Promise<MarketIndices> {
   // Allow empty API_URL on the client so Next.js rewrite can proxy to the backend
   if (!API_URL && typeof window === 'undefined') throw new Error('API URL is not set');
   
@@ -50,9 +50,11 @@ export async function fetchMarketIndices(sessionToken: string): Promise<MarketIn
     let lastErr: unknown = null;
     for (const url of urlCandidates) {
       try {
+        const params: Record<string, string> = {};
+        if (sessionToken) params.api_session = sessionToken;
         const resp = await axios.get(url, {
-          // Pass session if backend still expects it; harmless if ignored
-          params: { api_session: sessionToken },
+          // Pass session if available; backend supports optional
+          params,
           headers: { 'Content-Type': 'application/json' },
           withCredentials: false,
         });
