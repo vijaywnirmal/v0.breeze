@@ -39,7 +39,7 @@ export const CredentialForm: React.FC = () => {
         api_secret: form.apiSecret,
         session_token: form.sessionToken,
       };
-      const res = await fetch((BACKEND_URL || '') + '/api/login', {
+      const res = await fetch((BACKEND_URL || '') + '/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

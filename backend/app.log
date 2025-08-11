@@ -31366,3 +31366,37 @@ Exception: Error in get_historical_data_v2(): HTTPSConnectionPool(host='breezeap
 2025-08-11 17:45:25,114 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
 2025-08-11 17:45:25,114 - apscheduler.scheduler - INFO - Scheduler started
 2025-08-11 17:45:25,115 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 18:09:08,941 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 18:09:08,941 - breeze_api - INFO - CORS origins: ['http://localhost:3000', 'https://vjayaf.in', 'https://www.vjayaf.in']
+2025-08-11 18:09:08,942 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 18:09:08,942 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 18:09:08,942 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 18:09:08,945 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 18:09:08,994 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 18:09:09,095 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 18:09:09,097 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 18:09:09,097 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 18:09:09,097 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 18:09:13,074 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 18:09:13,075 - breeze_api - INFO - CORS origins: ['http://localhost:3000', 'https://vjayaf.in', 'https://www.vjayaf.in']
+2025-08-11 18:09:13,075 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 18:09:13,076 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 18:09:13,076 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 18:09:13,080 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 18:09:13,125 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 18:09:13,237 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 18:09:13,239 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 18:09:13,240 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 18:09:13,240 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 18:09:27,887 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-11 18:09:37,378 - APILogger - DEBUG - <Response [200]>
+2025-08-11 18:09:37,380 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '12-Aug-2025', 'BSE': '12-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'C', 'BSE': 'C', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 18:09:37', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'C'}, 'Status': 200, 'Error': None}
+2025-08-11 18:09:37,380 - breeze_api - INFO - Session created for token prefix: 52559551...
+2025-08-11 18:09:38,082 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:38,354 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:38,688 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:38,974 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:39,426 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:39,691 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:39,963 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 18:09:40,253 - APILogger - DEBUG - Get Historical data V2 response

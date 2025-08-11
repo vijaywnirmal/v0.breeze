@@ -668,6 +668,7 @@ async def generic_exception_handler(request: Request, exc: Exception):
 # Routes
 # ---------------------------
 @app.post("/login")
+@app.post("/api/login")
 async def login(data: SessionData):
     """
     Initialize session: create Breeze instance, generate session and fetch & store customer details.
