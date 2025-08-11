@@ -1,15 +1,26 @@
-fastapi==0.104.1
-breeze-connect==1.0.63
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
-pydantic-settings==2.2.1
-python-dotenv==1.0.0
-python-multipart==0.0.6
-# Utils
-python-dateutil==2.8.2
-pandas==2.2.3
-numpy==1.26.0
-apscheduler==3.10.4
-# API Documentation
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
+# FastAPI & Server
+fastapi>=0.112.2
+uvicorn[standard]>=0.28.0
+
+# Database & Integrations
+breeze-connect>=1.0.63
+
+# Schema & Config
+pydantic>=2.8.2
+pydantic-settings>=2.3.0
+
+# Environment & Utilities
+python-dotenv>=1.0.0
+python-multipart>=0.0.6
+python-dateutil>=2.9.0
+
+# Data Processing
+pandas>=2.2.4
+numpy>=2.1.0
+
+# Scheduling
+apscheduler>=4.0.0
+
+# Security & Auth
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
