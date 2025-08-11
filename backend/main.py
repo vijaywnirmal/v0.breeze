@@ -28,7 +28,7 @@ from utils.market_utils import calculate_rsi_14, calculate_macd
 # Config
 # ---------------------------
 class Settings(BaseSettings):
-    CORS_ORIGINS: str = "http://localhost:3000"
+    CORS_ORIGINS: str = "http://localhost:3000,https://vjayaf.in"
     SESSION_EXPIRY_HOURS: int = 24
     RATE_LIMIT_REQUESTS: int = 100
     RATE_LIMIT_WINDOW: int = 3600  # seconds (server-side per-IP)
