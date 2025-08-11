@@ -31262,3 +31262,30 @@ Exception: Error in get_historical_data_v2(): HTTPSConnectionPool(host='breezeap
 2025-08-11 16:28:15,093 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
 2025-08-11 16:28:15,094 - apscheduler.scheduler - INFO - Scheduler started
 2025-08-11 16:28:15,094 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 16:29:36,968 - breeze_api - INFO - Starting Breeze Trading API
+2025-08-11 16:29:36,968 - breeze_api - INFO - CORS origins: ['http://localhost:3000']
+2025-08-11 16:29:36,969 - breeze_api - INFO - Session expiry hours: 24
+2025-08-11 16:29:36,969 - breeze_api - INFO - Server rate limit: 100 / 3600s
+2025-08-11 16:29:36,969 - breeze_api - INFO - Breeze rate limit: 100 / 60s
+2025-08-11 16:29:36,972 - breeze_api - INFO - Loaded 18 holidays for 2025 from JSON
+2025-08-11 16:29:37,021 - breeze_api - INFO - Loaded 2 instruments into memory
+2025-08-11 16:29:37,126 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-11 16:29:37,128 - apscheduler.scheduler - INFO - Added job "build_screener_cache_job" to job store "default"
+2025-08-11 16:29:37,128 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-11 16:29:37,128 - breeze_api - INFO - APScheduler started: daily screener build at 15:40 IST, Mon–Fri
+2025-08-11 16:30:11,201 - breeze_api - INFO - Login attempt for API key prefix: _3Dd2132...
+2025-08-11 16:30:18,825 - APILogger - DEBUG - <Response [200]>
+2025-08-11 16:30:18,826 - APILogger - DEBUG - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '12-Aug-2025', 'BSE': '12-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'X', 'BSE': 'X', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 16:30:19', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'X'}, 'Status': 200, 'Error': None}
+2025-08-11 16:30:18,827 - breeze_api - INFO - Session created for token prefix: 52559551...
+2025-08-11 16:30:19,776 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:20,055 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:20,406 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:20,839 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:21,161 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:21,508 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:21,794 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:22,129 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:55,084 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:55,388 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:55,660 - APILogger - DEBUG - Get Historical data V2 response
+2025-08-11 16:30:55,917 - APILogger - DEBUG - Get Historical data V2 response

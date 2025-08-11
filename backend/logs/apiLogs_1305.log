@@ -1719,3 +1719,17 @@
 2025-08-11 15:31:07,317 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
 2025-08-11 15:32:08,425 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
 2025-08-11 15:32:51,451 - Exception in get_quotes : Expecting value: line 1 column 1 (char 0)
+2025-08-11 16:30:18,825 - <Response [200]>
+2025-08-11 16:30:18,826 - Customer Details response: {'Success': {'exg_trade_date': {'NSE': '12-Aug-2025', 'BSE': '12-Aug-2025', 'FNO': '11-Aug-2025', 'NDX': '19-May-2025'}, 'exg_status': {'NSE': 'X', 'BSE': 'X', 'FNO': 'Y', 'NDX': 'X'}, 'segments_allowed': {'Trading': 'Y', 'Equity': 'Y', 'Derivatives': 'Y', 'Currency': 'Z'}, 'idirect_userid': 'AE585479', 'idirect_user_name': 'VIJAY WILSON NIRMAL', 'idirect_ORD_TYP': 'N', 'idirect_lastlogin_time': '11-Aug-2025 16:30:19', 'mf_holding_mode_popup_flg': 'N', 'commodity_exchange_status': 'Y', 'commodity_trade_date': '11-Aug-2025', 'commodity_allowed': 'X'}, 'Status': 200, 'Error': None}
+2025-08-11 16:30:19,776 - Get Historical data V2 response
+2025-08-11 16:30:20,055 - Get Historical data V2 response
+2025-08-11 16:30:20,406 - Get Historical data V2 response
+2025-08-11 16:30:20,839 - Get Historical data V2 response
+2025-08-11 16:30:21,161 - Get Historical data V2 response
+2025-08-11 16:30:21,508 - Get Historical data V2 response
+2025-08-11 16:30:21,794 - Get Historical data V2 response
+2025-08-11 16:30:22,129 - Get Historical data V2 response
+2025-08-11 16:30:55,084 - Get Historical data V2 response
+2025-08-11 16:30:55,388 - Get Historical data V2 response
+2025-08-11 16:30:55,660 - Get Historical data V2 response
+2025-08-11 16:30:55,917 - Get Historical data V2 response
