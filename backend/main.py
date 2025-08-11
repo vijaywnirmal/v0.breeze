@@ -15,7 +15,7 @@ from pydantic_settings import BaseSettings
 from pydantic import BaseModel, Field, validator
 
 import pytz
-from fastapi import FastAPI, HTTPException, Request, Depends, Query
+from fastapi import FastAPI, HTTPException, Request, Depends, Query, APIRouter
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -90,6 +90,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Create a main router for all endpoints
+router = APIRouter()
 
 # ---------------------------
 # Server-side rate limiting (per IP)
@@ -237,12 +240,12 @@ def get_market_status_backend(now_ist: Optional[datetime] = None) -> Dict[str, A
     }
 
 
-@app.get("/")
+@router.get("/")
 def read_root():
     return {"status": "ok", "message": "Breeze API backend is running"}
 
 
-@app.get("/market/status")
+@router.get("/market/status")
 async def market_status():
     return get_market_status_backend()
 
@@ -250,12 +253,12 @@ async def market_status():
 # ---------------------------
 # Health and readiness
 # ---------------------------
-@app.get("/healthz")
+@router.get("/healthz")
 async def healthz():
     return {"status": "ok"}
 
 
-@app.get("/readyz")
+@router.get("/readyz")
 async def readyz():
     # Basic readiness: instruments loaded
     try:
@@ -265,7 +268,7 @@ async def readyz():
         return JSONResponse(status_code=503, content={"status": "not_ready"})
 
 
-@app.get("/metrics/basic")
+@router.get("/metrics/basic")
 async def basic_metrics():
     # Provide small summary to avoid heavy payloads
     summary = {
@@ -667,8 +670,7 @@ async def generic_exception_handler(request: Request, exc: Exception):
 # ---------------------------
 # Routes
 # ---------------------------
-@app.post("/login")
-@app.post("/api/login")
+@router.post("/login")
 async def login(data: SessionData):
     """
     Initialize session: create Breeze instance, generate session and fetch & store customer details.
@@ -692,7 +694,7 @@ async def login(data: SessionData):
         raise HTTPException(status_code=400, detail="Failed to initialize session")
 
 
-@app.get("/account/details")
+@router.get("/account/details")
 async def account_details(api_session: str):
     """
     Return stored customer details if available. If not available in session, attempt a Breeze fetch.
@@ -720,7 +722,7 @@ async def account_details(api_session: str):
         raise HTTPException(status_code=500, detail="Failed to get account details")
 
 
-@app.get("/market/historical")
+@router.get("/market/historical")
 async def get_historical_data(api_session: str, symbol: str, exchange: str, from_date: str, to_date: str):
     """
     Returns 30-minute candles for specified range and the 15:30 (or last) close.
@@ -772,7 +774,7 @@ async def get_historical_data(api_session: str, symbol: str, exchange: str, from
         raise HTTPException(status_code=500, detail=f"Failed to get historical data for {symbol}")
 
 
-@app.get("/market/indices")
+@router.get("/market/indices")
 async def get_market_indices(api_session: str):
     """
     Get current market indices with change calculations.
@@ -893,8 +895,7 @@ async def get_market_indices(api_session: str):
         raise HTTPException(status_code=500, detail="Failed to get market indices")
 
 
-@app.get("/stocks/eod-screener", response_model=PaginatedResponse)
-@app.get("/api/stocks/eod-screener", response_model=PaginatedResponse)
+@router.get("/stocks/eod-screener", response_model=PaginatedResponse)
 async def eod_screener(
     request: Request,
     api_session: str = Query(..., description="Session token for Breeze-backed auth"),
@@ -999,8 +1000,7 @@ async def eod_screener(
         raise HTTPException(status_code=500, detail="Failed to fetch Screener data")
 
 
-@app.get("/stocks/intraday-screener", response_model=PaginatedResponse)
-@app.get("/api/stocks/intraday-screener", response_model=PaginatedResponse)
+@router.get("/stocks/intraday-screener", response_model=PaginatedResponse)
 async def intraday_screener(
     api_session: str,
     page: int = Query(1, ge=1),
@@ -1161,7 +1161,7 @@ async def intraday_screener(
     return PaginatedResponse(total=total, items=results, limit=page_size, offset=start)
 
 
-@app.post("/logout")
+@router.post("/logout")
 async def logout(request: LogoutRequest):
     try:
         await session_store.remove_session(request.api_session)
@@ -1172,7 +1172,7 @@ async def logout(request: LogoutRequest):
         raise HTTPException(status_code=500, detail="Failed to logout")
 
 
-@app.get("/health")
+@router.get("/health")
 async def health_check():
     active_sessions = len(session_store.sessions)
     return {
@@ -1483,16 +1483,23 @@ async def build_screener_cache_job():
         logger.error(traceback.format_exc())
 
 
-@app.post("/admin/import-instruments")
+@router.post("/admin/import-instruments")
 async def admin_import_instruments(api_session: str):
     await get_session_or_401(api_session)
     await load_instruments_into_memory()
     return {"status": "ok", "imported": len(INSTRUMENTS)}
 
 
-@app.post("/admin/run-eod-etl")
+@router.post("/admin/run-eod-etl")
 async def admin_run_eod_etl(api_session: str):
     await get_session_or_401(api_session)
     await build_screener_cache_job()
     return {"status": "ok", "snapshot_date": SCREENER_CACHE.get("snapshot_date"), "rows": len(SCREENER_CACHE.get("items", []))}
+
+
+# ---------------------------
+# Mount router twice: normal and with /api prefix
+# ---------------------------
+app.include_router(router)  # e.g. /market/status
+app.include_router(router, prefix="/api")  # e.g. /api/market/status
 
